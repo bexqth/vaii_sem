@@ -1,0 +1,93 @@
+.booklist-title-container{
+    display: flex;
+}
+
+.booklist-logo{
+    margin-right: 5px;
+    width: 40px;
+    height: 40px;
+}
+
+.booklist-title {
+    color: #cb967e;
+    font-weight: bold;
+    font-size: 40px;
+}
+
+.row{
+    margin-top: 20px;
+}
+
+.categories-title{
+    padding-left: 40px;
+}
+
+.book-genres-col{
+    margin-top: 78px;
+    height: 100%;
+    border-right: 1px solid lightgray;
+}
+
+.card-img-top{
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+.btn{
+    text-align:left;
+    padding-left: 40px;
+    width:100%;
+}
+
+.col{
+    margin-bottom: 10px;
+}
+
+.card{
+    border: none;
+}
+
+.card-body{
+    padding:0;
+}
+
+.card-title{
+    padding-top: 5px;
+    padding-bottom: 0;
+    margin: 0;
+}
+
+.book-list-row{
+    margin-top: 0px;
+}
+
+@media (max-width: 991.98px) {
+    .categories-title{
+        padding-left: 0;
+    }
+
+    .btn{
+        text-align:left;
+        padding-left: 0;
+        width:100%;
+    }
+}
+
+@media (min-width: 320px){
+    .nav-link{
+        font-size: 15px;
+    }
+
+    .website-name{
+        font-size: 15px;
+    }
+}
+
+@media (min-width: 425px){
+    .nav-link{
+        font-size: 20px;
+    }
+
+    .website-name{
+        font-size: 20px;
+    }
+}

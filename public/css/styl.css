@@ -1,7 +1,21 @@
-.navbar {
-    border-bottom: 1px solid grey;
+.nav{
+    background-color: #cb967e;
 }
 
-.navbar-brand img {
-    width: 50px;
+.nav-link{
+    color: white !important;
+    font-size: 20px;
+}
+
+.nav-link:hover{
+    color: white;
+}
+
+.website-name{
+    font-size: 20px;
+    text-decoration: none;
+    color: white;
+    padding: 8px 16px;
+    position: absolute;
+    left: 0;
 }
