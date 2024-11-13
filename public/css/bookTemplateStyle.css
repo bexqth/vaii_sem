@@ -1,0 +1,160 @@
+.book-row{
+    margin-top: 40px;
+}
+
+.book-cover{
+    width: 100%;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.book-description{
+    margin-top: 30px;
+}
+
+.button-status{
+    background-color: #f1948a;
+    margin-top: 20px;
+}
+
+.button-status:hover{
+    background-color: #f1948a;
+    transform: scale(1.1);
+}
+
+.lock-review-row{
+    background-color: #e9ecef;
+    height: 50px;
+}
+
+.lock-review-text{
+    color: #a4b2c1;
+    font-weight: bold;
+    margin-top:10px;
+}
+
+.lock-review-image{
+    height: 30px;
+    margin-top:5px;
+    margin-left: 50px;
+}
+
+.lock-review-col{
+    padding: 3px;
+}
+
+.author-info{
+    margin-left: 10px;
+}
+
+.progress-title{
+    margin-top:20px;
+}
+
+.progress{
+    height: 25px;
+}
+
+table{
+    width:100%;
+}
+
+th {
+    background-color: #e9ecef;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+
+.author-picture{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.reviews-row{
+    margin-top:50px;
+}
+
+
+.review-title{
+    margin-top: 100px;
+}
+
+.review-item-row{
+    margin-top:20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    /*border: 1px #abb2b9 solid;*/
+    border-radius: 10px;
+}
+
+.review-image {
+    width: 100%;
+    border-radius: 50%;
+}
+
+@media (min-width: 320px){
+    .nav-link{
+        font-size: 15px;
+    }
+
+    .website-name{
+        font-size: 15px;
+    }
+
+
+}
+
+@media (min-width: 425px){
+    .nav-link{
+        font-size: 20px;
+    }
+
+    .website-name{
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 320px){
+    th,td {
+        font-size: 10px;
+    }
+    .lock-review-text{
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 768px){
+    .lock-review-text{
+        font-size: 17px;
+    }
+
+    .lock-review-image{
+        height: 25px;
+    }
+}
+
+@media (max-width: 550px){
+    .lock-review-text{
+        font-size: 14px;
+    }
+
+    .lock-review-image{
+        height: 20px;
+    }
+}
+
+@media (max-width: 320px){
+    .lock-review-text{
+        font-size: 10px;
+    }
+
+    .lock-review-image{
+        height: 18px;
+    }
+
+}
+

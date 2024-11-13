@@ -1,7 +1,7 @@
 <?php
 
 /** @var array $data */
-
+/** @var \App\Core\LinkGenerator $link */
 ?>
 
 <!DOCTYPE html>
@@ -58,7 +58,7 @@
 
                 <div class="col">
                     <div class="card">
-                        <a href="bookTemplatePage.html">
+                        <a href="<?= $link->url("book.index", ["id" => $book->getId()]) ?>">
                             <img src="<?=$book->getCoverUrl()?>" class="card-img-top" alt="...">
                         </a>
                         <div class="card-body">
