@@ -33,7 +33,7 @@
                 <div class="progress">
                     <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
-                <p class="book-description">Atticus Finch gives this advice to his children as he defends the real mockingbird of this classic novel - a black man charged with attacking a white girl. Through the eyes of Scout and Jem Finch, Lee explores the issues of race and class in the Deep South of the 1930s with compassion and humour. She also creates one of the great heroes of literature in their father, whose lone struggle for justice pricks the conscience of a town steeped in prejudice and hypocrisy.</p>
+                <p class="book-description"><?=$data['chosenBook']->getDescription()?></p>
                 <table>
                     <tr>
                         <th>Pages</th>
