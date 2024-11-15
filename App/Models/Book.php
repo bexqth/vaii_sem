@@ -2,7 +2,7 @@
 
 namespace App\Models;
 use App\Core\Model;
-class Book extends \App\Core\Model
+class Book extends Model
 {
     protected int $id;
     protected int $isbn;

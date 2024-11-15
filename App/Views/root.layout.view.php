@@ -27,7 +27,7 @@
             <a class="nav-link" href="<?= $link->url("booklist.index") ?>">Booklist</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="loginPage.html">Login</a>
+            <a class="nav-link" href="<?= $link->url("Auth.login") ?>">Login</a>
         </li>
     </ul>
 

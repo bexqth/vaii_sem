@@ -57,13 +57,14 @@
         <h2 class="review-title">Reviews</h2>
 
         <div class="row lock-review-row">
-            <div class="col lock-review-col text-end">
+            <!-- <div class="col lock-review-col text-end">
                 <img class="lock-review-image"  src="public/images/lock-icon1.png" alt="">
             </div>
             <div class="col lock-review-col">
                 <p class="lock-review-text">Sign in to write a review</p>
-            </div>
+            </div> -->
 
+            <a href="<?= $link->url('review.index', ["id" => $data['chosenBook']->getId()]) ?>" class="btn">Leave a review</a>
         </div>
 
         <div class="row review-item-row">
