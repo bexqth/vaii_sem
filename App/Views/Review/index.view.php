@@ -16,7 +16,7 @@
 </head>
 <body>
 
-    <div>
+    <div class="row">
         <div class="col-md-2 col-lg-2"></div>
         <div class="col-sm-12 col-md-8 col-lg-8 books-col">
 
