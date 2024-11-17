@@ -34,8 +34,6 @@ class ReviewController extends AControllerBase
             //$bookId = $this->request()->getValue("id");
             $newReview = new Review();
             $newReview->setBookId($idBook);
-
-
             $userUsername = $this->app->getAuth()->getLoggedUserName();
             $userIds = User::getAll('username = ?', [$this->app->getAuth()->getLoggedUserName()]);
             $userId = $userIds[0];
