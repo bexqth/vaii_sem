@@ -16,13 +16,11 @@ $layout = 'auth';
                     </div>
                     <form class="form-signin" method="post" action="<?= $link->url("login") ?>">
                         <div class="form-label-group mb-3">
-                            <input name="login" type="text" id="login" class="form-control" placeholder="Login"
-                                   required autofocus>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required>
                         </div>
 
                         <div class="form-label-group mb-3">
-                            <input name="password" type="password" id="password" class="form-control"
-                                   placeholder="Password" required>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required> </div>
                         </div>
                         <div class="text-center">
                             <button class="btn btn-primary" type="submit" name="submit">Prihlásiť

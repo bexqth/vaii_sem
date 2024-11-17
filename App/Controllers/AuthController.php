@@ -32,9 +32,10 @@ class AuthController extends AControllerBase
         $formData = $this->app->getRequest()->getPost();
         $logged = null;
         if (isset($formData['submit'])) {
-            $logged = $this->app->getAuth()->login($formData['login'], $formData['password']);
+            $logged = $this->app->getAuth()->login($formData['username'], $formData['password']); //bool value if the user is logged in
             if ($logged) {
-                return $this->redirect($this->url("admin.index"));
+                //return $this->redirect($this->url("admin.index"));
+                return $this->redirect($this->url("booklist.index"));
             }
         }
 
@@ -49,6 +50,7 @@ class AuthController extends AControllerBase
     public function logout(): Response
     {
         $this->app->getAuth()->logout();
-        return $this->html();
+        return $this->redirect($this->url("home.index"));
+        //return $this->html();
     }
 }

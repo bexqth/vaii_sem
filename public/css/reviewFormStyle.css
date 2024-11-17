@@ -1,0 +1,39 @@
+.review-col{
+
+}
+
+.review-title {
+    padding-top: 20px;
+}
+
+.book-cover{
+    width: 100%;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.review-text{
+    width: 50%;
+    height: 400px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    margin-top: 5px;
+}
+
+.score-selection{
+    width: 100px;
+    margin-left: 10px;
+    margin-bottom: 5px;
+}
+
+.submit-button {
+    margin-top: 10px;
+    width: 100px;
+    height: 40px;
+    margin-left: 10px;
+    background-color: #f1948a;
+}
+
+.submit-button:hover{
+    background-color: #f1948a;
+    transform: scale(1.1);
+}

@@ -2,6 +2,7 @@
 
 namespace App\Config;
 
+use App\Auth\CustomAuthenticator;
 use App\Auth\DummyAuthenticator;
 use App\Core\ErrorHandler;
 
@@ -46,7 +47,8 @@ class Configuration
     /**
      * Class used as authenticator. Must implement IAuthenticator
      */
-    public const AUTH_CLASS = DummyAuthenticator::class;
+    //public const AUTH_CLASS = DummyAuthenticator::class;
+    public const AUTH_CLASS = CustomAuthenticator::class;
     /**
      * Class used as error handler. Must implement IHandleError
      */

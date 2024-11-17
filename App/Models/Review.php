@@ -6,107 +6,83 @@ use App\Core\Model;
 
 class Review extends Model
 {
-    protected $id;
-    protected $book_id;
-    protected $user_id;
-    protected $rating;
-    protected $review_text;
-    protected $created_at;
+    protected int $id;
+    protected int $book_id;
+    protected int $user_id;
+    protected int $rating;
+    protected string $review_text;
+    protected string $review_author;
 
-    /**
-     * @return mixed
-     */
-    public function getId()
+    public function getReviewAuthor(): string
+    {
+        return $this->review_author;
+    }
+
+    public function setReviewAuthor(string $review_author): void
+    {
+        $this->review_author = $review_author;
+    }
+    protected ?string $created_at;
+
+    public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @param mixed $id
-     */
-    public function setId($id): void
+    public function setId(int $id): void
     {
         $this->id = $id;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getBookId()
+    public function getBookId(): int
     {
         return $this->book_id;
     }
 
-    /**
-     * @param mixed $book_id
-     */
-    public function setBookId($book_id): void
+    public function setBookId(int $book_id): void
     {
         $this->book_id = $book_id;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getUserId()
+    public function getUserId(): int
     {
         return $this->user_id;
     }
 
-    /**
-     * @param mixed $user_id
-     */
-    public function setUserId($user_id): void
+    public function setUserId(int $user_id): void
     {
         $this->user_id = $user_id;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getRating()
+    public function getRating(): int
     {
         return $this->rating;
     }
 
-    /**
-     * @param mixed $rating
-     */
-    public function setRating($rating): void
+    public function setRating(int $rating): void
     {
         $this->rating = $rating;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getReviewText()
+    public function getReviewText(): string
     {
         return $this->review_text;
     }
 
-    /**
-     * @param mixed $review_text
-     */
-    public function setReviewText($review_text): void
+    public function setReviewText(string $review_text): void
     {
         $this->review_text = $review_text;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getCreatedAt()
+    public function getCreatedAt(): ?string
     {
         return $this->created_at;
     }
 
-    /**
-     * @param mixed $created_at
-     */
-    public function setCreatedAt($created_at): void
+    public function setCreatedAt(?string $created_at): void
     {
         $this->created_at = $created_at;
     }
+
 
 }

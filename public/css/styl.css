@@ -19,3 +19,29 @@
     position: absolute;
     left: 0;
 }
+
+@media (max-width: 575.98px) {
+    .row{
+        margin:0;
+    }
+}
+
+@media (min-width: 320px){
+    .nav-link{
+        font-size: 15px;
+    }
+
+    .website-name{
+        font-size: 15px;
+    }
+}
+
+@media (min-width: 425px){
+    .nav-link{
+        font-size: 20px;
+    }
+
+    .website-name{
+        font-size: 20px;
+    }
+}
