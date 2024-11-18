@@ -19,7 +19,7 @@ class ReviewController extends AControllerBase
         $chosenBookId = $this->request()->getValue("id");
         $chosenBook = Book::getOne($chosenBookId);
 
-        /*$reviewId = $this->request()->getValue("reviewId");
+        $reviewId = $this->request()->getValue("reviewId");
         $review = Review::getOne($reviewId);
 
         if($review == null) {
@@ -31,10 +31,11 @@ class ReviewController extends AControllerBase
             $userUsername = $this->app->getAuth()->getLoggedUserName();
             $review->setReviewAuthor($userUsername);
             $review->save();
-        }*/
+        }
 
-        //return $this->html(['chosenBook' => $chosenBook, "review" => $review]);
-        return $this->html(['chosenBook' => $chosenBook]);
+        return $this->html(['chosenBook' => $chosenBook, "review" => $review]);
+
+        //return $this->html(['chosenBook' => $chosenBook]);
     }
 
     /**
@@ -52,18 +53,18 @@ class ReviewController extends AControllerBase
         if(isset($formData['submit'])) {
 
             if($review == null) {
-                $newReview = new Review();
-                $newReview->setBookId($idBook);
-                $userIds = User::getAll('username = ?', [$this->app->getAuth()->getLoggedUserName()]);
-                $userId = $userIds[0];
-                $newReview->setUserId($userId->getId());
-                $newReview->setReviewAuthor($userUsername);
+                //$newReview = new Review();
+                //$newReview->setBookId($idBook);
+                //$userIds = User::getAll('username = ?', [$this->app->getAuth()->getLoggedUserName()]);
+                //$userId = $userIds[0];
+               //$newReview->setUserId($userId->getId());
+                //$newReview->setReviewAuthor($userUsername);
             } else {
-                $newReview = $review;
+                //$newReview = $review;
             }
 
             //$bookId = $this->request()->getValue("id");
-            //$newReview = $review;
+            $newReview = $review;
             $newReview->setReviewText($formData['review_text']);
             $newReview->setRating($formData['rating']);
 
@@ -96,7 +97,7 @@ class ReviewController extends AControllerBase
         $review = Review::getOne($reviewId);
         $chosenBookId = $review->getBookId();
         $chosenBook = Book::getOne($chosenBookId);
-        return $this->html(["chosenBook" => $chosenBook, "review" => $review]);
-        //return $this->redirect($this->url("review.index", ["id" => $chosenBookId, "reviewId" => $reviewId]));
+        //return $this->html(["chosenBook" => $chosenBook, "review" => $review]);
+        return $this->redirect($this->url("review.index", ["id" => $chosenBookId, "reviewId" => $reviewId]));
     }
 }
