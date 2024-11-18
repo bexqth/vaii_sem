@@ -63,7 +63,6 @@ class ReviewController extends AControllerBase
             }*/
 
             //$bookId = $this->request()->getValue("id");
-            //dfsd
             $newReview = $review;
             $newReview->setReviewText($formData['review_text']);
             $newReview->setRating($formData['rating']);
