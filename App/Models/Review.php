@@ -9,8 +9,8 @@ class Review extends Model
     protected int $id;
     protected int $book_id;
     protected int $user_id;
-    protected int $rating;
-    protected string $review_text;
+    protected ?int $rating = 0;
+    protected ?string $review_text = "";
     protected string $review_author;
 
     public function getReviewAuthor(): string
@@ -54,22 +54,22 @@ class Review extends Model
         $this->user_id = $user_id;
     }
 
-    public function getRating(): int
+    public function getRating(): ?int
     {
         return $this->rating;
     }
 
-    public function setRating(int $rating): void
+    public function setRating(?int $rating): void
     {
         $this->rating = $rating;
     }
 
-    public function getReviewText(): string
+    public function getReviewText(): ?string
     {
         return $this->review_text;
     }
 
-    public function setReviewText(string $review_text): void
+    public function setReviewText(?string $review_text): void
     {
         $this->review_text = $review_text;
     }

@@ -42,23 +42,13 @@
                             <label for="review_text">Write your review:</label>
                         </div>
                         <div class="row">
-                            <?php if ($data["review"] == null) { ?>
-                                <textarea id="review_text" name="review_text" class="review-text" required></textarea><br>
-                            <?php } else { ?>
-                                <textarea id="review_text" name="review_text" class="review-text" required><?= $data["review"]->getReviewText()?></textarea><br>
-                            <?php } ?>
-
+                            <textarea id="review_text" name="review_text" class="review-text" required><?=$data['review']->getReviewText()?></textarea><br>
                         </div>
                         <div class="row">
                             <label for="rating">Rating (1-10):</label>
                         </div>
                         <div class="row">
-                            <?php if ($data["review"] == null) { ?>
-                                <input type="number" id="rating" name="rating" min="1" max="10" class="score-selection" required><br>
-                            <?php } else { ?>
-                                <input type="number" id="rating" name="rating" min="1" max="10" class="score-selection"  value="<?=$data['review']->getRating()?>" required><br>
-                            <?php } ?>
-
+                            <input type="number" id="rating" name="rating" min="1" max="10" class="score-selection"  value="<?=$data['review']->getRating()?>" required><br>
                         </div>
                         <div class="row">
                             <button type="submit" name="submit" class="btn submit-button">Submit</button>

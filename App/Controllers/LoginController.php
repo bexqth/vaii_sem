@@ -44,7 +44,7 @@ class LoginController extends AControllerBase
             $newUser->setEmail($formData['email']);
 
 
-            $newUser->save(); //ulozenie
+            $newUser->save(); //ulozenie do databazky
 
             if($newUser->getId() > 0) { //ci je v database
                 $logged = $this->app->getAuth()->login($formData['username'], $formData['password']); //bool value if the user is logged in
