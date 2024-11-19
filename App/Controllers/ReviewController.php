@@ -71,10 +71,6 @@ class ReviewController extends AControllerBase
 
             $newReview->save();
 
-            //$userId = $this->app->getAuth()->getLoggedUserName()
-
-            //$newReview->setCreatedAt(new \DateTime());
-            //$newReview->save();
             return $this->redirect($this->url("book.index", ["id" => $idBook]));
 
         }
