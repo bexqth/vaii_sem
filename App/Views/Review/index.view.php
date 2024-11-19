@@ -37,7 +37,18 @@
                     <h4><?=$data['chosenBook']->getAuthor()?></h4>
                 </div>
                 <div class="row">
-                    <form action="<?= $link->url('review.add', ["id" => $data['chosenBook']->getId(), "reviewId" => $data['review']->getId()]) ?>" method="post">
+
+                    <?php
+                    if (isset($data['review'])) {
+                        //$arguments = ["id" => $data['chosenBook']->getId(), "reviewId" => $data['review']->getId()];
+                        $actionUrl = $link->url('review.add', ["id" => $data['chosenBook']->getId(), "reviewId" => $data['review']->getId()]);
+                    } else {
+                        //$arguments = ["id" => $data['chosenBook']->getId()];
+                        $actionUrl = $link->url('review.add', ["id" => $data['chosenBook']->getId()]);
+                    }
+                    ?>
+
+                    <form action="<?= $actionUrl ?>" method="post">
                         <div class="row">
                             <label for="review_text">Write your review:</label>
                         </div>

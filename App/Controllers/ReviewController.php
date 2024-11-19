@@ -22,7 +22,7 @@ class ReviewController extends AControllerBase
         $reviewId = $this->request()->getValue("reviewId");
         $review = Review::getOne($reviewId);
 
-        if($review == null) {
+        /*if($review == null) {
             $review = new Review();
             $review->setBookId($chosenBookId);
             $userIds = User::getAll('username = ?', [$this->app->getAuth()->getLoggedUserName()]);
@@ -31,10 +31,10 @@ class ReviewController extends AControllerBase
             $userUsername = $this->app->getAuth()->getLoggedUserName();
             $review->setReviewAuthor($userUsername);
             $review->save();
-        }
+        }*/
 
         return $this->html(['chosenBook' => $chosenBook, "review" => $review]);
-
+        //return $this->html(['chosenBook' => $chosenBook, "review" => null]);
         //return $this->html(['chosenBook' => $chosenBook]);
     }
 
@@ -53,18 +53,19 @@ class ReviewController extends AControllerBase
         if(isset($formData['submit'])) {
 
             if($review == null) {
-                //$newReview = new Review();
-                //$newReview->setBookId($idBook);
-                //$userIds = User::getAll('username = ?', [$this->app->getAuth()->getLoggedUserName()]);
-                //$userId = $userIds[0];
-               //$newReview->setUserId($userId->getId());
-                //$newReview->setReviewAuthor($userUsername);
+                $newReview = new Review();
+                $newReview->setBookId($idBook);
+                $userIds = User::getAll('username = ?', [$this->app->getAuth()->getLoggedUserName()]);
+                $userId = $userIds[0];
+                $newReview->setUserId($userId->getId());
+                $newReview->setReviewAuthor($userUsername);
             } else {
-                //$newReview = $review;
+                $newReview = $review;
             }
 
             //$bookId = $this->request()->getValue("id");
-            $newReview = $review;
+            //$newReview = $review;
+
             $newReview->setReviewText($formData['review_text']);
             $newReview->setRating($formData['rating']);
 
