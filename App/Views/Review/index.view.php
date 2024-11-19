@@ -40,10 +40,8 @@
 
                     <?php
                     if (isset($data['review'])) {
-                        //$arguments = ["id" => $data['chosenBook']->getId(), "reviewId" => $data['review']->getId()];
                         $actionUrl = $link->url('review.add', ["id" => $data['chosenBook']->getId(), "reviewId" => $data['review']->getId()]);
                     } else {
-                        //$arguments = ["id" => $data['chosenBook']->getId()];
                         $actionUrl = $link->url('review.add', ["id" => $data['chosenBook']->getId()]);
                     }
                     ?>
