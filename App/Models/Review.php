@@ -11,11 +11,13 @@ class Review extends Model
     protected int $user_id;
     protected ?int $rating = 0;
     protected ?string $review_text = "";
-    protected string $review_author;
+    //private ?string $review_author = "";
 
     public function getReviewAuthor(): string
     {
-        return $this->review_author;
+        $user = User::getOne($this->user_id);
+        return $user->getUsername();
+        //return $this->review_author;
     }
 
     public function setReviewAuthor(string $review_author): void
