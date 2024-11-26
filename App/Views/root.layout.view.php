@@ -29,7 +29,7 @@
 
     <?php if ($auth->isLogged()) { ?>
         <li class="nav-item">
-            <a class="nav-link" href="<?= $link->url("home.index") ?>"><?= $auth->getLoggedUserName() ?></a>
+            <a class="nav-link" href="<?= $link->url("profile.index") ?>"><?= $auth->getLoggedUserName() ?></a>
         </li>
     <?php } else { ?>
         <li class="nav-item">

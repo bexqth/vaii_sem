@@ -1,0 +1,20 @@
+.banner-image-row {
+    height: 300px;
+    position: relative;
+}
+
+.banner-image {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.profile-picture {
+    position: absolute;
+    bottom: -35%;
+    left: 10%;
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+    border: 5px solid white;
+}
