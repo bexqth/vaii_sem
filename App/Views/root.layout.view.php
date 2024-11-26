@@ -27,7 +27,6 @@
         <a class="nav-link" href="<?= $link->url("booklist.index") ?>">Booklist</a>
     </li>
 
-
     <?php if ($auth->isLogged()) { ?>
         <li class="nav-item">
             <a class="nav-link" href="<?= $link->url("home.index") ?>"><?= $auth->getLoggedUserName() ?></a>
