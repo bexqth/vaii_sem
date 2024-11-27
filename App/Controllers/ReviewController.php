@@ -44,7 +44,7 @@ class ReviewController extends AControllerBase
                 $newReview->setBookId($idBook);
                 $userIds = User::getAll('username = ?', [$this->app->getAuth()->getLoggedUserName()]);
                 $userId = $userIds[0];
-                $newReview->setUserId($userId->getId());
+                $newReview->setUserId($userId->getId()); //REFACTOR THIS CODE PLEASE
                 //$newReview->setReviewAuthor($userUsername);
             } else {
                 $newReview = $review;
