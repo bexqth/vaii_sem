@@ -28,13 +28,13 @@
             <div class="col-sm-12 col-md-3 col-lg-3">
                 <img src="<?=$data['chosenBook']->getCoverUrl()?>" class="book-cover" alt="">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button id="statusButton" type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Set status
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <button class="dropdown-item" type="button">Set as reading</button>
-                        <button class="dropdown-item" type="button">Set as read</button>
-                        <button class="dropdown-item" type="button">Set as planning</button>
+                        <button id="readingButton" class="dropdown-item" type="button" onclick="addToReading()">Set as reading</button>
+                        <button id="finishedButton" class="dropdown-item" type="button" onClick="addToFinished()">Set as finished</button>
+                        <button id="planningButton" class="dropdown-item" type="button" onclick="addToPlanning()">Set as planning</button>
                     </div>
                 </div>
             </div>
@@ -118,6 +118,6 @@
 
 </div>
 
-
+<script src="public/js/bookScript.js"></script>
 </body>
 </html>

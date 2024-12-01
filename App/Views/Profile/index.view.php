@@ -112,7 +112,7 @@
 
                 </div>
 
-                <h4 class="list-title">Read</h4>
+                <h4 class="list-title">Finished</h4>
                 <div class="row list list-read-row">
                     <div class="row book-list-row">
                         <div class="col-lg-1 book-list-image-col"><img src="https://cdn.penguin.co.uk/dam-assets/books/9781784870140/9781784870140-jacket-large.jpg" class="book-list-image" alt=""></div>

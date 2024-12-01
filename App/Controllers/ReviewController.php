@@ -46,7 +46,7 @@ class ReviewController extends AControllerBase
 
         }
 
-        if ($reviewRating < 1 || $reviewRating > 10) {
+        if ($reviewRating < 1 || $reviewRating > 10 || empty($reviewRating)) {
             $errorMessage =  "Rating must be between 1 and 10.";
             return $this->redirect($this->url("review.index", ["id" => $idBook, "reviewId" => $idReview, "errorMessage" => $errorMessage]));
         }
