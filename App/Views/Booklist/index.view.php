@@ -28,7 +28,7 @@
                         <h5 class="categories-title">Categories</h5>
                     </div>
                     <div class="col">
-                        <button class="btn drop-category-button" onclick="toggleCategories()">▼</button>
+                        <button id="dropButton" class="btn drop-category-button" onclick="toggleCategories()">▲</button>
                     </div>
                 </div>
                 <div id="categoryButtons" class="dropdown-content">

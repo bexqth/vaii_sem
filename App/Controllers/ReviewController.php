@@ -7,6 +7,7 @@ use App\Core\Responses\Response;
 use App\Models\Book;
 use App\Models\Review;
 use App\Models\User;
+use Exception;
 
 class ReviewController extends AControllerBase
 {
@@ -22,7 +23,9 @@ class ReviewController extends AControllerBase
         $reviewId = $this->request()->getValue("reviewId");
         $review = Review::getOne($reviewId);
 
-        return $this->html(['chosenBook' => $chosenBook, "review" => $review]);
+        $errorMessage = $this->request()->getValue("errorMessage");
+
+        return $this->html(['chosenBook' => $chosenBook, "review" => $review, "errorMessage" => $errorMessage]);
     }
 
     /**
@@ -30,10 +33,23 @@ class ReviewController extends AControllerBase
      */
     public function add() : Response {
         $formData = $this->request()->getPost();
-        //$chosenBookId = $this->request()->getValue("id");
         $idBook = $this->request()->getValue("id");
         $idReview = $this->request()->getValue("reviewId"); //this working
         $review = Review::getOne($idReview);
+
+        $reviewText = $formData['review_text'];
+        $reviewRating = $formData['rating'];
+
+        if($reviewText == null || $reviewText == "") {
+            $errorMessage = "Review text cannot be empty.";
+            return $this->redirect($this->url("review.index", ["id" => $idBook, "reviewId" => $idReview, "errorMessage" => $errorMessage]));
+
+        }
+
+        if ($reviewRating < 1 || $reviewRating > 10) {
+            $errorMessage =  "Rating must be between 1 and 10.";
+            return $this->redirect($this->url("review.index", ["id" => $idBook, "reviewId" => $idReview, "errorMessage" => $errorMessage]));
+        }
 
         $userUsername = $this->app->getAuth()->getLoggedUserName();
 

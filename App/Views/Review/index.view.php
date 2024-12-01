@@ -34,6 +34,13 @@
                 <div class="book-info-row">
                     <h3><?=$data['chosenBook']->getTitle()?></h3>
                     <h4><?=$data['chosenBook']->getAuthor()?></h4>
+
+                    <?php if($data["errorMessage"] != null) : ?>
+                        <div class="alert alert-danger" role="alert">
+                            <?=$data["errorMessage"]?>
+                        </div>
+                    <?php endif; ?>
+
                 </div>
                 <div class="row">
 
@@ -62,9 +69,9 @@
                         </div>
                         <div class="row">
                             <?php if ($data["review"] == null) { ?>
-                                <input type="number" id="rating" name="rating" min="1" max="10" class="score-selection" required><br>
+                                <input type="number" id="rating" name="rating" min="1" max="20" class="score-selection" required><br>
                             <?php } else { ?>
-                                <input type="number" id="rating" name="rating" min="1" max="10" class="score-selection"  value="<?=$data['review']->getRating()?>" required><br>
+                                <input type="number" id="rating" name="rating" min="1" max="20" class="score-selection"  value="<?=$data['review']->getRating()?>" required><br>
                             <?php } ?>
 
                         </div>
