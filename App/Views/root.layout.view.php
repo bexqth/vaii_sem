@@ -33,7 +33,7 @@
         </li>
     <?php } else { ?>
         <li class="nav-item">
-            <a class="nav-link" href="<?= $link->url("auth.index") ?>">Login</a>
+            <a class="nav-link" href="<?= $link->url("auth.login") ?>">Login</a>
         </li>
     <?php } ?>
 

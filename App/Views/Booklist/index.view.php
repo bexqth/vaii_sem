@@ -23,26 +23,34 @@
 
         <div class="col-sm-4 col-md-2 col-lg-2 book-genres-col">
             <div class="btn-group-vertical w-100" role="group" aria-label="Vertical button group">
-                <h5 class="categories-title">Categories</h5>
-                <button type="button" class="btn">All</button>
-                <button type="button" class="btn">Art</button>
-                <button type="button" class="btn">Literary Fiction</button>
-                <button type="button" class="btn">Historical Fiction</button>
-                <button type="button" class="btn">Science Fiction</button>
-
-                <button type="button" class="btn">Fantasy</button>
-                <button type="button" class="btn">Mystery</button>
-                <button type="button" class="btn">Thriller</button>
-                <button type="button" class="btn">Romance</button>
-                <button type="button" class="btn">Horror</button>
-
-                <button type="button" class="btn">Biography</button>
-                <button type="button" class="btn">History</button>
-                <button type="button" class="btn">Poetry</button>
-                <button type="button" class="btn">Drama</button>
-                <button type="button" class="btn">Classics</button>
+                <div class="row dropdown-container">
+                    <div class="col">
+                        <h5 class="categories-title">Categories</h5>
+                    </div>
+                    <div class="col">
+                        <button class="btn drop-category-button" onclick="toggleCategories()">▼</button>
+                    </div>
+                </div>
+                <div id="categoryButtons" class="dropdown-content">
+                    <button type="button" class="btn">All</button>
+                    <button type="button" class="btn">Art</button>
+                    <button type="button" class="btn">Literary Fiction</button>
+                    <button type="button" class="btn">Historical Fiction</button>
+                    <button type="button" class="btn">Science Fiction</button>
+                    <button type="button" class="btn">Fantasy</button>
+                    <button type="button" class="btn">Mystery</button>
+                    <button type="button" class="btn">Thriller</button>
+                    <button type="button" class="btn">Romance</button>
+                    <button type="button" class="btn">Horror</button>
+                    <button type="button" class="btn">Biography</button>
+                    <button type="button" class="btn">History</button>
+                    <button type="button" class="btn">Poetry</button>
+                    <button type="button" class="btn">Drama</button>
+                    <button type="button" class="btn">Classics</button>
+                </div>
             </div>
         </div>
+
 
         <div class="col-sm-8 col-md-8 col-lg-8 books-col">
             <div class="booklist-title-container">
@@ -78,6 +86,6 @@
 
 </div>
 
-
+    <script src="public/js/booklistScript.js"></script>
 </body>
 </html>
