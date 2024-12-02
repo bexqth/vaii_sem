@@ -4,6 +4,7 @@
 /** @var \App\Core\LinkGenerator $link */
 /** @var \App\Core\IAuthenticator $auth */
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

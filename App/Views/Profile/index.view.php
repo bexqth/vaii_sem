@@ -71,129 +71,98 @@
                         </div>
                     </div>
 
-                    <div class="row book-list-row">
-                        <div class="col-lg-1 book-list-image-col"><img src="https://cdn.penguin.co.uk/dam-assets/books/9781784870140/9781784870140-jacket-large.jpg" class="book-list-image" alt=""></div>
-                        <div class="col-lg-7 list-text-col">
-                            <p class="list-text">Brave new world</p>
+                    <?php for($i = 0; $i < count($data['readingBooks']); $i++) : ?>
+                        <div class="row book-list-row">
+                            <div class="col-lg-1 book-list-image-col"><img src="<?=$data['readingBooks'][$i]->getCoverUrl()?>" class="book-list-image" alt=""></div>
+                            <div class="col-lg-7 list-text-col">
+                                <p class="list-text"><?=$data['readingBooks'][$i]->getTitle()?></p>
+                            </div>
+                            <div class="col-lg-2 list-text-col">
+                                <p class="list-text">0/<?=$data['readingBooks'][$i]->getPages()?></p>
+                            </div>
+                            <div class="col-lg-2 list-text-col">
+                                <?php if ($data['readingReviews'][$i] == null) : ?>
+                                    <p class="list-text">/10</p>
+                                <?php else : ?>
+                                    <p class="list-text"><?=$data['readingReviews'][$i]->getRating()?>/10</p>
+                                <?php endif; ?>
+                            </div>
                         </div>
-                        <div class="col-lg-2 list-text-col">
-                            <p class="list-text">234/324</p>
-                        </div>
-                        <div class="col-lg-2 list-text-col">
-                            <p class="list-text">9/10</p>
-                        </div>
-                    </div>
 
-                    <div class="row book-list-row">
-                        <div class="col-lg-1 book-list-image-col"><img src="https://m.media-amazon.com/images/I/51lVvSDLQJL._AC_UF1000,1000_QL80_.jpg" class="book-list-image" alt=""></div>
-                        <div class="col-lg-7 list-text-col">
-                            <p class="list-text">To kill a mockingbird</p>
-                        </div>
-                        <div class="col-lg-2 list-text-col">
-                            <p class="list-text">234/324</p>
-                        </div>
-                        <div class="col-lg-2 list-text-col">
-                            <p class="list-text">9/10</p>
-                        </div>
-                    </div>
-
-                    <div class="row book-list-row">
-                        <div class="col-lg-1 book-list-image-col"><img src="https://cdn.penguin.co.uk/dam-assets/books/9780141439518/9780141439518-jacket-large.jpg" class="book-list-image" alt=""></div>
-                        <div class="col-lg-7 list-text-col">
-                            <p class="list-text">Pride and prejudice</p>
-                        </div>
-                        <div class="col-lg-2 list-text-col">
-                            <p class="list-text">234/324</p>
-                        </div>
-                        <div class="col-lg-2 list-text-col">
-                            <p class="list-text">9/10</p>
-                        </div>
-                    </div>
+                    <?php endfor; ?>
 
                 </div>
 
                 <h4 class="list-title">Finished</h4>
                 <div class="row list list-read-row">
-                    <div class="row book-list-row">
-                        <div class="col-lg-1 book-list-image-col"><img src="https://cdn.penguin.co.uk/dam-assets/books/9781784870140/9781784870140-jacket-large.jpg" class="book-list-image" alt=""></div>
-                        <div class="col-lg-7 list-text-col">
-                            <p class="list-text">Brave new world</p>
+                    <div class="row">
+                        <div class="col-lg-1"></div>
+                        <div class="col-lg-7">
+                            <h5>Title</h5>
                         </div>
-                        <div class="col-lg-2 list-text-col">
-                            <p class="list-text">234/324</p>
+                        <div class="col-lg-2">
+                            <h5>Progress</h5>
                         </div>
-                        <div class="col-lg-2 list-text-col">
-                            <p class="list-text">9/10</p>
-                        </div>
-                    </div>
-
-                    <div class="row book-list-row">
-                        <div class="col-lg-1 book-list-image-col"><img src="https://m.media-amazon.com/images/I/51lVvSDLQJL._AC_UF1000,1000_QL80_.jpg" class="book-list-image" alt=""></div>
-                        <div class="col-lg-7 list-text-col">
-                            <p class="list-text">To kill a mockingbird</p>
-                        </div>
-                        <div class="col-lg-2 list-text-col">
-                            <p class="list-text">234/324</p>
-                        </div>
-                        <div class="col-lg-2 list-text-col">
-                            <p class="list-text">9/10</p>
+                        <div class="col-lg-2">
+                            <h5>Score</h5>
                         </div>
                     </div>
 
-                    <div class="row book-list-row">
-                        <div class="col-lg-1 book-list-image-col"><img src="https://cdn.penguin.co.uk/dam-assets/books/9780141439518/9780141439518-jacket-large.jpg" class="book-list-image" alt=""></div>
-                        <div class="col-lg-7 list-text-col">
-                            <p class="list-text">Pride and prejudice</p>
+                    <?php for($i = 0; $i < count($data['finishedBooks']); $i++) : ?>
+                        <div class="row book-list-row">
+                            <div class="col-lg-1 book-list-image-col"><img src="<?=$data['readingBooks'][$i]->getCoverUrl()?>" class="book-list-image" alt=""></div>
+                            <div class="col-lg-7 list-text-col">
+                                <p class="list-text"><?=$data['readingBooks'][$i]->getTitle()?></p>
+                            </div>
+                            <div class="col-lg-2 list-text-col">
+                                <p class="list-text">0/<?=$data['readingBooks'][$i]->getPages()?></p>
+                            </div>
+                            <div class="col-lg-2 list-text-col">
+                                <?php if ($data['readingReviews'][$i] == null) : ?>
+                                    <p class="list-text">/10</p>
+                                <?php else : ?>
+                                    <p class="list-text"><?=$data['readingReviews'][$i]->getRating()?>/10</p>
+                                <?php endif; ?>
+                            </div>
                         </div>
-                        <div class="col-lg-2 list-text-col">
-                            <p class="list-text">234/324</p>
-                        </div>
-                        <div class="col-lg-2 list-text-col">
-                            <p class="list-text">9/10</p>
-                        </div>
-                    </div>
+
+                    <?php endfor; ?>
                 </div>
 
                 <h4 class="list-title">Planning to read</h4>
                 <div class="row list list-planning-row">
-                    <div class="row book-list-row">
-                        <div class="col-lg-1 book-list-image-col"><img src="https://cdn.penguin.co.uk/dam-assets/books/9781784870140/9781784870140-jacket-large.jpg" class="book-list-image" alt=""></div>
-                        <div class="col-lg-7 list-text-col">
-                            <p class="list-text">Brave new world</p>
+                    <div class="row">
+                        <div class="col-lg-1"></div>
+                        <div class="col-lg-7">
+                            <h5>Title</h5>
                         </div>
-                        <div class="col-lg-2 list-text-col">
-                            <p class="list-text">234/324</p>
+                        <div class="col-lg-2">
+                            <h5>Progress</h5>
                         </div>
-                        <div class="col-lg-2 list-text-col">
-                            <p class="list-text">9/10</p>
-                        </div>
-                    </div>
-
-                    <div class="row book-list-row">
-                        <div class="col-lg-1 book-list-image-col"><img src="https://m.media-amazon.com/images/I/51lVvSDLQJL._AC_UF1000,1000_QL80_.jpg" class="book-list-image" alt=""></div>
-                        <div class="col-lg-7 list-text-col">
-                            <p class="list-text">To kill a mockingbird</p>
-                        </div>
-                        <div class="col-lg-2 list-text-col">
-                            <p class="list-text">234/324</p>
-                        </div>
-                        <div class="col-lg-2 list-text-col">
-                            <p class="list-text">9/10</p>
+                        <div class="col-lg-2">
+                            <h5>Score</h5>
                         </div>
                     </div>
 
-                    <div class="row book-list-row">
-                        <div class="col-lg-1 book-list-image-col"><img src="https://cdn.penguin.co.uk/dam-assets/books/9780141439518/9780141439518-jacket-large.jpg" class="book-list-image" alt=""></div>
-                        <div class="col-lg-7 list-text-col">
-                            <p class="list-text">Pride and prejudice</p>
+                    <?php for($i = 0; $i < count($data['planningBooks']); $i++) : ?>
+                        <div class="row book-list-row">
+                            <div class="col-lg-1 book-list-image-col"><img src="<?=$data['readingBooks'][$i]->getCoverUrl()?>" class="book-list-image" alt=""></div>
+                            <div class="col-lg-7 list-text-col">
+                                <p class="list-text"><?=$data['readingBooks'][$i]->getTitle()?></p>
+                            </div>
+                            <div class="col-lg-2 list-text-col">
+                                <p class="list-text">0/<?=$data['readingBooks'][$i]->getPages()?></p>
+                            </div>
+                            <div class="col-lg-2 list-text-col">
+                                <?php if ($data['readingReviews'][$i] == null) : ?>
+                                    <p class="list-text">/10</p>
+                                <?php else : ?>
+                                    <p class="list-text"><?=$data['readingReviews'][$i]->getRating()?>/10</p>
+                                <?php endif; ?>
+                            </div>
                         </div>
-                        <div class="col-lg-2 list-text-col">
-                            <p class="list-text">234/324</p>
-                        </div>
-                        <div class="col-lg-2 list-text-col">
-                            <p class="list-text">9/10</p>
-                        </div>
-                    </div>
+
+                    <?php endfor; ?>
                 </div>
 
             </div>

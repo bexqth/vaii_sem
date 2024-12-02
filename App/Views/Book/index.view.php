@@ -27,16 +27,6 @@
         <div class="row book-row">
             <div class="col-sm-12 col-md-3 col-lg-3">
                 <img src="<?=$data['chosenBook']->getCoverUrl()?>" class="book-cover" alt="">
-                <div class="btn-group">
-                    <button id="statusButton" type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Set status
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <button id="readingButton" class="dropdown-item" type="button" onclick="addToReading()">Set as reading</button>
-                        <button id="finishedButton" class="dropdown-item" type="button" onClick="addToFinished()">Set as finished</button>
-                        <button id="planningButton" class="dropdown-item" type="button" onclick="addToPlanning()">Set as planning</button>
-                    </div>
-                </div>
             </div>
 
             <div class="col-sm-12 col-md-9 col-lg-9">
@@ -64,6 +54,20 @@
                     </tr>
                 </table>
                 <!--<button type="button" class="btn button-status">Add to list</button>-->
+                <div class="btn-group">
+                    <button id="statusButton" type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <?php if ($data['bookStatus'] == null) : ?>
+                            Set status
+                        <?php else : ?>
+                            <?=$data['bookStatus']?>
+                        <?php endif; ?>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <button id="readingButton" class="dropdown-item" type="button" onclick="addToReading(<?=$data['chosenBook']->getId()?>, 'Reading')">Set as reading</button>
+                        <button id="finishedButton" class="dropdown-item" type="button" onclick="addToReading(<?=$data['chosenBook']->getId()?>, 'Finished')">Set as finished</button>
+                        <button id="planningButton" class="dropdown-item" type="button" onclick="addToReading(<?=$data['chosenBook']->getId()?>, 'Planning')">Set as planning</button>
+                    </div>
+                </div>
 
             </div>
         </div>
