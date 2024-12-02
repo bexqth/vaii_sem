@@ -121,7 +121,7 @@
                                     <p class="list-text">0/<?=$data['finishedBooks'][$i]->getPages()?></p>
                                 </div>
                                 <div class="col-lg-2 list-text-col">
-                                    <?php if ($data['readingReviews'][$i] == null) : ?>
+                                    <?php if ($data['finishedReviews'][$i] == null) : ?>
                                         <p class="list-text">/10</p>
                                     <?php else : ?>
                                         <p class="list-text"><?=$data['finishedReviews'][$i]->getRating()?>/10</p>
@@ -149,7 +149,7 @@
                         </div>
                     </div>
 
-                    <?php if ($data['readingBooks'] != null) :?>
+                    <?php if ($data['planningBooks'] != null) :?>
                         <?php for($i = 0; $i < count($data['planningBooks']); $i++) : ?>
                             <div class="row book-list-row">
                                 <div class="col-lg-1 book-list-image-col"><img src="<?=$data['planningBooks'][$i]->getCoverUrl()?>" class="book-list-image" alt=""></div>
