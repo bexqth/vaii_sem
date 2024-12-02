@@ -29,8 +29,8 @@ class ProfileController extends AControllerBase
         $planningBooks = $this->getBooksFromList($readingListPlanning);
 
         $readingReviews = $this->getReviewsFromBooks($readingBooks);
-        $finishedReviews = $this->getBooksFromList($finishedBooks);
-        $planningReviews = $this->getBooksFromList($planningBooks);
+        $finishedReviews = $this->getReviewsFromBooks($finishedBooks);
+        $planningReviews = $this->getReviewsFromBooks($planningBooks);
 
         return $this->html(['user' => $user, 'readingBooks' => $readingBooks, 'finishedBooks' => $finishedBooks, 'planningBooks' => $planningBooks,
             'readingReviews' => $readingReviews, 'finishedReviews' => $finishedReviews, 'planningReviews' => $planningReviews,]);
@@ -49,14 +49,17 @@ class ProfileController extends AControllerBase
 
     public function getReviewsFromBooks($books): array {
         $reviews = [];
-        foreach ($books as $book) {
-            $review = Review::getAll('book_id = ?', [$book->getId()]);
-            if(count($review) > 0) {
-                $reviews[] = $review[0];
-            } else {
-                $reviews[] = null;
-            }
+        if($books != null) {
+            foreach ($books as $book) {
+                $review = Review::getAll('book_id = ?', [$book->getId()]);
+                if(count($review) > 0) {
+                    $reviews[] = $review[0];
+                } else {
+                    $reviews[] = null;
+                }
 
+            }
+            return $reviews;
         }
         return $reviews;
     }

@@ -63,9 +63,9 @@
                         <?php endif; ?>
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <button id="readingButton" class="dropdown-item" type="button" onclick="addToReading(<?=$data['chosenBook']->getId()?>, 'Reading')">Set as reading</button>
-                        <button id="finishedButton" class="dropdown-item" type="button" onclick="addToReading(<?=$data['chosenBook']->getId()?>, 'Finished')">Set as finished</button>
-                        <button id="planningButton" class="dropdown-item" type="button" onclick="addToReading(<?=$data['chosenBook']->getId()?>, 'Planning')">Set as planning</button>
+                        <button id="readingButton" class="dropdown-item" type="button" onclick="addToReading(1, <?=$data['chosenBook']->getId()?>, 'Reading')">Set as reading</button>
+                        <button id="finishedButton" class="dropdown-item" type="button" onclick="addToReading(2, <?=$data['chosenBook']->getId()?>, 'Finished')">Set as finished</button>
+                        <button id="planningButton" class="dropdown-item" type="button" onclick="addToReading(3, <?=$data['chosenBook']->getId()?>, 'Planning')">Set as planning</button>
                     </div>
                 </div>
 

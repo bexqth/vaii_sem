@@ -3,11 +3,13 @@
 namespace App\Controllers;
 
 use App\Core\AControllerBase;
+use App\Core\Responses\EmptyResponse;
 use App\Core\Responses\Response;
 use App\Models\Book;
 use App\Models\Review;
 use App\Models\Readinglist;
 use App\Models\User;
+use HttpException;
 
 class BookController extends AControllerBase
 {
@@ -36,42 +38,47 @@ class BookController extends AControllerBase
      * @throws \JsonException
      * @throws \Exception
      */
-    public function setBookStatus() {
+    public function setBookStatus() : Response {
         $data = $this->request()->getRawBodyJSON();
-        $bookId = $data->bookId;
-        $listName = $data->list;
 
-        $book = Book::getOne($bookId);
-        //$userIds = User::getAll('username = ?', [$this->app->getAuth()->getLoggedUserName()]);
-        $inList = Readinglist::getAll('book_id = ?', [$bookId]);
-        if(count($inList) == 0) {
-            $readingList = new Readinglist();
-            $readingList->setBookId($bookId);
+        if (is_object($data) && property_exists($data, 'bookId') &&  property_exists($data, 'list')) {
+            $bookId = $data->bookId;
+            $listName = $data->list;
 
-            $userIds = User::getAll('username = ?', [$this->app->getAuth()->getLoggedUserName()]);
-            $userId = $userIds[0];
-
-            $readingList->setUserId($userId->getId());
-            $readingList->setStatus($listName);
-
-            $readingList->save();
-        } else {
-            $readingList = $inList[0];
-            if($readingList->getStatus() != $listName) {
-                $readingList->delete();
-
-                $newList = new Readinglist();
-                $newList->setBookId($bookId);
+            $book = Book::getOne($bookId);
+            //$userIds = User::getAll('username = ?', [$this->app->getAuth()->getLoggedUserName()]);
+            $inList = Readinglist::getAll('book_id = ?', [$bookId]);
+            if(count($inList) == 0) {
+                $readingList = new Readinglist();
+                $readingList->setBookId($bookId);
 
                 $userIds = User::getAll('username = ?', [$this->app->getAuth()->getLoggedUserName()]);
                 $userId = $userIds[0];
 
-                $newList->setUserId($userId->getId());
-                $newList->setStatus($listName);
+                $readingList->setUserId($userId->getId());
+                $readingList->setStatus($listName);
 
-                $newList->save();
+                $readingList->save();
+            } else {
+                $readingList = $inList[0];
+                if($readingList->getStatus() != $listName) {
+                    $readingList->delete();
+
+                    $newList = new Readinglist();
+                    $newList->setBookId($bookId);
+
+                    $userIds = User::getAll('username = ?', [$this->app->getAuth()->getLoggedUserName()]);
+                    $userId = $userIds[0];
+
+                    $newList->setUserId($userId->getId());
+                    $newList->setStatus($listName);
+
+                    $newList->save();
+                }
+
             }
-
+            return new EmptyResponse();
         }
+        throw new HTTPException(400, 'Error');
     }
 }

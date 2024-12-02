@@ -71,25 +71,27 @@
                         </div>
                     </div>
 
-                    <?php for($i = 0; $i < count($data['readingBooks']); $i++) : ?>
-                        <div class="row book-list-row">
-                            <div class="col-lg-1 book-list-image-col"><img src="<?=$data['readingBooks'][$i]->getCoverUrl()?>" class="book-list-image" alt=""></div>
-                            <div class="col-lg-7 list-text-col">
-                                <p class="list-text"><?=$data['readingBooks'][$i]->getTitle()?></p>
+                    <?php if ($data['readingBooks'] != null) :?>
+                        <?php for($i = 0; $i < count($data['readingBooks']); $i++) : ?>
+                            <div class="row book-list-row">
+                                <div class="col-lg-1 book-list-image-col"><img src="<?=$data['readingBooks'][$i]->getCoverUrl()?>" class="book-list-image" alt=""></div>
+                                <div class="col-lg-7 list-text-col">
+                                    <p class="list-text"><?=$data['readingBooks'][$i]->getTitle()?></p>
+                                </div>
+                                <div class="col-lg-2 list-text-col">
+                                    <p class="list-text">0/<?=$data['readingBooks'][$i]->getPages()?></p>
+                                </div>
+                                <div class="col-lg-2 list-text-col">
+                                    <?php if ($data['readingReviews'][$i] == null) : ?>
+                                        <p class="list-text">/10</p>
+                                    <?php else : ?>
+                                        <p class="list-text"><?=$data['readingReviews'][$i]->getRating()?>/10</p>
+                                    <?php endif; ?>
+                                </div>
                             </div>
-                            <div class="col-lg-2 list-text-col">
-                                <p class="list-text">0/<?=$data['readingBooks'][$i]->getPages()?></p>
-                            </div>
-                            <div class="col-lg-2 list-text-col">
-                                <?php if ($data['readingReviews'][$i] == null) : ?>
-                                    <p class="list-text">/10</p>
-                                <?php else : ?>
-                                    <p class="list-text"><?=$data['readingReviews'][$i]->getRating()?>/10</p>
-                                <?php endif; ?>
-                            </div>
-                        </div>
 
-                    <?php endfor; ?>
+                        <?php endfor; ?>
+                    <?php endif;?>
 
                 </div>
 
@@ -108,25 +110,28 @@
                         </div>
                     </div>
 
-                    <?php for($i = 0; $i < count($data['finishedBooks']); $i++) : ?>
-                        <div class="row book-list-row">
-                            <div class="col-lg-1 book-list-image-col"><img src="<?=$data['readingBooks'][$i]->getCoverUrl()?>" class="book-list-image" alt=""></div>
-                            <div class="col-lg-7 list-text-col">
-                                <p class="list-text"><?=$data['readingBooks'][$i]->getTitle()?></p>
+                    <?php if ($data['finishedBooks'] != null) :?>
+                        <?php for($i = 0; $i < count($data['finishedBooks']); $i++) : ?>
+                            <div class="row book-list-row">
+                                <div class="col-lg-1 book-list-image-col"><img src="<?=$data['finishedBooks'][$i]->getCoverUrl()?>" class="book-list-image" alt=""></div>
+                                <div class="col-lg-7 list-text-col">
+                                    <p class="list-text"><?=$data['finishedBooks'][$i]->getTitle()?></p>
+                                </div>
+                                <div class="col-lg-2 list-text-col">
+                                    <p class="list-text">0/<?=$data['finishedBooks'][$i]->getPages()?></p>
+                                </div>
+                                <div class="col-lg-2 list-text-col">
+                                    <?php if ($data['readingReviews'][$i] == null) : ?>
+                                        <p class="list-text">/10</p>
+                                    <?php else : ?>
+                                        <p class="list-text"><?=$data['finishedReviews'][$i]->getRating()?>/10</p>
+                                    <?php endif; ?>
+                                </div>
                             </div>
-                            <div class="col-lg-2 list-text-col">
-                                <p class="list-text">0/<?=$data['readingBooks'][$i]->getPages()?></p>
-                            </div>
-                            <div class="col-lg-2 list-text-col">
-                                <?php if ($data['readingReviews'][$i] == null) : ?>
-                                    <p class="list-text">/10</p>
-                                <?php else : ?>
-                                    <p class="list-text"><?=$data['readingReviews'][$i]->getRating()?>/10</p>
-                                <?php endif; ?>
-                            </div>
-                        </div>
 
-                    <?php endfor; ?>
+                        <?php endfor; ?>
+                    <?php endif;?>
+
                 </div>
 
                 <h4 class="list-title">Planning to read</h4>
@@ -144,25 +149,28 @@
                         </div>
                     </div>
 
-                    <?php for($i = 0; $i < count($data['planningBooks']); $i++) : ?>
-                        <div class="row book-list-row">
-                            <div class="col-lg-1 book-list-image-col"><img src="<?=$data['readingBooks'][$i]->getCoverUrl()?>" class="book-list-image" alt=""></div>
-                            <div class="col-lg-7 list-text-col">
-                                <p class="list-text"><?=$data['readingBooks'][$i]->getTitle()?></p>
+                    <?php if ($data['readingBooks'] != null) :?>
+                        <?php for($i = 0; $i < count($data['planningBooks']); $i++) : ?>
+                            <div class="row book-list-row">
+                                <div class="col-lg-1 book-list-image-col"><img src="<?=$data['planningBooks'][$i]->getCoverUrl()?>" class="book-list-image" alt=""></div>
+                                <div class="col-lg-7 list-text-col">
+                                    <p class="list-text"><?=$data['planningBooks'][$i]->getTitle()?></p>
+                                </div>
+                                <div class="col-lg-2 list-text-col">
+                                    <p class="list-text">0/<?=$data['planningBooks'][$i]->getPages()?></p>
+                                </div>
+                                <div class="col-lg-2 list-text-col">
+                                    <?php if ($data['planningReviews'][$i] == null) : ?>
+                                        <p class="list-text">/10</p>
+                                    <?php else : ?>
+                                        <p class="list-text"><?=$data['planningReviews'][$i]->getRating()?>/10</p>
+                                    <?php endif; ?>
+                                </div>
                             </div>
-                            <div class="col-lg-2 list-text-col">
-                                <p class="list-text">0/<?=$data['readingBooks'][$i]->getPages()?></p>
-                            </div>
-                            <div class="col-lg-2 list-text-col">
-                                <?php if ($data['readingReviews'][$i] == null) : ?>
-                                    <p class="list-text">/10</p>
-                                <?php else : ?>
-                                    <p class="list-text"><?=$data['readingReviews'][$i]->getRating()?>/10</p>
-                                <?php endif; ?>
-                            </div>
-                        </div>
 
-                    <?php endfor; ?>
+                        <?php endfor; ?>
+                    <?php endif;?>
+
                 </div>
 
             </div>
