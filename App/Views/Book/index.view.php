@@ -26,13 +26,10 @@
     <div class="col-sm-12 col-md-8 col-lg-8 books-col">
 
         <div id="successMessage" class="alert alert-success" style="display: none;">
-
         </div>
 
         <div id="errorMessage" class="alert alert-danger" style="display: none;">
-
         </div>
-
 
         <div class="row book-row">
             <div class="col-sm-12 col-md-3 col-lg-3">
@@ -63,7 +60,6 @@
                         <td><?=$data['chosenBook']->getPublicationDate()?></td>
                     </tr>
                 </table>
-                <!--<button type="button" class="btn button-status">Add to list</button>-->
 
                 <div class="btn-group">
                     <button id="statusButton" type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
