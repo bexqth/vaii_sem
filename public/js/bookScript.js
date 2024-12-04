@@ -50,7 +50,6 @@ async function addToReading(option, bookId, list) {
         const errorMessageDiv = document.getElementById('errorMessage');
         errorMessageDiv.style.display = 'none';
 
-
     } catch (error) {
         const errorMessageDiv = document.getElementById('errorMessage');
         errorMessageDiv.innerText = 'An error occurred while updating the book status. Please try again later.';
