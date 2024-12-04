@@ -1,25 +1,44 @@
+body{
+    background-color: #faf5f3;
+}
 
 .review-title {
-    margin-top: 20px;
+
+}
+
+.book-info-row{
+    margin-top: 35px;
 }
 
 .book-cover{
+    margin-top: 40px;
     width: 100%;
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
+
 }
 
 .review-text{
     width: 50%;
-    height: 400px;
+    height: 345px;
     margin-left: 10px;
     margin-bottom: 10px;
     margin-top: 5px;
+
+    background-color: #faf5f3;
+    border-radius: 10px;
+    border: 2px solid #aaa;
+    resize: none;
 }
 
 .score-selection{
     width: 100px;
+    height: 35px;
     margin-left: 10px;
     margin-bottom: 5px;
+
+    background-color: #faf5f3;
+    border-radius: 10px;
+    border: 2px solid #aaa;
 }
 
 .submit-button {
@@ -34,3 +53,49 @@
     background-color: #f1948a;
     transform: scale(1.1);
 }
+
+@media (min-width: 320px){
+    .review-text {
+        width: 300px;
+    }
+}
+
+
+@media (min-width: 375px){
+    .review-text {
+        width: 355px;
+    }
+}
+
+@media (min-width: 425px){
+    .review-text {
+        width: 405px;
+        margin-bottom: 3px;
+    }
+}
+
+@media (min-width: 560px){
+    .review-text {
+        width: 540px;
+        margin-bottom: 3px;
+    }
+
+    .book-cover {
+        display: none;
+    }
+}
+
+
+@media (min-width: 775px){
+    .review-text {
+        width: 540px;
+        margin-bottom: 3px;
+    }
+
+    .book-cover {
+        display: block;
+    }
+}
+
+
+

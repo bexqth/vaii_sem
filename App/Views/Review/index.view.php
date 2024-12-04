@@ -22,17 +22,17 @@
     <div class="col-md-2 col-lg-2"></div>
 
     <div class="col-sm-12 col-md-8 col-lg-8 review-col">
-        <h3 class="review-title">Book review</h3>
 
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-3 col-lg-3">
                 <div class="image-row">
                     <img src="<?=$data['chosenBook']->getCoverUrl()?>" class="book-cover" alt="...">
                 </div>
             </div>
 
-            <div class="col-md-9">
+            <div class="book-cover-col col-sm-9 col-md-9 col-lg-9">
                 <div class="book-info-row">
+                    <h2 class="review-title">Let other users know your opinion!</h2>
                     <h3><?=$data['chosenBook']->getTitle()?></h3>
                     <h4><?=$data['chosenBook']->getAuthor()?></h4>
 
@@ -70,9 +70,9 @@
                         </div>
                         <div class="row">
                             <?php if ($data["review"] == null) { ?>
-                                <input type="number" id="rating" name="rating" min="1" max="20" class="score-selection"><br>
+                                <input type="number" id="rating" name="rating" min="1" max="10" class="score-selection" required><br>
                             <?php } else { ?>
-                                <input type="number" id="rating" name="rating" min="1" max="10" class="score-selection"  value="<?=$data['review']->getRating()?>" required><br>
+                                <input type="number" id="rating" name="rating" min="1" max="10" class="score-selection" value="<?=$data['review']->getRating()?>" required><br>
                             <?php } ?>
 
                         </div>

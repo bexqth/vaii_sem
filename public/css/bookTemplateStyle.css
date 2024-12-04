@@ -1,3 +1,7 @@
+body{
+    background-color: white;
+}
+
 .book-row{
     margin-top: 40px;
 }
@@ -157,4 +161,6 @@ th, td {
     }
 
 }
+
+
 

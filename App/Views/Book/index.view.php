@@ -32,7 +32,7 @@
             <div class="col-sm-12 col-md-9 col-lg-9">
                 <h3><?=$data['chosenBook']->getTitle()?></h3>
                 <h4><?=$data['chosenBook']->getAuthor()?></h4>
-                <h6 class="progress-title">Your progress: 0/320 pages</h6>
+                <h6 class="progress-title">Your progress: 0/<?=$data['chosenBook']->getPages()?> pages</h6>
                 <div class="progress">
                     <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
@@ -54,6 +54,7 @@
                     </tr>
                 </table>
                 <!--<button type="button" class="btn button-status">Add to list</button>-->
+
                 <div class="btn-group">
                     <button id="statusButton" type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <?php if ($data['bookStatus'] == null) : ?>
@@ -83,7 +84,7 @@
                 </div>
 
                 <div class="col lock-review-col">
-                    <p class="lock-review-text"><i class="bi bi-chat-left-text"></i>Sign in to write a review</p>
+                    <p class="lock-review-text">Sign in to write a review</p>
                 </div>
             <?php } ?>
 
