@@ -45,6 +45,13 @@ body{
     margin-bottom: 15px;
 }
 
+.reading-list-row{
+    background-color: white;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    padding: 15px 20px;
+}
+
 .bio-text{
     margin:0;
     padding: 20px;
@@ -108,6 +115,18 @@ body{
     margin-right: 40px;
     background-color: white;*/
     border-radius: 15px;
+}
+
+.list-reading-row{
+    margin-bottom: 0;
+}
+
+.list-read-row{
+    margin-bottom: 0;
+}
+
+.list-planning-row{
+    margin-bottom: 0;
 }
 
 .book-list-row{

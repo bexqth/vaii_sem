@@ -97,5 +97,11 @@ body{
     }
 }
 
+@media (min-width: 1440px) {
+    .review-text {
+        height: 200px;
+    }
+}
+
 
 

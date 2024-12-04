@@ -101,7 +101,7 @@
         </div>
 
         <?php foreach ($data['chosenBookReviews'] as $review) : ?>
-            <div class="row review-item-row">
+            <div class="row profile-bio-row review-item-row">
                 <div class="col-3 col-sm-3 col-md-1 col-lg-1">
                     <img class="review-image" src="https://img.freepik.com/free-vector/young-bearded-man_24877-82119.jpg?t=st=1729269110~exp=1729272710~hmac=5aa0e1a15e8903f3a823c43f12e069450343e0ff3ac8dc6bde57761725b4da1d&w=826" alt="">
                 </div>

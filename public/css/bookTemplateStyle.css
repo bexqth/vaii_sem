@@ -1,12 +1,18 @@
 body{
-    background-color: white;
+    background-color: #faf5f3;
 }
 
 .book-row{
     margin-top: 40px;
+        background-color: white;
+        border-radius: 15px;
+        margin-bottom: 15px;
+    padding: 20px;
 }
 
 .book-cover{
+    border-radius: 15px;
+    margin-bottom: 15px;
     width: 100%;
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
 }
@@ -28,12 +34,19 @@ body{
 .lock-review-row{
     background-color: #e9ecef;
     height: 50px;
+    margin-bottom: 20px;
 }
 
 .lock-review-text{
     color: #a4b2c1;
     font-weight: bold;
     margin-top:10px;
+}
+
+.profile-bio-row{
+    background-color: white;
+    border-radius: 15px;
+    margin-bottom: 15px;
 }
 
 .lock-review-image{
