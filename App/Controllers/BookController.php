@@ -59,6 +59,8 @@ class BookController extends AControllerBase
                 $readingList->setStatus($listName);
 
                 $readingList->save();
+                $message = 'Book added to reading list successfully';
+                return $this->json($message);
             } else {
                 $readingList = $inList[0];
                 if($readingList->getStatus() != $listName) {
@@ -74,11 +76,14 @@ class BookController extends AControllerBase
                     $newList->setStatus($listName);
 
                     $newList->save();
+                    $message = 'Book status updated successfully';
+                    return $this->json(['message' => $message]);
                 }
 
             }
-            return new EmptyResponse();
+            $message = 'Book already in the specified list';
+            return $this->json(['message' => $message]);
         }
-        throw new HTTPException(400, 'Error');
+        throw new HTTPException(400, 'Invalid request data');
     }
 }

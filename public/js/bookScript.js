@@ -16,25 +16,35 @@ function updateButtonStatus(i) {
 
 
 async function addToReading(option, bookId, list) {
-
     let url = "http://127.0.0.1:88/?c=book&a=setBookStatus";
     let body = {
-        "bookId" : bookId,
-        "list" : list,
+        "bookId": bookId,
+        "list": list,
     };
 
-    updateButtonStatus(option);
-    let response = await fetch(
-        url, // URL to the action
-        {
+    try {
+        let response = await fetch(url, {
             method: "POST",
             body: JSON.stringify(body),
-            headers: { // Set headers for JSON communication
-                "Content-type": "application/json", // Send JSON
-                "Accept": "application/json", // Accept only JSON as response
+            headers: {
+                "Content-type": "application/json",
+                "Accept": "application/json",
             }
+        });
 
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
-    )
+
+        updateButtonStatus(option);
+        const data = await response.json();
+        alert(data.message);
+
+    } catch (error) {
+        console.error('Fetch error:', error);
+        //alert(response.text());
+
+    }
 }
+
 
