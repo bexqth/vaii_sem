@@ -75,13 +75,16 @@ body{
     background-color: #17A2B8; /* Custom color */
 }
 
+.list-col{
+    padding-left: 30px;
+}
 
 .book-list-image-col{
     display: flex;
     align-items: center;
     justify-content: flex-end;
     padding: 0;
-    width: 40px;
+    width: 40px; /*JUST FOR NOW NEEDS TO BE CHANGES IN THE FUTURE*/
 }
 
 .book-list-image{
@@ -108,7 +111,7 @@ body{
 }
 
 .book-list-row{
-    margin-left: 60px;
+    margin-left: 10px;
     margin-bottom: 10px;
 }
 

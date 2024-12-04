@@ -38,11 +38,30 @@ async function addToReading(option, bookId, list) {
 
         updateButtonStatus(option);
         const data = await response.json();
-        alert(data.message);
+
+        const successMessageDiv = document.getElementById('successMessage');
+        successMessageDiv.innerText = data.message;
+        successMessageDiv.style.display = 'block';
+
+        setTimeout(() => {
+            successMessageDiv.style.display = 'none';
+        }, 3500);
+
+        const errorMessageDiv = document.getElementById('errorMessage');
+        errorMessageDiv.style.display = 'none';
+
 
     } catch (error) {
-        console.error('Fetch error:', error);
-        //alert(response.text());
+        const errorMessageDiv = document.getElementById('errorMessage');
+        errorMessageDiv.innerText = 'An error occurred while updating the book status. Please try again later.';
+        errorMessageDiv.style.display = 'block';
+
+        setTimeout(() => {
+            errorMessageDiv.style.display = 'none';
+        }, 3500);
+
+        const successMessageDiv = document.getElementById('successMessage');
+        successMessageDiv.style.display = 'none';
 
     }
 }

@@ -24,6 +24,16 @@
     <div class="col-md-2 col-lg-2"></div>
 
     <div class="col-sm-12 col-md-8 col-lg-8 books-col">
+
+        <div id="successMessage" class="alert alert-success" style="display: none;">
+
+        </div>
+
+        <div id="errorMessage" class="alert alert-danger" style="display: none;">
+
+        </div>
+
+
         <div class="row book-row">
             <div class="col-sm-12 col-md-3 col-lg-3">
                 <img src="<?=$data['chosenBook']->getCoverUrl()?>" class="book-cover" alt="">
@@ -64,9 +74,9 @@
                         <?php endif; ?>
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <button id="readingButton" class="dropdown-item" type="button" onclick="addToReading(1, <?=$data['chosenBook']->getId()?>, 'Reading')">Set as reading</button>
-                        <button id="finishedButton" class="dropdown-item" type="button" onclick="addToReading(2, <?=$data['chosenBook']->getId()?>, 'Finished')">Set as finished</button>
-                        <button id="planningButton" class="dropdown-item" type="button" onclick="addToReading(3, <?=$data['chosenBook']->getId()?>, 'Planning')">Set as planning</button>
+                        <button id="readingButton" class="dropdown-item" type="button" onclick="addToReading(1, <?=$data['chosenBook']->getId()?>, 'reading')">Set as reading</button>
+                        <button id="finishedButton" class="dropdown-item" type="button" onclick="addToReading(2, <?=$data['chosenBook']->getId()?>, 'finished')">Set as finished</button>
+                        <button id="planningButton" class="dropdown-item" type="button" onclick="addToReading(3, <?=$data['chosenBook']->getId()?>, 'planning')">Set as planning</button>
                     </div>
                 </div>
 

@@ -60,7 +60,7 @@ class BookController extends AControllerBase
 
                 $readingList->save();
                 $message = 'Book added to reading list successfully';
-                return $this->json($message);
+                return $this->json(['message' => $message]);
             } else {
                 $readingList = $inList[0];
                 if($readingList->getStatus() != $listName) {
