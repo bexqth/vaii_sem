@@ -28,7 +28,14 @@ class BookController extends AControllerBase
         $userId = $this->app->getAuth()->getLoggedUserId();
 
         $readingProgresses = Readingprogress::getAll('book_id = ? AND user_id = ?', [$chosenBookId, $userId]);
-        $readingProgress = $readingProgresses[0];
+
+        if($readingProgresses == null) {
+            $progressPercentage = 0;
+            $readingProgress = null;
+        } else {
+            $readingProgress = $readingProgresses[0];
+            $progressPercentage = ($readingProgress->getPagesRead() / $chosenBook->getPages()) * 100;
+        }
 
         if ($readingLists == null) {
             $bookStatus = null;
@@ -37,7 +44,7 @@ class BookController extends AControllerBase
             $bookStatus = $readingList->getStatus();
         }
 
-        return $this->html(["chosenBook" => $chosenBook, "chosenBookReviews" => $chosenBookReviews, "bookStatus" => $bookStatus, "readingProgress" => $readingProgress]);
+        return $this->html(["chosenBook" => $chosenBook, "chosenBookReviews" => $chosenBookReviews, "bookStatus" => $bookStatus, "readingProgress" => $readingProgress, "progressPercentage" => $progressPercentage]);
     }
 
     /**

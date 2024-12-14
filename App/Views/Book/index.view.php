@@ -40,14 +40,24 @@
                 <h3><?=$data['chosenBook']->getTitle()?></h3>
                 <h4><?=$data['chosenBook']->getAuthor()?></h4>
 
-                <h6 class="progress-title">Your progress: <input type="number" id="pagesReadInput" name="pagesRead" class="progress-input" value="0" min="0" readonly>
+                <h6 class="progress-title">Your progress:
+
+                    <?php if ($data['readingProgress'] == null) : ?>
+                        <input type="number" id="pagesReadInput" name="pagesRead" class="progress-input" value="0" min="0" readonly>
+                    <?php else : ?>
+                        <input type="number" id="pagesReadInput" name="pagesRead" class="progress-input" value=<?=$data["readingProgress"]->getPagesRead()?> min="0" readonly>
+                    <?php endif; ?>
+
                     /<?= $data['chosenBook']->getPages() ?> pages
-                    <button id="editPagesButton" class="btn btn-sm editPagesButton" onclick="updateProgress(<?=$data['chosenBook']->getId()?>)"><i class="bi bi-plus-lg"></i></button>
+                    <button id="editPagesButton" class="btn btn-sm editPagesButton" onclick="updateProgress(<?=$data['chosenBook']->getId()?>, <?=$data["chosenBook"]->getPages()?>)"><i class="bi bi-plus-lg"></i></button>
                 </h6>
 
                 <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="<?= $data['chosenBook']->getPages() ?>"></div>
+                    <div class="progress-bar" id="progressBar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="<?= $data['chosenBook']->getPages() ?>"
+                         style="width: <?= $data['progressPercentage']?>%">
+                    </div>
                 </div>
+
                 <p class="book-description"><?=$data['chosenBook']->getDescription()?></p>
                 <table>
                     <tr>

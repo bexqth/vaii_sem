@@ -14,16 +14,16 @@ function updateButtonStatus(i) {
     }
 }
 
-let edited = false;
-function updateProgress (bookId) {
 
+let edited = false;
+function updateProgress (bookId, maxPages) {
     if(!edited) {
         //edit
         editProgress();
         edited = true;
 
     } else {
-        saveProgress(bookId);
+        saveProgress(bookId, maxPages);
         edited = false;
     }
 }
@@ -36,13 +36,19 @@ function editProgress() {
     editButton.innerHTML = '<i class="bi bi-check2-circle"></i>';
 }
 
-async function saveProgress(bookId) {
+async function saveProgress(bookId, maxPages) {
     let editButton = document.getElementById("editPagesButton");
     let readPagesInput = document.getElementById("pagesReadInput");
+    let progressBar = document.getElementById("progressBar");
     readPagesInput.setAttribute('readonly', 'readonly');
     readPagesInput.style.border = "none"
     editButton.innerHTML = '<i class="bi bi-plus-lg"></i>';
     let pages = readPagesInput.value;
+
+    let totalPages = maxPages;
+    let progressPercentage = (pages / totalPages) * 100;
+    progressBar.style.width = progressPercentage + '%';
+
 
     let url = "http://127.0.0.1:88/?c=readingprogress&a=editReadingProgress";
     let body = {
