@@ -59,7 +59,7 @@
                         </div>
                         <div class="row">
                             <?php if ($data["review"] == null) { ?>
-                                <textarea id="review_text" name="review_text" class="review-text"></textarea><br>
+                                <textarea id="review_text" name="review_text" class="review-text" required></textarea><br>
                             <?php } else { ?>
                                 <textarea id="review_text" name="review_text" class="review-text" required><?= $data["review"]->getReviewText()?></textarea><br>
                             <?php } ?>

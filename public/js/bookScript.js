@@ -14,6 +14,36 @@ function updateButtonStatus(i) {
     }
 }
 
+let edited = false;
+function updateProgress () {
+
+    if(!edited) {
+        //edit
+        editProgress();
+        edited = true;
+
+    } else {
+        saveProgress();
+        edited = false;
+    }
+}
+
+function editProgress() {
+    let readPagesInput = document.getElementById("pagesReadInput");
+    readPagesInput.removeAttribute("readonly");
+    readPagesInput.style.border = "#cb967e 2px solid"
+    let editButton = document.getElementById("editPagesButton");
+    editButton.innerHTML = '<i class="bi bi-check2-circle"></i>';
+}
+
+function saveProgress() {
+    let editButton = document.getElementById("editPagesButton");
+    let readPagesInput = document.getElementById("pagesReadInput");
+    readPagesInput.setAttribute('readonly', 'readonly');
+    readPagesInput.style.border = "none"
+    editButton.innerHTML = '<i class="bi bi-plus-lg"></i>';
+}
+
 
 async function addToReading(option, bookId, list) {
     let url = "http://127.0.0.1:88/?c=book&a=setBookStatus";

@@ -71,6 +71,15 @@ body{
     height: 25px;
 }
 
+.progress-input{
+    width: 4ch;
+    border: none;
+}
+
+.savePagesButton{
+    display: none;
+}
+
 table{
     width:100%;
 }

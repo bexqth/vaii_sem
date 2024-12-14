@@ -39,9 +39,14 @@
             <div class="col-sm-12 col-md-9 col-lg-9">
                 <h3><?=$data['chosenBook']->getTitle()?></h3>
                 <h4><?=$data['chosenBook']->getAuthor()?></h4>
-                <h6 class="progress-title">Your progress: 0/<?=$data['chosenBook']->getPages()?> pages</h6>
+
+                <h6 class="progress-title">Your progress: <input type="number" id="pagesReadInput" name="pagesRead" class="progress-input" value="0" min="0" readonly>
+                    /<?= $data['chosenBook']->getPages() ?> pages
+                    <button id="editPagesButton" class="btn btn-sm editPagesButton" onclick="updateProgress()"><i class="bi bi-plus-lg"></i></button>
+                </h6>
+
                 <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="<?= $data['chosenBook']->getPages() ?>"></div>
                 </div>
                 <p class="book-description"><?=$data['chosenBook']->getDescription()?></p>
                 <table>
