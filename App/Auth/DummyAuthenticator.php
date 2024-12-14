@@ -83,8 +83,13 @@ class DummyAuthenticator implements IAuthenticator
      * Return the id of the logged-in user
      * @return mixed
      */
-    public function getLoggedUserId(): mixed
+    /*public function getLoggedUserId(): mixed
     {
         return $_SESSION['user'];
+    }*/
+    public function getLoggedUserId(): int
+    {
+        return isset($_SESSION['user_id']) ? $_SESSION['user_id'] : throw new \Exception("User not logged in");
     }
+
 }

@@ -16,16 +16,10 @@ class CustomAuthenticator extends DummyAuthenticator
             if(password_verify($password, $user->getPassword())) {
                 //$_SESSION['user'] = self::USERNAME;
                 $_SESSION['user'] = $user->getUsername();
+                $_SESSION['user_id'] = $user->getId();
                 return true;
             }
         }
         return false;
-
-        /*if ($login ==  $user->getUsername() && password_verify($password, self::PASSWORD_HASH)) {
-            $_SESSION['user'] = self::USERNAME;
-            return true;
-        } else {
-            return false;
-        }*/
     }
 }

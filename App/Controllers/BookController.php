@@ -6,6 +6,7 @@ use App\Core\AControllerBase;
 use App\Core\Responses\EmptyResponse;
 use App\Core\Responses\Response;
 use App\Models\Book;
+use App\Models\Readingprogress;
 use App\Models\Review;
 use App\Models\Readinglist;
 use App\Models\User;
@@ -23,6 +24,12 @@ class BookController extends AControllerBase
         $chosenBook = Book::getOne($chosenBookId);
         $chosenBookReviews = Review::getAll('book_id = ?', [$chosenBookId]);
         $readingLists = Readinglist::getAll('book_id = ?', [$chosenBookId]);
+
+        $userId = $this->app->getAuth()->getLoggedUserId();
+
+        $readingProgresses = Readingprogress::getAll('book_id = ? AND user_id = ?', [$chosenBookId, $userId]);
+        $readingProgress = $readingProgresses[0];
+
         if ($readingLists == null) {
             $bookStatus = null;
         } else {
@@ -30,8 +37,7 @@ class BookController extends AControllerBase
             $bookStatus = $readingList->getStatus();
         }
 
-
-        return $this->html(["chosenBook" => $chosenBook, "chosenBookReviews" => $chosenBookReviews, "bookStatus" => $bookStatus]);
+        return $this->html(["chosenBook" => $chosenBook, "chosenBookReviews" => $chosenBookReviews, "bookStatus" => $bookStatus, "readingProgress" => $readingProgress]);
     }
 
     /**

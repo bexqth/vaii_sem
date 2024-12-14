@@ -19,7 +19,7 @@ class ProfileController extends AControllerBase
     {
         $users = User::getAll('username = ?', [$this->app->getAuth()->getLoggedUserName()]);
         $user = $users[0];
-        $user = User::getOne($user->getId());
+        //$user = User::getOne($user->getId());
         $readingListReading = Readinglist::getAll('user_id = ? AND status = ?', [$user->getId(), 'reading']);
         $readingListFinished = Readinglist::getAll('user_id = ? AND status = ?', [$user->getId(), 'finished']);
         $readingListPlanning = Readinglist::getAll('user_id = ? AND status = ?', [$user->getId(), 'planning']);

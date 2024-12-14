@@ -51,4 +51,5 @@ class ReadingprogressController extends AControllerBase
             }
         }
     }
+
 }
