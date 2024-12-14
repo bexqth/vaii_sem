@@ -15,7 +15,7 @@ function updateButtonStatus(i) {
 }
 
 let edited = false;
-function updateProgress () {
+function updateProgress (bookId) {
 
     if(!edited) {
         //edit
@@ -23,7 +23,7 @@ function updateProgress () {
         edited = true;
 
     } else {
-        saveProgress();
+        saveProgress(bookId);
         edited = false;
     }
 }
@@ -36,12 +36,33 @@ function editProgress() {
     editButton.innerHTML = '<i class="bi bi-check2-circle"></i>';
 }
 
-function saveProgress() {
+async function saveProgress(bookId) {
     let editButton = document.getElementById("editPagesButton");
     let readPagesInput = document.getElementById("pagesReadInput");
     readPagesInput.setAttribute('readonly', 'readonly');
     readPagesInput.style.border = "none"
     editButton.innerHTML = '<i class="bi bi-plus-lg"></i>';
+    let pages = readPagesInput.value;
+
+    let url = "http://127.0.0.1:88/?c=readingprogress&a=editReadingProgress";
+    let body = {
+        "bookId": bookId,
+        "pages": pages,
+    };
+
+    let response = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: {
+            "Content-type": "application/json",
+            "Accept": "application/json",
+        }
+    });
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
 }
 
 

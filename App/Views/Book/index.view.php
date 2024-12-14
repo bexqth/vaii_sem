@@ -42,7 +42,7 @@
 
                 <h6 class="progress-title">Your progress: <input type="number" id="pagesReadInput" name="pagesRead" class="progress-input" value="0" min="0" readonly>
                     /<?= $data['chosenBook']->getPages() ?> pages
-                    <button id="editPagesButton" class="btn btn-sm editPagesButton" onclick="updateProgress()"><i class="bi bi-plus-lg"></i></button>
+                    <button id="editPagesButton" class="btn btn-sm editPagesButton" onclick="updateProgress(<?=$data['chosenBook']->getId()?>)"><i class="bi bi-plus-lg"></i></button>
                 </h6>
 
                 <div class="progress">
