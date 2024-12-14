@@ -81,7 +81,7 @@
                                         <p class="list-text"><?=$data['readingBooks'][$i]->getTitle()?></p>
                                     </div>
                                     <div class="col-md-2 col-lg-2 list-text-col">
-                                        <p class="list-text">0/<?=$data['readingBooks'][$i]->getPages()?></p>
+                                        <p class="list-text"><?=$data['readingProgresses'][$i]?>/<?=$data['readingBooks'][$i]->getPages()?></p>
                                     </div>
                                     <div class="col-md-2 col-lg-2 list-text-col">
                                         <?php if ($data['readingReviews'][$i] == null) : ?>
@@ -122,7 +122,7 @@
                                         <p class="list-text"><?=$data['finishedBooks'][$i]->getTitle()?></p>
                                     </div>
                                     <div class="col-lg-2 list-text-col">
-                                        <p class="list-text">0/<?=$data['finishedBooks'][$i]->getPages()?></p>
+                                        <p class="list-text"><?=$data['finishedProgresses'][$i]?>/<?=$data['finishedBooks'][$i]->getPages()?></p>
                                     </div>
                                     <div class="col-lg-2 list-text-col">
                                         <?php if ($data['finishedReviews'][$i] == null) : ?>
@@ -162,7 +162,7 @@
                                         <p class="list-text"><?=$data['planningBooks'][$i]->getTitle()?></p>
                                     </div>
                                     <div class="col-lg-2 list-text-col">
-                                        <p class="list-text">0/<?=$data['planningBooks'][$i]->getPages()?></p>
+                                        <p class="list-text"><?=$data['planningProgresses'][$i]?>/<?=$data['planningBooks'][$i]->getPages()?></p>
                                     </div>
                                     <div class="col-lg-2 list-text-col">
                                         <?php if ($data['planningReviews'][$i] == null) : ?>

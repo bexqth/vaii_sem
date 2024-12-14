@@ -6,6 +6,7 @@ use App\Core\AControllerBase;
 use App\Core\Responses\Response;
 use App\Models\Book;
 use App\Models\Readinglist;
+use App\Models\Readingprogress;
 use App\Models\Review;
 use App\Models\User;
 
@@ -32,10 +33,32 @@ class ProfileController extends AControllerBase
         $finishedReviews = $this->getReviewsFromBooks($finishedBooks);
         $planningReviews = $this->getReviewsFromBooks($planningBooks);
 
+        $readingProgresses = $this->getProgresses($readingBooks);
+        $finishedProgresses = $this->getProgresses($finishedBooks);
+        $planningProgresses = $this->getProgresses($planningBooks);
+
         return $this->html(['user' => $user, 'readingBooks' => $readingBooks, 'finishedBooks' => $finishedBooks, 'planningBooks' => $planningBooks,
-            'readingReviews' => $readingReviews, 'finishedReviews' => $finishedReviews, 'planningReviews' => $planningReviews,]);
+            'readingReviews' => $readingReviews, 'finishedReviews' => $finishedReviews, 'planningReviews' => $planningReviews,
+            "readingProgresses" => $readingProgresses, "finishedProgresses" => $finishedProgresses, "planningProgresses" => $planningProgresses]);
     }
 
+    public function getProgresses($books): array {
+        $user_id = $this->app->getAuth()->getLoggedUserId();
+        $progresses = [];
+        if($books != null) {
+            foreach ($books as $book) {
+                $progress = Readingprogress::getAll('book_id = ? AND user_id = ?', [$book->getId(), $user_id]);
+                if(count($progress) > 0) {
+                    $progresses[] = $progress[0]->getPagesRead();
+                } else {
+                    $progresses[] = 0;
+                }
+
+            }
+            return $progresses;
+        }
+        return $progresses;
+    }
 
     public function getBooksFromList($list): array
     {
