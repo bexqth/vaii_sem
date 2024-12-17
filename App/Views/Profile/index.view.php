@@ -22,7 +22,7 @@
 
     <div class="col-sm-12 col-md-8 col-lg-8 review-col">
         <div class="row banner-image-row">
-            <img src="https://i.pinimg.com/736x/59/6e/d1/596ed169ce00d8a7c611c93c92d66b37.jpg" class="banner-image" alt="Welcome Image">
+            <img src="https://i.pinimg.com/736x/59/6e/d1/596ed169ce00d8a7c611c93c92d66b37.jpg" class="banner-image" alt="...">
 
             <div class="row profile-picture-container">
                 <div class="col-lg-2">
@@ -182,6 +182,7 @@
         </div>
 
 
+        </div>
     </div>
 
     <div class="col-md-2 col-lg-2"></div>

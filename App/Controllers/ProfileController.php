@@ -86,4 +86,9 @@ class ProfileController extends AControllerBase
         }
         return $reviews;
     }
+
+    public function settings() : Response {
+        return $this->html();
+    }
 }
+

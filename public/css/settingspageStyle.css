@@ -1,0 +1,31 @@
+body{
+    background-color: #faf5f3;
+}
+
+.form-container{
+    background-color: white;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    padding: 20px;
+}
+
+.submit-button {
+    margin-top: 10px;
+    width: 100px;
+    height: 40px;
+    margin-left: 10px;
+    background-color: #f1948a;
+}
+
+label{
+    font-size: 20px;
+}
+
+.about-text{
+    height: 150px;
+    background-color: #faf5f3;
+    border-radius: 10px;
+    border: 2px solid #aaa;
+    resize: none;
+    margin-bottom: 10px;
+}

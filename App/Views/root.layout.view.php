@@ -33,9 +33,10 @@
                 <?= $auth->getLoggedUserName() ?>
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" href="<?= $link->url("profile.index") ?>">Profile</a>
-                <a class="dropdown-item" href="#">Notifications</a>
-                <a class="dropdown-item" href="<?= $link->url("auth.logout") ?>">Logout</a>
+                <a class="dropdown-item" href="<?= $link->url("profile.index") ?>"><i class="bi bi-person"></i>Profile</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-envelope"></i> Notifications</a>
+                <a class="dropdown-item" href="<?= $link->url("profile.settings") ?>"><i class="bi bi-gear"></i> Settings</a>
+                <a class="dropdown-item" href="<?= $link->url("auth.logout") ?>"><i class="bi bi-door-closed"></i>Logout</a>
             </div>
         </div>
 
