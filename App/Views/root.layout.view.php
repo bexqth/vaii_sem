@@ -28,20 +28,23 @@
     </li>
 
     <?php if ($auth->isLogged()) { ?>
-        <li class="nav-item">
-            <a class="nav-link" href="<?= $link->url("profile.index") ?>"><?= $auth->getLoggedUserName() ?></a>
-        </li>
+        <div class="dropdown show">
+            <a class="btn dropdown-button dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <?= $auth->getLoggedUserName() ?>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="<?= $link->url("profile.index") ?>">Profile</a>
+                <a class="dropdown-item" href="#">Notifications</a>
+                <a class="dropdown-item" href="<?= $link->url("auth.logout") ?>">Logout</a>
+            </div>
+        </div>
+
     <?php } else { ?>
         <li class="nav-item">
             <a class="nav-link" href="<?= $link->url("auth.login") ?>">Login</a>
         </li>
     <?php } ?>
 
-    <?php if ($auth->isLogged()) { ?>
-        <li class="nav-item">
-            <a class="nav-link" href="<?= $link->url("auth.logout") ?>">Log out</a>
-        </li>
-    <?php } ?>
 </ul>
 
 <div class="container-fluid mt-3">

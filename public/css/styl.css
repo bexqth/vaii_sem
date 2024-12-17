@@ -22,6 +22,16 @@
     left: 0;
 }
 
+.dropdown-button {
+    margin: 0;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    font-size: 20px !important;
+    height: 46px;
+    color: white !important;
+}
+
+
 @media (max-width: 575.98px) {
     .row{
         margin:0;

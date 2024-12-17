@@ -18,7 +18,6 @@ function updateButtonStatus(i) {
 let edited = false;
 function updateProgress (bookId, maxPages) {
     if(!edited) {
-        //edit
         editProgress();
         edited = true;
 
