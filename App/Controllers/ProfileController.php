@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Core\AControllerBase;
 use App\Core\Responses\Response;
 use App\Models\Book;
+use App\Models\Profile;
 use App\Models\Readinglist;
 use App\Models\Readingprogress;
 use App\Models\Review;
@@ -18,12 +19,16 @@ class ProfileController extends AControllerBase
      */
     public function index(): Response
     {
-        $users = User::getAll('username = ?', [$this->app->getAuth()->getLoggedUserName()]);
-        $user = $users[0];
+        //$users = User::getAll('username = ?', [$this->app->getAuth()->getLoggedUserName()]);
+        //$user = $users[0];
+        $user_id = $this->app->getAuth()->getLoggedUserId();
+        $user = User::getOne($user_id);
+        $user_profiles = Profile::getAll("user_id = ?", [$user_id]);
+        $user_profile = $user_profiles[0];
         //$user = User::getOne($user->getId());
-        $readingListReading = Readinglist::getAll('user_id = ? AND status = ?', [$user->getId(), 'reading']);
-        $readingListFinished = Readinglist::getAll('user_id = ? AND status = ?', [$user->getId(), 'finished']);
-        $readingListPlanning = Readinglist::getAll('user_id = ? AND status = ?', [$user->getId(), 'planning']);
+        $readingListReading = Readinglist::getAll('user_id = ? AND status = ?', [$user_id, 'reading']);
+        $readingListFinished = Readinglist::getAll('user_id = ? AND status = ?', [$user_id, 'finished']);
+        $readingListPlanning = Readinglist::getAll('user_id = ? AND status = ?', [$user_id, 'planning']);
 
         $readingBooks = $this->getBooksFromList($readingListReading);
         $finishedBooks = $this->getBooksFromList($readingListFinished);
@@ -39,7 +44,8 @@ class ProfileController extends AControllerBase
 
         return $this->html(['user' => $user, 'readingBooks' => $readingBooks, 'finishedBooks' => $finishedBooks, 'planningBooks' => $planningBooks,
             'readingReviews' => $readingReviews, 'finishedReviews' => $finishedReviews, 'planningReviews' => $planningReviews,
-            "readingProgresses" => $readingProgresses, "finishedProgresses" => $finishedProgresses, "planningProgresses" => $planningProgresses]);
+            "readingProgresses" => $readingProgresses, "finishedProgresses" => $finishedProgresses, "planningProgresses" => $planningProgresses,
+            "userProfile" => $user_profile]);
     }
 
     public function getProgresses($books): array {
@@ -88,7 +94,10 @@ class ProfileController extends AControllerBase
     }
 
     public function settings() : Response {
-        return $this->html();
+        $user_id = $this->app->getAuth()->getLoggedUserId();
+        $user_profiles = Profile::getAll("user_id = ?", [$user_id]);
+        $user_profile = $user_profiles[0];
+        return $this->html(["profile" => $user_profile]);
     }
 }
 

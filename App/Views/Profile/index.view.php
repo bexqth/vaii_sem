@@ -22,11 +22,22 @@
 
     <div class="col-sm-12 col-md-8 col-lg-8 review-col">
         <div class="row banner-image-row">
-            <img src="https://i.pinimg.com/736x/59/6e/d1/596ed169ce00d8a7c611c93c92d66b37.jpg" class="banner-image" alt="...">
+            <?php if($data['userProfile']->getBannerPicture() == null) :?>
+                <img src="https://live.staticflickr.com/3678/8986672784_bbf77b2aeb_b.jpg" class="banner-image" alt="...">
+            <?php else : ?>
+                <img src="" class="banner-image" alt="...">
+            <?php endif; ?>
+
 
             <div class="row profile-picture-container">
                 <div class="col-lg-2">
-                    <img src="https://i.pinimg.com/736x/e4/60/b6/e460b6c769d4d8ec53a17990ec1398a3.jpg" class="profile-picture" alt="...">
+
+                    <?php if($data['userProfile']->getProfilePicture() == null) :?>
+                        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="profile-picture" alt="...">
+                    <?php else : ?>
+                        <img src="https://i.pinimg.com/736x/e4/60/b6/e460b6c769d4d8ec53a17990ec1398a3.jpg" class="profile-picture" alt="...">
+                    <?php endif; ?>
+
                 </div>
                 <div class="col-lg-10">
                     <h2 class="user-name"><?=$data['user']->getUsername()?></h2>
@@ -39,10 +50,7 @@
         <div class="row content-row">
             <div class="col-lg-3">
                 <div class="row profile-bio-row">
-                    <p class="bio-text">Hello! I'm John, a passionate software developer with over 10 years of experience.
-                        I love coding, hiking, and spending time with my family.
-                        Always eager to learn new technologies and take on exciting challenges.
-                        Let's connect and build something amazing together!
+                    <p class="bio-text"> <?= $data['userProfile']->getBio()?>
                     </p>
                 </div>
 

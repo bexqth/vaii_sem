@@ -30,7 +30,7 @@
                         <label for="about_text">About</label>
                     </div>
                     <div class="row">
-                        <textarea id="about_text" name="about_text" class="about-text" required></textarea><br>
+                        <textarea id="about_text" name="about_text" class="about-text" required><?= $data["profile"]->getBio()?></textarea>
                     </div>
 
                 </div>
@@ -39,13 +39,13 @@
                     <h5>Profile picture</h5>
                     <p>Allowed Formats: JPEG, PNG. Max size: 3mb. Optimal dimensions: 230x230</p>
 
-                    <div class="row">
+                    <div class="row profile-picture-row">
                         <div class="col">
-
+                            <div id="drop-zone" class="drop-zone-profile-picture">Drop an image here</div>
                         </div>
 
                         <div class="col">
-                            <img src="https://i.pinimg.com/736x/e4/60/b6/e460b6c769d4d8ec53a17990ec1398a3.jpg" class="profile-picture" alt="...">
+                            <img id="profile-picture" src="https://i.pinimg.com/736x/e4/60/b6/e460b6c769d4d8ec53a17990ec1398a3.jpg" class="profile-picture" alt="...">
                         </div>
 
                     </div>
@@ -55,12 +55,12 @@
                     <h5>Banner</h5>
                     <p>Allowed Formats: JPEG, PNG. Max size: 6mb. Optimal dimensions: 1700x330</p>
 
-                    <div class="row">
-                        <div class="col">
-
+                    <div class="row profile-banner-row">
+                        <div>
+                            <div id="drop-zone" class="drop-zone-banner-picture">Drop an image here</div>
                         </div>
 
-                        <div class="col">
+                        <div class="current-banner">
                             <img src="https://i.pinimg.com/736x/59/6e/d1/596ed169ce00d8a7c611c93c92d66b37.jpg" class="banner-image" alt="...">
                         </div>
 
@@ -78,5 +78,8 @@
 
     <div class="col-md-4 col-lg-4"></div>
 
+
+    <script src="public/js/settingsScript.js"></script>
 </body>
+
 </html>
