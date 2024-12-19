@@ -1,0 +1,71 @@
+let formData = new FormData();
+let bio;
+let newProfilePicture;
+let newBannerPicture;
+
+document.addEventListener('DOMContentLoaded', function () {
+    const dropZone = document.getElementById('drop-zone-profile-picture');
+    const profilePicture = document.getElementById('profile-picture');
+
+    const dropZoneBanner = document.getElementById('drop-zone-banner');
+    const bannerImage = document.getElementById('banner-image');
+
+    // Profile Picture Drop Zone
+    dropZone.addEventListener('dragover', (event) => {
+        event.preventDefault(); // Prevents the default browser behavior
+        event.dataTransfer.dropEffect = 'copy'; // Indicates the drop effect
+    });
+
+    dropZone.addEventListener('drop', (event) => {
+        event.preventDefault(); // Prevents the default drop action
+        const file = event.dataTransfer.files[0];
+        if (file && file.type.startsWith('image/')) {
+            const url = URL.createObjectURL(file); // Creates a temporary URL for the file
+            profilePicture.src = url; // Sets the profile picture to the dropped image
+            newProfilePicture = event.dataTransfer.files[0]; // Stores the file for later use
+        } else {
+            alert('Please drop an image file.');
+        }
+    });
+
+    // Banner Picture Drop Zone
+    dropZoneBanner.addEventListener('dragover', (event) => {
+        event.preventDefault(); // Prevents the default browser behavior
+        event.dataTransfer.dropEffect = 'copy'; // Indicates the drop effect
+    });
+
+    dropZoneBanner.addEventListener('drop', (event) => {
+        event.preventDefault(); // Prevents the default drop action
+        const file = event.dataTransfer.files[0];
+        if (file && file.type.startsWith('image/')) {
+            const url = URL.createObjectURL(file); // Creates a temporary URL for the file
+            bannerImage.src = url; // Sets the banner image to the dropped image
+            newBannerPicture = event.dataTransfer.files[0]; // Stores the file for later use
+        } else {
+            alert('Please drop an image file.');
+        }
+    });
+});
+
+async function sendFormData() {
+    bio = document.getElementById("about_text").value;
+    formData.append("bio", bio);
+    formData.append("profile_picture", newProfilePicture);
+    formData.append("banner_picture", newBannerPicture);
+
+    let url = "http://127.0.0.1:88/?c=profile&a=editProfile";
+
+    let response = await fetch(url, {
+        method: "POST",
+        body: formData,
+    });
+
+    if (response.ok) {
+        console.log('Data sent successfully');
+    } else {
+        console.error('Error sending data:', response.statusText);
+    }
+
+    const data = await response.json();
+}
+

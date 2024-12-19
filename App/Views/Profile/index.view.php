@@ -25,7 +25,7 @@
             <?php if($data['userProfile']->getBannerPicture() == null) :?>
                 <img src="https://live.staticflickr.com/3678/8986672784_bbf77b2aeb_b.jpg" class="banner-image" alt="...">
             <?php else : ?>
-                <img src="" class="banner-image" alt="...">
+                <img src="<?= $data['userProfile']->getBannerPicture()?>" class="banner-image" alt="...">
             <?php endif; ?>
 
 
@@ -35,7 +35,7 @@
                     <?php if($data['userProfile']->getProfilePicture() == null) :?>
                         <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="profile-picture" alt="...">
                     <?php else : ?>
-                        <img src="https://i.pinimg.com/736x/e4/60/b6/e460b6c769d4d8ec53a17990ec1398a3.jpg" class="profile-picture" alt="...">
+                        <img src="<?= $data['userProfile']->getProfilePicture()?>" class="profile-picture" alt="...">
                     <?php endif; ?>
 
                 </div>

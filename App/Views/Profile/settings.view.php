@@ -41,11 +41,11 @@
 
                     <div class="row profile-picture-row">
                         <div class="col">
-                            <div id="drop-zone" class="drop-zone-profile-picture">Drop an image here</div>
+                            <div id="drop-zone-profile-picture" class="drop-zone-profile-picture">Drop an image here</div>
                         </div>
 
                         <div class="col">
-                            <img id="profile-picture" src="https://i.pinimg.com/736x/e4/60/b6/e460b6c769d4d8ec53a17990ec1398a3.jpg" class="profile-picture" alt="...">
+                            <img id="profile-picture" src="<?= $data["profile"]->getProfilePicture()?>" class="profile-picture" alt="...">
                         </div>
 
                     </div>
@@ -57,18 +57,18 @@
 
                     <div class="row profile-banner-row">
                         <div>
-                            <div id="drop-zone" class="drop-zone-banner-picture">Drop an image here</div>
+                            <div id="drop-zone-banner" class="drop-zone-banner-picture">Drop an image here</div>
                         </div>
 
                         <div class="current-banner">
-                            <img src="https://i.pinimg.com/736x/59/6e/d1/596ed169ce00d8a7c611c93c92d66b37.jpg" class="banner-image" alt="...">
+                            <img id="banner-image" src="<?= $data["profile"]->getBannerPicture()?>" class="banner-image" alt="...">
                         </div>
 
                     </div>
                 </div>
 
                 <div class="row">
-                    <button type="submit" name="submit" class="btn submit-button">Submit</button>
+                    <button type="submit" name="submit" class="btn submit-button" onclick="sendFormData()">Submit</button>
                 </div>
             </form>
 

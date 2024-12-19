@@ -99,5 +99,43 @@ class ProfileController extends AControllerBase
         $user_profile = $user_profiles[0];
         return $this->html(["profile" => $user_profile]);
     }
+
+    /**
+     * @throws \Exception
+     */
+    public function editProfile() : Response {
+        $data = $this->app->getRequest()->getFiles();
+        $profile_pic = $this->app->getRequest()->getFiles()["profile_picture"];
+        $banner_pic = $this->app->getRequest()->getFiles()["banner_picture"];
+        $bio = $this->app->getRequest()->getValue("bio");
+        $profile_pic_content = null;
+        $banner_pic_content = null;
+
+        if (isset($data["profile_picture"])) {
+            $profile_pic = $data["profile_picture"]['tmp_name'];
+            $profile_pic_content = file_get_contents($profile_pic);
+        }
+
+        // Check if banner picture is uploaded and get its temporary file path
+        if (isset($data["banner_picture"])) {
+            $banner_pic = $data["banner_picture"]['tmp_name'];
+            $banner_pic_content = file_get_contents($banner_pic);
+        }
+
+        $user_id = $this->app->getAuth()->getLoggedUserId();
+        $user_profiles = Profile::getAll("user_id = ?", [$user_id]);
+        $user_profile = $user_profiles[0];
+
+        $user_profile->setBio($bio);
+        if ($profile_pic_content !== null) {
+            $user_profile->setProfilePicture($profile_pic_content);
+        }
+        if ($banner_pic_content !== null) {
+            $user_profile->setBannerPicture($banner_pic_content);
+        }
+        $user_profile->save();
+        $message = 'Book added to reading list successfully';
+        return $this->json(['message' => $message]);
+    }
 }
 

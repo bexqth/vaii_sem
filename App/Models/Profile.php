@@ -45,7 +45,10 @@ class Profile extends Model
 
     public function getProfilePicture(): ?string
     {
-        return $this->profile_picture;
+        if ($this->profile_picture) {
+            return 'data:image/jpeg;base64,' . base64_encode($this->profile_picture);
+        }
+        return null;
     }
 
     public function setProfilePicture(?string $profile_picture): void
@@ -55,7 +58,10 @@ class Profile extends Model
 
     public function getBannerPicture(): ?string
     {
-        return $this->banner_picture;
+        if ($this->banner_picture) {
+            return 'data:image/jpeg;base64,' . base64_encode($this->banner_picture);
+        }
+        return null;
     }
 
     public function setBannerPicture(?string $banner_picture): void
