@@ -45,7 +45,13 @@
                         </div>
 
                         <div class="col">
-                            <img id="profile-picture" src="<?= $data["profile"]->getProfilePicture()?>" class="profile-picture" alt="...">
+
+                            <?php if($data['profile']->getProfilePicture() == null) :?>
+                                <img id="profile-picture" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="profile-picture" alt="...">
+                            <?php else : ?>
+                                <img id="profile-picture" src="<?= $data["profile"]->getProfilePicture()?>" class="profile-picture" alt="...">
+                            <?php endif; ?>
+
                         </div>
 
                     </div>
@@ -61,7 +67,12 @@
                         </div>
 
                         <div class="current-banner">
-                            <img id="banner-image" src="<?= $data["profile"]->getBannerPicture()?>" class="banner-image" alt="...">
+                            <?php if($data['profile']->getBannerPicture() == null) :?>
+                                <img id="banner-image" src="https://live.staticflickr.com/3678/8986672784_bbf77b2aeb_b.jpg" class="banner-image" alt="...">
+                            <?php else : ?>
+                                <img id="banner-image" src="<?= $data["profile"]->getBannerPicture()?>" class="banner-image" alt="...">
+                            <?php endif; ?>
+
                         </div>
 
                     </div>

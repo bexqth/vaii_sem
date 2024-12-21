@@ -20,9 +20,9 @@ document.addEventListener('DOMContentLoaded', function () {
         event.preventDefault(); // Prevents the default drop action
         const file = event.dataTransfer.files[0];
         if (file && file.type.startsWith('image/')) {
-            const url = URL.createObjectURL(file); // Creates a temporary URL for the file
-            profilePicture.src = url; // Sets the profile picture to the dropped image
-            newProfilePicture = event.dataTransfer.files[0]; // Stores the file for later use
+            const url = URL.createObjectURL(file);
+            profilePicture.src = url;
+            newProfilePicture = event.dataTransfer.files[0];
         } else {
             alert('Please drop an image file.');
         }

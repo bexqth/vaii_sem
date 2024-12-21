@@ -40,6 +40,7 @@ label{
     text-align: center;
     font-size: 16px;
     color: #666;
+    max-height: 340px;
 }
 
 h5{
@@ -48,9 +49,10 @@ h5{
 
 .profile-picture {
     width: 100%;
-    height: auto;
+    height: 100%;
     object-fit: cover;
     border-radius: 10px;
+    max-height: 340px;
 }
 
 .drop-zone-banner-picture{
@@ -73,6 +75,7 @@ h5{
 }
 
 .banner-image {
+    max-height: 235px;
     border-radius: 10px;
     width: 100%;  /* Ensure the image takes the full width of the container */
     height: auto;  /* Maintain aspect ratio */
