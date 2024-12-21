@@ -64,7 +64,7 @@
                 <?php foreach ($data['books'] as $book) : ?>
 
                 <div class="col">
-                    <div class="card">
+                    <div class="book-card card">
                         <a href="<?= $link->url("book.index", ["id" => $book->getId()]) ?>">
                             <img src="<?=$book->getCoverUrl()?>" class="card-img-top" alt="...">
                         </a>
@@ -78,7 +78,7 @@
 
                 <?php endforeach; ?>
 
-        </div>
+            </div>
 
         <div class="col-md-1 col-lg-1 right-border"></div>
 

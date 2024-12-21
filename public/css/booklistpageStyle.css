@@ -1,3 +1,22 @@
+body{
+    background-color: #faf5f3;
+}
+
+.book-card{
+    height: 100%;
+    padding: 20px;
+    background-color: white;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-img-top{
+    border-radius: 15px;
+    margin-bottom: 10px;
+    /*object-fit: cover;*/
+}
+
 .booklist-title-container{
     display: flex;
 }
