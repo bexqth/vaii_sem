@@ -28,38 +28,48 @@ class LoginController extends AControllerBase
 
     public function register() : Response
     {
-        return $this->html();
+        $message = $this->app->getRequest()->getValue('message');
+        return $this->html(["message" => $message]);
     }
 
     /**
      * @throws \Exception
      */
-    public function registerUser() : Response{
+    public function registerUser() : Response {
         $formData = $this->app->getRequest()->getPost();
-
         if(isset($formData['submit'])) {
+
+            $existingUser = User::getAll("username = ?", [$formData['username']]);
+            if (count($existingUser) > 0) {
+                $message = "Username already used, try another";
+                return $this->redirect($this->url("login.register", ["message" => $message]));
+            }
+
+            $existingUser = User::getAll("email = ?", [$formData['email']]);
+            if (count($existingUser) > 0) {
+                $message = "Email already used, try another";
+                return $this->redirect($this->url("login.register", ["message" => $message]));
+            }
+
             $newUser = new User();
             $newUser->setUsername($formData['username']);
             $newUser->setPassword(password_hash($formData['password'], PASSWORD_BCRYPT)); //hasovanie - https://www.php.net/manual/en/function.password-hash.php
             $newUser->setEmail($formData['email']);
-
-
             $newUser->save(); //ulozenie do databazky
 
-            if($newUser->getId() > 0) { //ci je v database
+            if($newUser->getId() > 0) { //user sa ulozil
                 $logged = $this->app->getAuth()->login($formData['username'], $formData['password']); //bool value if the user is logged in
                 if ($logged) {
                     return $this->redirect($this->url("booklist.index"));
                 }
 
             } else {
-                $data = ['message' => 'Failed to register user. Please try again.'];
-                return $this->html($data);
+                $message = "Unable to register, try again";
+                return $this->redirect($this->url("login.register", ["message" => $message]));
             }
-
         }
-        //return $this->html();
-        return $this->redirect($this->url("login.register"));
+        $message = "Unable to register, try again";
+        return $this->redirect($this->url("login.register", ["message" => $message]));
 
     }
 

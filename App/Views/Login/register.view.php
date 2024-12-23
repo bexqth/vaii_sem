@@ -17,7 +17,14 @@
 <body>
     <div class="container mt-5"> <div class="row justify-content-center">
             <div class="col-md-6"> <h2 class="text-center">Register</h2>
-                <form action="<?= $link->url('login.registerUser') ?>" method="post"> //kam to pojde a aka metoda - v tomto pripade post - odosielam udaje
+
+                <?php if ($data["message"] != null) { ?>
+                    <div class="alert alert-danger" role="alert">
+                        <?=$data["message"]?>
+                    </div>
+                <?php } ?>
+
+                <form action="<?= $link->url('login.registerUser') ?>" method="post">
 
                     <div class="mb-3">
                         <label for="email" class="form-label">Email address</label>
