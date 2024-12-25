@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Core\AControllerBase;
 use App\Core\Responses\Response;
+use App\Core\Responses\RedirectResponse;
 use App\Models\Book;
 use App\Models\Review;
 use App\Models\User;
@@ -26,6 +27,39 @@ class ReviewController extends AControllerBase
         $errorMessage = $this->request()->getValue("errorMessage");
 
         return $this->html(['chosenBook' => $chosenBook, "review" => $review, "errorMessage" => $errorMessage]);
+    }
+
+    public function authorize(string $action): bool
+    {
+        if ($this->app->getAuth()->isLogged()) {
+            $user = User::getOne($this->app->getAuth()->getLoggedUserId());
+
+            switch ($action) {
+                case 'add':
+                    return true;
+
+                case 'edit':
+                    $reviewId = $this->request()->getValue("id");
+                    $review = Review::getOne($reviewId);
+
+                    if($review->getUserId() == $user->getId() && $user->hasPermission("edit_review")) {
+                        return true;
+                    }
+                    return false;
+                case 'delete':
+                    $reviewId = $this->request()->getValue("id");
+                    $review = Review::getOne($reviewId);
+
+                    if($review->getUserId() == $user->getId() && $user->hasPermission("delete_review")) {
+                        return true;
+                    }
+                    return false;
+
+                default:
+                    return $this->app->getAuth()->isLogged();
+            }
+        }
+        return false;
     }
 
     /**
@@ -95,12 +129,14 @@ class ReviewController extends AControllerBase
         return $this->redirect($this->url("book.index", ["id" => $idBook]));
     }
 
-    public function edit() : Response {
+    public function edit(): Response
+    {
         $reviewId = $this->request()->getValue("id");
         $review = Review::getOne($reviewId);
         $chosenBookId = $review->getBookId();
         $chosenBook = Book::getOne($chosenBookId);
         //return $this->html(["chosenBook" => $chosenBook, "review" => $review]);
         return $this->redirect($this->url("review.index", ["id" => $chosenBookId, "reviewId" => $reviewId]));
+        //return new RedirectResponse($this->url("review.index", ["id" => $chosenBookId, "reviewId" => $reviewId]));
     }
 }

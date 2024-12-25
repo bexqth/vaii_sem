@@ -10,6 +10,7 @@ class User extends Model
     protected ?string $username;
     protected ?string $password;
     protected ?string $email;
+    protected ?int $role_id;
 
     public function getId(): int
     {
@@ -51,5 +52,24 @@ class User extends Model
         $this->email = $email;
     }
 
+    public function getRoleId(): ?int
+    {
+        return $this->role_id;
+    }
+
+    public function setRoleId(?int $role_id): void
+    {
+        $this->role_id = $role_id;
+    }
+
+    public function hasPermission($name): bool {
+        $permissions = Permission::getAll("name = ? ", [$name]);
+        $permission = $permissions[0];
+        $rolePermission = Rolepermission::getAll("role_id = ? AND permission_id = ?", [$this->role_id, $permission->getId()]);
+        if ($rolePermission != null) {
+            return true;
+        }
+        return false;
+    }
 
 }

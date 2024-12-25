@@ -25,9 +25,12 @@ class BookController extends AControllerBase
         $chosenBookReviews = Review::getAll('book_id = ?', [$chosenBookId]);
         $readingLists = Readinglist::getAll('book_id = ?', [$chosenBookId]);
 
-        $userId = $this->app->getAuth()->getLoggedUserId();
-
-        $readingProgresses = Readingprogress::getAll('book_id = ? AND user_id = ?', [$chosenBookId, $userId]);
+        if($this->app->getAuth()->isLogged()) { // DO THIS CONDITION WITHOUT IT, IT WILL CRASH
+            $userId = $this->app->getAuth()->getLoggedUserId();
+            $readingProgresses = Readingprogress::getAll('book_id = ? AND user_id = ?', [$chosenBookId, $userId]);
+        } else {
+            $readingProgresses = null;
+        }
 
         if($readingProgresses == null) {
             $progressPercentage = 0;
