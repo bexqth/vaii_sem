@@ -22,4 +22,12 @@ class CustomAuthenticator extends DummyAuthenticator
         }
         return false;
     }
+
+    /**
+     * @throws \Exception
+     */
+    public function isAdmin(): bool {
+        $user = User::getOne($this->getLoggedUserId());
+        return $user->getRoleId() === 2;
+    }
 }

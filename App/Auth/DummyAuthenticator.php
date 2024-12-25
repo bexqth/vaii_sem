@@ -92,4 +92,9 @@ class DummyAuthenticator implements IAuthenticator
         return isset($_SESSION['user_id']) ? $_SESSION['user_id'] : throw new \Exception("User not logged in");
     }
 
+    public function isAdmin(): bool
+    {
+        // TODO: Implement isAdmin() method.
+    }
+
 }

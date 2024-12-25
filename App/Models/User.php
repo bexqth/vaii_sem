@@ -62,6 +62,11 @@ class User extends Model
         $this->role_id = $role_id;
     }
 
+    public function getRole () {
+        $role = Role::getOne($this->role_id);
+        return $role;
+    }
+
     public function hasPermission($name): bool {
         $permissions = Permission::getAll("name = ? ", [$name]);
         $permission = $permissions[0];
@@ -70,6 +75,14 @@ class User extends Model
             return true;
         }
         return false;
+    }
+
+    public function isAdmin(): bool {
+        return $this->role_id === 2;
+    }
+
+    public function isUser(): bool {
+        return $this->role_id === 1;
     }
 
 }

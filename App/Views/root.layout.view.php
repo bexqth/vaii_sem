@@ -27,7 +27,7 @@
         <a class="nav-link" href="<?= $link->url("booklist.index") ?>">Booklist</a>
     </li>
 
-    <?php if ($auth->isLogged()) { ?>
+    <?php if ($auth->isLogged() && !$auth->isAdmin()) { ?>
         <div class="dropdown show">
             <a class="btn dropdown-button dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <?= $auth->getLoggedUserName() ?>
@@ -37,6 +37,18 @@
                 <a class="dropdown-item" href="#"><i class="bi bi-envelope"></i> Notifications</a>
                 <a class="dropdown-item" href="<?= $link->url("profile.settings") ?>"><i class="bi bi-gear"></i> Settings</a>
                 <a class="dropdown-item" href="<?= $link->url("auth.logout") ?>"><i class="bi bi-door-closed"></i>Logout</a>
+            </div>
+        </div>
+
+    <?php } else if ($auth->isLogged() && $auth->isAdmin()) { ?>
+        <div class="dropdown show">
+            <a class="btn dropdown-button dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <?= $auth->getLoggedUserName() ?>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="<?= $link->url("userlist.index") ?>"><i class="bi bi-people"></i> Users</a>
+                <a class="dropdown-item" href="<?= $link->url("profile.settings") ?>"><i class="bi bi-book"></i> New book</a>
+                <a class="dropdown-item" href="<?= $link->url("auth.logout") ?>"><i class="bi bi-bookmark-star"></i> New badge</a>
             </div>
         </div>
 
