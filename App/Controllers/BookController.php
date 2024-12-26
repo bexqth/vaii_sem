@@ -129,6 +129,7 @@ class BookController extends AControllerBase
             return $this->html(["chosenBook" => $chosenBook, "bookAuthors" => $bookAuthors, "bookGenres" => $bookGenres]);
         }
 
+
     }
 
 
@@ -144,6 +145,9 @@ class BookController extends AControllerBase
         $isbn = $this->app->getRequest()->getValue("isbn");
         $pages = $this->app->getRequest()->getValue("pages");
         $year = $this->app->getRequest()->getValue("year");
+
+
+
         $bookCoverContent = null;
         $modifiedBook = null;
 
@@ -179,7 +183,7 @@ class BookController extends AControllerBase
     /**
      * @throws \Exception
      */
-    public function deleteBook() {
+    public function delete() {
         $bookId = $this->request()->getValue("id");
         $book = Book::getOne($bookId);
         $book->delete();

@@ -97,7 +97,7 @@
                     </div>
                 <?php elseif ($auth->isLogged() && $auth->isAdmin()) : ?>
                     <a href="<?= $link->url('book.form', ['id' => $data['chosenBook']->getId()]) ?>" class="btn btn-primary"><i class="bi bi-pencil-fill"></i></a>
-                    <a href=""  class="btn btn-danger"><i class="bi bi-trash"></i></a>
+                    <a href="<?= $link->url('book.delete', ['id' => $data['chosenBook']->getId()]) ?>"  class="btn btn-danger"><i class="bi bi-trash"></i></a>
                 <?php endif; ?>
 
             </div>
