@@ -34,7 +34,7 @@
                     <tbody>
                     <?php foreach ($data['users'] as $user): ?>
                         <tr>
-                            <td><?= $user->getUsername() ?></td>
+                            <td><a href="<?= $link->url("userlist.useroverview", ["id" => $user->getId()]) ?>"><?= $user->getUsername() ?></a></td>
                             <td><?= $user->getRole()->getName() ?></td>
                         </tr>
                     <?php endforeach; ?>
