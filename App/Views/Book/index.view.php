@@ -40,23 +40,26 @@
                 <h3><?=$data['chosenBook']->getTitle()?></h3>
                 <h4><?=$data['bookAuthor']->getName()?></h4>
 
-                <h6 class="progress-title">Your progress:
+                <?php if ($auth->isLogged() && !$auth->isAdmin()) : ?>
+                    <h6 class="progress-title">Your progress:
 
-                    <?php if ($data['readingProgress'] == null) : ?>
-                        <input type="number" id="pagesReadInput" name="pagesRead" class="progress-input" value="0" min="0" readonly>
-                    <?php else : ?>
-                        <input type="number" id="pagesReadInput" name="pagesRead" class="progress-input" value=<?=$data["readingProgress"]->getPagesRead()?> min="0" readonly>
-                    <?php endif; ?>
+                        <?php if ($data['readingProgress'] == null) : ?>
+                            <input type="number" id="pagesReadInput" name="pagesRead" class="progress-input" value="0" min="0" readonly>
+                        <?php else : ?>
+                            <input type="number" id="pagesReadInput" name="pagesRead" class="progress-input" value=<?=$data["readingProgress"]->getPagesRead()?> min="0" readonly>
+                        <?php endif; ?>
 
-                    /<?= $data['chosenBook']->getPages() ?> pages
-                    <button id="editPagesButton" class="btn btn-sm editPagesButton" onclick="updateProgress(<?=$data['chosenBook']->getId()?>, <?=$data["chosenBook"]->getPages()?>)"><i class="bi bi-plus-lg"></i></button>
-                </h6>
+                        /<?= $data['chosenBook']->getPages() ?> pages
+                        <button id="editPagesButton" class="btn btn-sm editPagesButton" onclick="updateProgress(<?=$data['chosenBook']->getId()?>, <?=$data["chosenBook"]->getPages()?>)"><i class="bi bi-plus-lg"></i></button>
+                    </h6>
 
-                <div class="progress">
-                    <div class="progress-bar" id="progressBar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="<?= $data['chosenBook']->getPages() ?>"
-                         style="width: <?= $data['progressPercentage']?>%">
+                    <div class="progress">
+                        <div class="progress-bar" id="progressBar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="<?= $data['chosenBook']->getPages() ?>"
+                             style="width: <?= $data['progressPercentage']?>%">
+                        </div>
                     </div>
-                </div>
+
+                <?php endif; ?>
 
                 <p class="book-description"><?=$data['chosenBook']->getDescription()?></p>
                 <table>
@@ -76,20 +79,26 @@
                     </tr>
                 </table>
 
-                <div class="btn-group">
-                    <button id="statusButton" type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <?php if ($data['bookStatus'] == null) : ?>
-                            Set status
-                        <?php else : ?>
-                            <?=$data['bookStatus']?>
-                        <?php endif; ?>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <button id="readingButton" class="dropdown-item" type="button" onclick="addToReading(1, <?=$data['chosenBook']->getId()?>, 'reading')">Set as reading</button>
-                        <button id="finishedButton" class="dropdown-item" type="button" onclick="addToReading(2, <?=$data['chosenBook']->getId()?>, 'finished')">Set as finished</button>
-                        <button id="planningButton" class="dropdown-item" type="button" onclick="addToReading(3, <?=$data['chosenBook']->getId()?>, 'planning')">Set as planning</button>
+
+                <?php if ($auth->isLogged() && !$auth->isAdmin()) : ?>
+                    <div class="btn-group">
+                        <button id="statusButton" type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <?php if ($data['bookStatus'] == null) : ?>
+                                Set status
+                            <?php else : ?>
+                                <?=$data['bookStatus']?>
+                            <?php endif; ?>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <button id="readingButton" class="dropdown-item" type="button" onclick="addToReading(1, <?=$data['chosenBook']->getId()?>, 'reading')">Set as reading</button>
+                            <button id="finishedButton" class="dropdown-item" type="button" onclick="addToReading(2, <?=$data['chosenBook']->getId()?>, 'finished')">Set as finished</button>
+                            <button id="planningButton" class="dropdown-item" type="button" onclick="addToReading(3, <?=$data['chosenBook']->getId()?>, 'planning')">Set as planning</button>
+                        </div>
                     </div>
-                </div>
+                <?php elseif ($auth->isLogged() && $auth->isAdmin()) : ?>
+                    <a href="<?= $link->url('book.form', ['id' => $data['chosenBook']->getId()]) ?>" class="btn btn-primary"><i class="bi bi-pencil-fill"></i></a>
+                    <a href=""  class="btn btn-danger"><i class="bi bi-trash"></i></a>
+                <?php endif; ?>
 
             </div>
         </div>

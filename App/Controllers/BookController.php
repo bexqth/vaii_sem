@@ -22,12 +22,13 @@ class BookController extends AControllerBase
      */
     public function index(): Response
     {
+        //REFACOTR
         $chosenBookId = $this->request()->getValue("id");
         $chosenBook = Book::getOne($chosenBookId);
         $chosenBookReviews = Review::getAll('book_id = ?', [$chosenBookId]);
         $readingLists = Readinglist::getAll('book_id = ?', [$chosenBookId]);
 
-        if($this->app->getAuth()->isLogged()) { // DO THIS CONDITION WITHOUT IT, IT WILL CRASH
+        if($this->app->getAuth()->isLogged() && !$this->app->getAuth()->isAdmin()) { // DO THIS CONDITION WITHOUT IT, IT WILL CRASH
             $userId = $this->app->getAuth()->getLoggedUserId();
             $readingProgresses = Readingprogress::getAll('book_id = ? AND user_id = ?', [$chosenBookId, $userId]);
         } else {
@@ -110,6 +111,17 @@ class BookController extends AControllerBase
     }
 
 
+    public function form() {
+        $chosenBookId = $this->request()->getValue("id");
+        $chosenBook = Book::getOne($chosenBookId);
+        $bookAuthor = Author::getOne($chosenBook->getAuthorId());
+        $bookGenre = Genre::getOne($chosenBook->getGenreId());
+
+        $bookAuthors = Author::getAll();
+        $bookGenres = Genre::getAll();
+
+        return $this->html(["chosenBook" => $chosenBook, "bookAuthor" => $bookAuthor, "bookGenre" => $bookGenre, "bookAuthors" => $bookAuthors, "bookGenres" => $bookGenres]);
+    }
 
 
 }
