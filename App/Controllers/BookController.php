@@ -5,7 +5,9 @@ namespace App\Controllers;
 use App\Core\AControllerBase;
 use App\Core\Responses\EmptyResponse;
 use App\Core\Responses\Response;
+use App\Models\Author;
 use App\Models\Book;
+use App\Models\Genre;
 use App\Models\Readingprogress;
 use App\Models\Review;
 use App\Models\Readinglist;
@@ -47,7 +49,11 @@ class BookController extends AControllerBase
             $bookStatus = $readingList->getStatus();
         }
 
-        return $this->html(["chosenBook" => $chosenBook, "chosenBookReviews" => $chosenBookReviews, "bookStatus" => $bookStatus, "readingProgress" => $readingProgress, "progressPercentage" => $progressPercentage]);
+        $bookAuthor = Author::getOne($chosenBook->getAuthorId());
+        $bookGenre = Genre::getOne($chosenBook->getGenreId());
+
+        return $this->html(["chosenBook" => $chosenBook, "chosenBookReviews" => $chosenBookReviews, "bookStatus" => $bookStatus, "readingProgress" => $readingProgress, "progressPercentage" => $progressPercentage,
+            "bookAuthor" => $bookAuthor, "bookGenre" => $bookGenre]);
     }
 
     /**

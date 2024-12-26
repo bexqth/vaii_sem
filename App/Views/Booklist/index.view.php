@@ -61,22 +61,21 @@
 
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4 book-list-row">
 
-                <?php foreach ($data['books'] as $book) : ?>
-
-                <div class="col">
-                    <div class="book-card card">
-                        <a href="<?= $link->url("book.index", ["id" => $book->getId()]) ?>">
-                            <img src="<?=$book->getCoverUrl()?>" class="card-img-top" alt="...">
-                        </a>
-                        <div class="card-body">
-                            <h6 class="card-title"><?=$book->getTitle()?></h6>
-                            <p class="card-title"><?=$book->getAuthor()?></p>
+                <?php for($i = 0; $i < count($data['books']); $i++) : ?>
+                    <div class="col">
+                        <div class="book-card card">
+                            <a href="<?= $link->url("book.index", ["id" => $data['books'][$i]->getId()]) ?>">
+                                <img src="<?=$data['books'][$i]->getCoverUrl()?>" class="card-img-top" alt="...">
+                            </a>
+                            <div class="card-body">
+                                <h6 class="card-title"><?=$data['books'][$i]->getTitle()?></h6>
+                                <p class="card-title"><?=$data['authors'][$i]->getName()?></p>
+                            </div>
                         </div>
+
                     </div>
+                <?php endfor; ?>
 
-                </div>
-
-                <?php endforeach; ?>
 
             </div>
 

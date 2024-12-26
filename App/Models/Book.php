@@ -7,12 +7,33 @@ class Book extends Model
     protected int $id;
     protected int $isbn;
     protected string $title;
-    protected ?string $author;
     protected ?string $publication_date;
-    protected ?string $genre;
     protected ?string $cover_url;
     protected ?int $pages;
     protected ?string $description;
+    protected ?int $author_id;
+    protected ?int $genre_id;
+
+    public function getAuthorId(): ?int
+    {
+        return $this->author_id;
+    }
+
+    public function setAuthorId(?int $author_id): void
+    {
+        $this->author_id = $author_id;
+    }
+
+    public function getGenreId(): ?int
+    {
+        return $this->genre_id;
+    }
+
+    public function setGenreId(?int $genre_id): void
+    {
+        $this->genre_id = $genre_id;
+    }
+
 
     public function getIsbn(): int
     {
@@ -34,16 +55,6 @@ class Book extends Model
         $this->title = $title;
     }
 
-    public function getAuthor(): ?string
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(?string $author): void
-    {
-        $this->author = $author;
-    }
-
     public function getPublicationDate(): ?string
     {
         return $this->publication_date;
@@ -52,16 +63,6 @@ class Book extends Model
     public function setPublicationDate(?string $publication_date): void
     {
         $this->publication_date = $publication_date;
-    }
-
-    public function getGenre(): ?string
-    {
-        return $this->genre;
-    }
-
-    public function setGenre(?string $genre): void
-    {
-        $this->genre = $genre;
     }
 
     public function getCoverUrl(): ?string
@@ -103,6 +104,5 @@ class Book extends Model
     {
         $this->id = $id;
     }
-
 
 }

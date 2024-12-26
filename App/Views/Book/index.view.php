@@ -38,7 +38,7 @@
 
             <div class="col-sm-12 col-md-9 col-lg-9">
                 <h3><?=$data['chosenBook']->getTitle()?></h3>
-                <h4><?=$data['chosenBook']->getAuthor()?></h4>
+                <h4><?=$data['bookAuthor']->getName()?></h4>
 
                 <h6 class="progress-title">Your progress:
 
@@ -70,7 +70,7 @@
                     <tr>
                         <td><?=$data['chosenBook']->getPages()?></td>
                         <td>Paperback</td>
-                        <td><?=$data['chosenBook']->getGenre()?></td>
+                        <td><?=$data['bookGenre']->getName()?></td>
                         <td>English</td>
                         <td><?=$data['chosenBook']->getPublicationDate()?></td>
                     </tr>
