@@ -27,17 +27,13 @@ body{
     margin-bottom: 15px;
 }
 
-table{
-    width:100%;
-}
 
-th {
-    background-color: #e9ecef;
-}
+.table-responsive { overflow-x: auto; } .table { width: 100%; table-layout: fixed; }
 
-th, td {
+.table th, .table td {
     padding: 10px;
     text-align: center;
+    overflow: hidden;
 }
 
 .input-text{

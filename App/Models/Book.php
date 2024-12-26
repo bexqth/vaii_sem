@@ -67,7 +67,10 @@ class Book extends Model
 
     public function getCoverUrl(): ?string
     {
-        return $this->cover_url;
+        if ($this->cover_url) {
+            return 'data:image/jpeg;base64,' . base64_encode($this->cover_url);
+        }
+        return null;
     }
 
     public function setCoverUrl(?string $cover_url): void

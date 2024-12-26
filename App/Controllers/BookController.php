@@ -113,15 +113,79 @@ class BookController extends AControllerBase
 
     public function form() {
         $chosenBookId = $this->request()->getValue("id");
-        $chosenBook = Book::getOne($chosenBookId);
-        $bookAuthor = Author::getOne($chosenBook->getAuthorId());
-        $bookGenre = Genre::getOne($chosenBook->getGenreId());
+        if($chosenBookId !== null) {
+            $chosenBook = Book::getOne($chosenBookId);
+            $bookAuthor = Author::getOne($chosenBook->getAuthorId());
+            $bookGenre = Genre::getOne($chosenBook->getGenreId());
 
-        $bookAuthors = Author::getAll();
-        $bookGenres = Genre::getAll();
+            $bookAuthors = Author::getAll("name != ?", [$bookAuthor->getName()]);
+            $bookGenres = Genre::getAll("name != ?", [$bookGenre->getName()]);
 
-        return $this->html(["chosenBook" => $chosenBook, "bookAuthor" => $bookAuthor, "bookGenre" => $bookGenre, "bookAuthors" => $bookAuthors, "bookGenres" => $bookGenres]);
+            return $this->html(["chosenBook" => $chosenBook, "bookAuthor" => $bookAuthor, "bookGenre" => $bookGenre, "bookAuthors" => $bookAuthors, "bookGenres" => $bookGenres]);
+        } else {
+            $bookAuthors = Author::getAll();
+            $bookGenres = Genre::getAll();
+            $chosenBook = null;
+            return $this->html(["chosenBook" => $chosenBook, "bookAuthors" => $bookAuthors, "bookGenres" => $bookGenres]);
+        }
+
     }
+
+
+    /**
+     * @throws \Exception
+     */
+    public function submitBook() {
+        $data = $this->app->getRequest()->getFiles();
+        //$bookCover =  $this->app->getRequest()->getFiles()["bookCover"];
+        $title = $this->app->getRequest()->getValue("title");
+        $author = $this->app->getRequest()->getValue("author");
+        $genre = $this->app->getRequest()->getValue("genre");
+        $isbn = $this->app->getRequest()->getValue("isbn");
+        $pages = $this->app->getRequest()->getValue("pages");
+        $year = $this->app->getRequest()->getValue("year");
+        $bookCoverContent = null;
+        $modifiedBook = null;
+
+        if (isset($data["bookCover"])) {
+            $bookCover = $data["bookCover"]['tmp_name'];
+            $bookCoverContent = file_get_contents($bookCover);
+        }
+
+        $books = Book::getAll("isbn = ?", [$isbn]);
+        if($books == null) {
+            $modifiedBook = new Book();
+        } else {
+            $modifiedBook = $books[0];
+        }
+
+        $modifiedBook->setTitle($title);
+        $modifiedBook->setPages($pages);
+        $modifiedBook->setIsbn($isbn);
+        $modifiedBook->setPublicationDate($year);
+
+        $authorIds = Author::getAll("name = ?", [$author]);
+        $modifiedBook->setAuthorId($authorIds[0]->getId());
+
+        $genreIds = Genre::getAll("name = ?", [$genre]);
+        $modifiedBook->setGenreId($genreIds[0]->getId());
+
+        if ($bookCoverContent !== null) {
+            $modifiedBook->setCoverUrl($bookCoverContent);
+        }
+        $modifiedBook->save();
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function deleteBook() {
+        $bookId = $this->request()->getValue("id");
+        $book = Book::getOne($bookId);
+        $book->delete();
+        return $this->redirect($this->url("booklist.index"));
+    }
+
 
 
 }

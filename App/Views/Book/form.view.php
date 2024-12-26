@@ -33,64 +33,119 @@
 
         <div class="row book-row">
             <div class="col-sm-12 col-md-3 col-lg-3">
-                <img src="<?=$data['chosenBook']->getCoverUrl()?>" class="book-cover" alt="">
+                <?php if ($data["chosenBook"] !== null) { ?>
+                    <img id="book-cover"  src="<?=$data['chosenBook']->getCoverUrl()?>" class="book-cover" alt="">
+                <?php } else { ?>
+                    <img id="book-cover"  src="" class="book-cover" alt="">
+                <?php } ?>
             </div>
 
             <div class="col-sm-12 col-md-3 col-lg-3">
-                <div id="drop-zone-profile-picture" class="drop-zone-cover">Drop an image here</div>
+                <div id="drop-zone-cover" class="drop-zone-cover">Drop an image here</div>
             </div>
 
             <div class="col-sm-12 col-md-6 col-lg-6">
                 <label for="title">Title</label><br>
-                <textarea id="title" name="title" class="input-text" required><?=$data['chosenBook']->getTitle()?></textarea><br>
+                <?php if ($data["chosenBook"] !== null) { ?>
+                    <textarea id="title" name="title" class="input-text" required><?=$data['chosenBook']->getTitle()?></textarea><br>
+                <?php } else { ?>
+                    <textarea id="title" name="title" class="input-text" required></textarea><br>
+                <?php } ?>
 
                 <label for="authors">Choose an author:</label><br>
 
+                <?php if ($data["chosenBook"] !== null) { ?>
+                    <select name="authors" id="authors" class="form-select" aria-label="Default select example">
+                        <option selected><?=$data['bookAuthor']->getName()?></option>
+                        <?php for($i = 0; $i < count($data['bookAuthors']); $i++) : ?>
+                            <option value=<?=$i?>><?=$data['bookAuthors'][$i]->getName()?></option>
+                        <?php endfor; ?>
+                    </select>
+                <?php } else { ?>
+                    <select name="authors" id="authors" class="form-select" aria-label="Default select example">
+                        <?php for($i = 0; $i < count($data['bookAuthors']); $i++) : ?>
+                            <option value=<?=$i?>><?=$data['bookAuthors'][$i]->getName()?></option>
+                        <?php endfor; ?>
+                    </select>
+                <?php } ?>
 
-                <select name="authors" id="authors" class="form-select" aria-label="Default select example">
-                    <option selected><?=$data['bookAuthor']->getName()?></option>
-                    <?php for($i = 0; $i < count($data['bookAuthors']); $i++) : ?>
-                        <option value=<?=$i?>><?=$data['bookAuthors'][$i]->getName()?></option>
-                    <?php endfor; ?>
-                </select>
 
                 <label for="description">Description</label><br>
-                <textarea id="description" name="description" class="description-text" required><?=$data['chosenBook']->getDescription()?></textarea><br>
+                <?php if ($data["chosenBook"] !== null) { ?>
+                    <textarea id="description" name="description" class="description-text" required><?=$data['chosenBook']->getDescription()?></textarea><br>
+                <?php } else { ?>
+                    <textarea id="description" name="description" class="description-text" required></textarea><br>
+                <?php } ?>
 
-                <table>
-                    <tr>
-                        <th>Pages</th>
-                        <th>Cover</th>
-                        <th>Genre</th>
-                        <th>Language</th>
-                        <th>Year of publishing</th>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="pages"></label>
-                            <textarea id="pages" name="pages" class="input-text" required><?=$data['chosenBook']->getPages()?></textarea><br>
-                        </td>
+                <div class="table-responsive">
+                    <table class="table table-striped
+                    table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>Pages</th>
+                            <th>Cover</th>
+                            <th>Genre</th>
+                            <th>Language</th>
+                            <th>ISBN</th>
+                            <th>Year of publishing</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <label for="pages"></label>
+                                <?php if ($data["chosenBook"] !== null) { ?>
+                                    <textarea id="pages" name="pages" class="input-text" required><?=$data['chosenBook']->getPages()?></textarea><br>
+                                <?php } else { ?>
+                                    <textarea id="pages" name="pages" class="input-text" required></textarea><br>
+                                <?php } ?>
 
-                        <td>Paperback</td>
-                        <td>
-                            <select name="genres" id="genres" class="form-select" aria-label="Default select example">
-                                <option selected><?=$data['bookGenre']->getName()?></option>
-                                <?php for($i = 0; $i < count($data['bookGenres']); $i++) : ?>
-                                    <option value=<?=$i?>><?=$data['bookGenres'][$i]->getName()?></option>
-                                <?php endfor; ?>
-                            </select>
-                        </td>
+                            </td>
 
-                        <td>English</td>
-                        <td>
-                            <label for="year"></label>
-                            <textarea id="year" name="year" class="input-text" required><?=$data['chosenBook']->getPublicationDate()?></textarea><br>
-                        </td>
+                            <td>Paperback</td>
+                            <td>
+                                <?php if ($data["chosenBook"] !== null) { ?>
+                                    <select name="genres" id="genres" class="form-select" aria-label="Default select example">
+                                        <option selected><?=$data['bookGenre']->getName()?></option>
+                                        <?php for($i = 0; $i < count($data['bookGenres']); $i++) : ?>
+                                            <option value=<?=$i?>><?=$data['bookGenres'][$i]->getName()?></option>
+                                        <?php endfor; ?>
+                                    </select>
+                                <?php } else { ?>
+                                    <select name="genres" id="genres" class="form-select" aria-label="Default select example">
+                                        <?php for($i = 0; $i < count($data['bookGenres']); $i++) : ?>
+                                            <option value=<?=$i?>><?=$data['bookGenres'][$i]->getName()?></option>
+                                        <?php endfor; ?>
+                                    </select>
+                                <?php } ?>
 
-                    </tr>
-                </table>
+                            </td>
 
-                <button type="submit" name="submit" class="btn submit-button" onclick="sendFormData()">Submit</button>
+                            <td>English</td>
+
+                            <td>
+                                <label for="isbn"></label>
+                                <?php if ($data["chosenBook"] !== null) { ?>
+                                    <textarea id="isbn" name="isbn" class="input-text" required><?=$data['chosenBook']->getIsbn()?></textarea><br>
+                                <?php } else { ?>
+                                    <textarea id="isbn" name="isbn" class="input-text" required></textarea><br>
+                                <?php } ?>
+                            </td>
+
+                            <td>
+                                <label for="year"></label>
+                                <?php if ($data["chosenBook"] !== null) { ?>
+                                    <textarea id="year" name="year" class="input-text" required><?=$data['chosenBook']->getPublicationDate()?></textarea><br>
+                                <?php } else { ?>
+                                    <textarea id="year" name="year" class="input-text" required></textarea><br>
+                                <?php } ?>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <button type="submit" name="submit" class="btn submit-button" onclick="sendBookFormData()">Submit</button>
 
             </div>
         </div>
@@ -102,6 +157,6 @@
 
 </div>
 
-<script src="public/js/bookScript.js"></script>
+<script src="public/js/bookFormScript.js"></script>
 </body>
 </html>
