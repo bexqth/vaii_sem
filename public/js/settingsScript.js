@@ -47,6 +47,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+function isImage(){
+
+}
+
 async function sendFormData() {
     bio = document.getElementById("about_text").value;
     formData.append("bio", bio);

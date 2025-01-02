@@ -34,7 +34,7 @@
                 <div class="book-info-row">
                     <h2 class="review-title">Let other users know your opinion!</h2>
                     <h3><?=$data['chosenBook']->getTitle()?></h3>
-                    <h4><?=$data['chosenBook']->getAuthor()?></h4>
+                    <h4><?=$data['bookAuthor']->getName()?></h4>
 
                     <?php if($data["errorMessage"] != null) : ?>
                         <div class="alert alert-danger" role="alert">

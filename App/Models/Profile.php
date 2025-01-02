@@ -46,7 +46,7 @@ class Profile extends Model
     public function getProfilePicture(): ?string
     {
         if ($this->profile_picture) {
-            return 'data:image/jpeg;base64,' . base64_encode($this->profile_picture);
+            return 'data:image/jpeg;base64,' . base64_encode($this->profile_picture); //https://developer.mozilla.org/en-US/docs/Web/URI/Schemes/data
         }
         return null;
     }

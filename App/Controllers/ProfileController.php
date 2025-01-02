@@ -112,11 +112,10 @@ class ProfileController extends AControllerBase
         $banner_pic_content = null;
 
         if (isset($data["profile_picture"])) {
-            $profile_pic = $data["profile_picture"]['tmp_name'];
-            $profile_pic_content = file_get_contents($profile_pic);
+            $profile_pic = $data["profile_picture"]['tmp_name']; //temp location
+            $profile_pic_content = file_get_contents($profile_pic); //binary rep
         }
 
-        // Check if banner picture is uploaded and get its temporary file path
         if (isset($data["banner_picture"])) {
             $banner_pic = $data["banner_picture"]['tmp_name'];
             $banner_pic_content = file_get_contents($banner_pic);

@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Core\AControllerBase;
 use App\Core\Responses\Response;
+use App\Models\Profile;
 use App\Models\User;
 
 class LoginController extends AControllerBase
@@ -57,6 +58,10 @@ class LoginController extends AControllerBase
             $newUser->setEmail($formData['email']);
             $newUser->save(); //ulozenie do databazky
 
+            $newProfile = new Profile();
+            $newProfile->setUserId($newUser->getId());
+            $newProfile->save();
+
             if($newUser->getId() > 0) { //user sa ulozil
                 $logged = $this->app->getAuth()->login($formData['username'], $formData['password']); //bool value if the user is logged in
                 if ($logged) {
@@ -73,11 +78,4 @@ class LoginController extends AControllerBase
 
     }
 
-    public function loginUser() {
-
-    }
-
-    public function logoutUser() {
-
-    }
 }

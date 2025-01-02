@@ -8,6 +8,7 @@ use App\Core\Responses\Response;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\Genre;
+use App\Models\Profile;
 use App\Models\Readingprogress;
 use App\Models\Review;
 use App\Models\Readinglist;
@@ -26,6 +27,11 @@ class BookController extends AControllerBase
         $chosenBookId = $this->request()->getValue("id");
         $chosenBook = Book::getOne($chosenBookId);
         $chosenBookReviews = Review::getAll('book_id = ?', [$chosenBookId]);
+        $reviewUsers = [];
+        if($chosenBookReviews != null) {
+            $reviewUsers = $this->getReviewUsers($chosenBookReviews);
+        }
+
         $readingLists = Readinglist::getAll('book_id = ?', [$chosenBookId]);
 
         if($this->app->getAuth()->isLogged() && !$this->app->getAuth()->isAdmin()) { // DO THIS CONDITION WITHOUT IT, IT WILL CRASH
@@ -54,7 +60,16 @@ class BookController extends AControllerBase
         $bookGenre = Genre::getOne($chosenBook->getGenreId());
 
         return $this->html(["chosenBook" => $chosenBook, "chosenBookReviews" => $chosenBookReviews, "bookStatus" => $bookStatus, "readingProgress" => $readingProgress, "progressPercentage" => $progressPercentage,
-            "bookAuthor" => $bookAuthor, "bookGenre" => $bookGenre]);
+            "bookAuthor" => $bookAuthor, "bookGenre" => $bookGenre, "reviewUsers" => $reviewUsers]);
+    }
+
+    public function getReviewUsers($reviews) : array {
+        $users = [];
+        foreach ($reviews as $review) {
+            $u = Profile::getAll("user_id = ?", [$review->getUserId()]);
+            $users[] = $u[0];
+        }
+        return $users;
     }
 
     /**
@@ -145,8 +160,6 @@ class BookController extends AControllerBase
         $isbn = $this->app->getRequest()->getValue("isbn");
         $pages = $this->app->getRequest()->getValue("pages");
         $year = $this->app->getRequest()->getValue("year");
-
-
 
         $bookCoverContent = null;
         $modifiedBook = null;

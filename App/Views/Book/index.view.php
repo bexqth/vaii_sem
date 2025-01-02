@@ -120,32 +120,33 @@
 
         </div>
 
-        <?php foreach ($data['chosenBookReviews'] as $review) : ?>
-            <div class="row profile-bio-row review-item-row">
-                <div class="col-3 col-sm-3 col-md-1 col-lg-1">
-                    <img class="review-image" src="https://img.freepik.com/free-vector/young-bearded-man_24877-82119.jpg?t=st=1729269110~exp=1729272710~hmac=5aa0e1a15e8903f3a823c43f12e069450343e0ff3ac8dc6bde57761725b4da1d&w=826" alt="">
+        <?php if ($data['chosenBookReviews'] != null) :?>
+            <?php for($i = 0; $i < count($data['chosenBookReviews']); $i++) : ?>
+                <div class="row profile-bio-row review-item-row">
+                    <div class="col-3 col-sm-3 col-md-1 col-lg-1">
+                        <img class="review-image" src="<?= $data['reviewUsers'][$i]->getProfilePicture()?>" alt="">
+                    </div>
+                    <div class="col-12 col-md-2 col-lg-2">
+                        <h5><?=$data['chosenBookReviews'][$i]->getRating()?>/10</h5>
+                        <h6><?=$data['chosenBookReviews'][$i]->getReviewAuthor()?></h6>
+                        <h6>1 months ago</h6>
+
+                        <?php if(($auth->isLogged() && $data['chosenBookReviews'][$i]->getReviewAuthor() == $auth->getLoggedUserName())):?>
+                            <a href="<?= $link->url('review.edit', ['id' => $data['chosenBookReviews'][$i]->getId()]) ?>" class="btn btn-primary"><i class="bi bi-pencil-fill"></i></a>
+                        <?php endif; ?>
+                        <?php if(($auth->isLogged() && $auth->isAdmin()) || ($auth->isLogged() && !$auth->isAdmin())):?>
+                            <a href="<?= $link->url('review.delete', ['id' => $data['chosenBookReviews'][$i]->getId()]) ?>"  class="btn btn-danger"><i class="bi bi-trash"></i></a>
+                        <?php endif; ?>
+
+                    </div>
+
+                    <div class="col-sm-12 col-md-9 col-lg-9">
+                        <p><?=$data['chosenBookReviews'][$i]->getReviewText()?></p>
+                    </div>
                 </div>
-                <div class="col-12 col-md-2 col-lg-2">
-                    <h5><?=$review->getRating()?>/10</h5>
-                    <h6><?=$review->getReviewAuthor()?></h6>
-                    <h6>1 months ago</h6>
 
-                    <?php if($auth->isLogged() && $review->getReviewAuthor() == $auth->getLoggedUserName()):?>
-                        <a href="<?= $link->url('review.edit', ['id' => $review->getId()]) ?>" class="btn btn-primary"><i class="bi bi-pencil-fill"></i></a>
-                        <a href="<?= $link->url('review.delete', ['id' => $review->getId()]) ?>"  class="btn btn-danger"><i class="bi bi-trash"></i></a>
-                        <!-- <button type="button" class="btn btn-primary"><i class="bi bi-pencil-fill"></i></button>
-                        <button type="button" class="btn btn-danger"><i class="bi bi-trash"></i></button> -->
-                    <?php endif; ?>
-
-                </div>
-
-                <div class="col-sm-12 col-md-9 col-lg-9">
-                    <p><?=$review->getReviewText()?></p>
-                </div>
-            </div>
-
-        <?php endforeach; ?>
-
+            <?php endfor; ?>
+        <?php endif;?>
 
     </div>
 

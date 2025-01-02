@@ -5,7 +5,9 @@ namespace App\Controllers;
 use App\Core\AControllerBase;
 use App\Core\Responses\Response;
 use App\Core\Responses\RedirectResponse;
+use App\Models\Author;
 use App\Models\Book;
+use App\Models\Genre;
 use App\Models\Review;
 use App\Models\User;
 use Exception;
@@ -20,13 +22,14 @@ class ReviewController extends AControllerBase
     {
         $chosenBookId = $this->request()->getValue("id");
         $chosenBook = Book::getOne($chosenBookId);
+        $bookAuthor = Author::getOne($chosenBook->getAuthorId());
 
         $reviewId = $this->request()->getValue("reviewId");
         $review = Review::getOne($reviewId);
 
         $errorMessage = $this->request()->getValue("errorMessage");
 
-        return $this->html(['chosenBook' => $chosenBook, "review" => $review, "errorMessage" => $errorMessage]);
+        return $this->html(['chosenBook' => $chosenBook, "review" => $review, "errorMessage" => $errorMessage, "bookAuthor" => $bookAuthor]);
     }
 
     public function authorize(string $action): bool
@@ -36,7 +39,11 @@ class ReviewController extends AControllerBase
 
             switch ($action) {
                 case 'add':
-                    return true;
+                case "index":
+                    if($user->hasPermission("add_review")) {
+                        return true;
+                    }
+                    return false;
 
                 case 'edit':
                     $reviewId = $this->request()->getValue("id");
@@ -50,7 +57,7 @@ class ReviewController extends AControllerBase
                     $reviewId = $this->request()->getValue("id");
                     $review = Review::getOne($reviewId);
 
-                    if($review->getUserId() == $user->getId() && $user->hasPermission("delete_review")) {
+                    if(($review->getUserId() == $user->getId() && $user->hasPermission("delete_review")) || ($user->isAdmin() && $user->hasPermission("delete_review"))) {
                         return true;
                     }
                     return false;
@@ -135,8 +142,9 @@ class ReviewController extends AControllerBase
         $review = Review::getOne($reviewId);
         $chosenBookId = $review->getBookId();
         $chosenBook = Book::getOne($chosenBookId);
+        $bookAuthor = Author::getOne($chosenBook->getAuthorId());
         //return $this->html(["chosenBook" => $chosenBook, "review" => $review]);
-        return $this->redirect($this->url("review.index", ["id" => $chosenBookId, "reviewId" => $reviewId]));
+        return $this->redirect($this->url("review.index", ["id" => $chosenBookId, "reviewId" => $reviewId, "bookAuthor" => $bookAuthor]));
         //return new RedirectResponse($this->url("review.index", ["id" => $chosenBookId, "reviewId" => $reviewId]));
     }
 }
