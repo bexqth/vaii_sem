@@ -45,7 +45,7 @@ class ProfileController extends AControllerBase
         $planningProgresses = $this->getProgresses($planningBooks);
 
         $follows = Follow::getAll("follower_id = ? AND followed_id = ?", [$this->app->getAuth()->getLoggedUserId(), $user_id]);
-        if($follows == null) {
+        if(count($follows) == 0) {
             $isFollowing = false;
         } else {
             $isFollowing = true;
@@ -155,15 +155,15 @@ class ProfileController extends AControllerBase
             $profileId = $data->profileId;
             $profiles = Profile::getAll("id = ?", [$profileId]);
             $followedPersonId = $profiles[0]->getUserId();
-            //$follows = Follow::getAll("followed_id = ? AND follower_id = ?", [$followedPersonId, $this->app->getAuth()->getLoggedUserId()]);
-            //if($follows == null) {
-                $newFollow = new Follow();
-                $newFollow->setFollowedId($followedPersonId);
-                $newFollow->setFollowerId($this->app->getAuth()->getLoggedUserId());
-                $newFollow->save();
-            //}
-            $message = 'All good';
-            return $this->json(['message' => $message]);
+            $newFollow = new Follow();
+            $newFollow->setFollowedId($followedPersonId);
+            $newFollow->setFollowerId($this->app->getAuth()->getLoggedUserId());
+            $newFollow->save();
+
+            $user = User::getOne($followedPersonId);
+            $followers = $user->getFollowers();
+            $followings = $user->getFollowings();
+            return $this->json(['followings' => $followings, "followers" => $followers]);
         }
 
         $message = 'Something is missing';
@@ -179,8 +179,11 @@ class ProfileController extends AControllerBase
             $follows = Follow::getAll("followed_id = ? AND follower_id = ?", [$followedPersonId, $this->app->getAuth()->getLoggedUserId()]);
             $follow = $follows[0];
             $follow->delete();
-            $message = 'All good';
-            return $this->json(['message' => $message]);
+
+            $user = User::getOne($followedPersonId);
+            $followers = $user->getFollowers();
+            $followings = $user->getFollowings();
+            return $this->json(['followings' => $followings, "followers" => $followers]);
         }
         $message = 'Something is missing';
         return $this->json(['message' => $message]);

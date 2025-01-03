@@ -63,10 +63,10 @@
 
                 <div class="row profile-bio-row">
                     <div class="col">
-                        <h6><?=$data['user']->getFollowers()?> followers</h6>
+                        <h6 id="followers"><?=$data['user']->getFollowers()?> followers</h6>
                     </div>
                     <div class="col">
-                        <h6><?=$data['user']->getFollowings()?> followings</h6>
+                        <h6 id="followings"><?=$data['user']->getFollowings()?> followings</h6>
                     </div>
                 </div>
 
