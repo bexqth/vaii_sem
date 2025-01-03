@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Core\AControllerBase;
 use App\Core\Responses\EmptyResponse;
 use App\Core\Responses\Response;
+use App\Models\Activity;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\Genre;
@@ -81,6 +82,7 @@ class BookController extends AControllerBase
 
         if (is_object($data) && property_exists($data, 'bookId') &&  property_exists($data, 'list')) {
             $bookId = $data->bookId;
+            $bookName = Book::getOne($bookId)->getTitle();
             $listName = $data->list;
 
             $book = Book::getOne($bookId);
@@ -97,6 +99,8 @@ class BookController extends AControllerBase
                 $readingList->setStatus($listName);
 
                 $readingList->save();
+                $this->addActivityReadingList($listName, $bookName);
+
                 $message = 'Book added to reading list successfully';
                 return $this->json(['message' => $message]);
             } else {
@@ -114,6 +118,8 @@ class BookController extends AControllerBase
                     $newList->setStatus($listName);
 
                     $newList->save();
+                    $this->addActivityReadingList($listName, $bookName);
+
                     $message = 'Book status updated successfully';
                     return $this->json(['message' => $message]);
                 }
@@ -123,6 +129,23 @@ class BookController extends AControllerBase
             return $this->json(['message' => $message]);
         }
         throw new HTTPException(400, 'Invalid request data');
+    }
+
+    public function addActivityReadingList($readingList, $bookName): void {
+        $newActivity = new Activity();
+        $newActivity->setUserId($this->app->getAuth()->getLoggedUserId());
+        switch ($readingList) {
+            case "reading":
+                $newActivity->setActivityText("Started reading {$bookName}");
+                break;
+            case "planning":
+                $newActivity->setActivityText("Plans to read {$bookName}");
+                break;
+            case "finished":
+                $newActivity->setActivityText("Finished reading {$bookName}");
+                break;
+        }
+        $newActivity->save();
     }
 
 

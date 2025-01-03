@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Core\AControllerBase;
 use App\Core\Responses\Response;
+use App\Models\Activity;
 use App\Models\Profile;
 use App\Models\Review;
 use App\Models\User;
@@ -26,6 +27,7 @@ class UserlistController extends AControllerBase
         $userProfiles = Profile::getAll("user_id = ?", [$id]);
         $userProfile = $userProfiles[0];
         $reviews = Review::getAll("user_id = ?", [$id]);
-        return $this->html(["user" => $user, "userProfile" => $userProfile, "reviews" => $reviews]);
+        $activities = Activity::getAll("user_id = ?", [$id]);
+        return $this->html(["user" => $user, "userProfile" => $userProfile, "reviews" => $reviews, "activities" => $activities]);
     }
 }

@@ -48,15 +48,23 @@
         </div>
 
         <div class="row">
-            <div class="col">
+            <div class="col-12 col-md-6 col-lg-6">
                 <h3>Activity</h3>
+                <?php foreach ($data['activities'] as $activity) : ?>
+                    <div class="row profile-bio-row">
+                        <div>
+                            <p><?=$activity->getActivityText()?></p>
+                        </div>
+                    </div>
+
+                <?php endforeach; ?>
             </div>
 
-            <div class="col">
+            <div class="col-12 col-md-6 col-lg-6">
                 <h3>Reviews</h3>
 
                 <?php foreach ($data['reviews'] as $review) : ?>
-                    <div class="row profile-bio-row review-item-row">
+                    <div class="row profile-bio-row">
                         <div class="col-12 col-md-2 col-lg-2">
                             <h5><?=$review->getRating()?>/10</h5>
                             <h6>1 months ago</h6>
@@ -71,7 +79,6 @@
                             <p><?=$review->getReviewText()?></p>
                         </div>
                     </div>
-
                 <?php endforeach; ?>
 
 

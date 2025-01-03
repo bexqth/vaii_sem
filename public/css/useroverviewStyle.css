@@ -43,14 +43,10 @@ h3{
 .profile-bio-row{
     background-color: white;
     border-radius: 15px;
-    margin-bottom: 15px;
-}
-
-.review-item-row{
+    margin-right: 20px;
     margin-top:20px;
     padding-top: 20px;
     padding-bottom: 20px;
     margin-bottom: 20px;
-    /*border: 1px #abb2b9 solid;*/
-    border-radius: 10px;
 }
+

@@ -79,7 +79,6 @@
                     </tr>
                 </table>
 
-
                 <?php if ($auth->isLogged() && !$auth->isAdmin()) : ?>
                     <div class="btn-group">
                         <button id="statusButton" type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -134,7 +133,7 @@
                         <?php if(($auth->isLogged() && $data['chosenBookReviews'][$i]->getReviewAuthor() == $auth->getLoggedUserName())):?>
                             <a href="<?= $link->url('review.edit', ['id' => $data['chosenBookReviews'][$i]->getId()]) ?>" class="btn btn-primary"><i class="bi bi-pencil-fill"></i></a>
                         <?php endif; ?>
-                        <?php if(($auth->isLogged() && $auth->isAdmin()) || ($auth->isLogged() && !$auth->isAdmin())):?>
+                        <?php if(($auth->isLogged() && $auth->isAdmin()) || ($auth->isLogged() && !$auth->isAdmin() && $data['chosenBookReviews'][$i]->getReviewAuthor() == $auth->getLoggedUserName())):?>
                             <a href="<?= $link->url('review.delete', ['id' => $data['chosenBookReviews'][$i]->getId()]) ?>"  class="btn btn-danger"><i class="bi bi-trash"></i></a>
                         <?php endif; ?>
 

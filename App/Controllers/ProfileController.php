@@ -159,6 +159,8 @@ class ProfileController extends AControllerBase
             $newFollow->setFollowedId($followedPersonId);
             $newFollow->setFollowerId($this->app->getAuth()->getLoggedUserId());
             $newFollow->save();
+            $followedPerson = User::getOne($followedPersonId);
+            $this->addFollowActivity($followedPerson->getUsername());
 
             $user = User::getOne($followedPersonId);
             $followers = $user->getFollowers();
@@ -187,6 +189,13 @@ class ProfileController extends AControllerBase
         }
         $message = 'Something is missing';
         return $this->json(['message' => $message]);
+    }
+
+    public function addFollowActivity($name) : void {
+        $newActivity = new Activity();
+        $newActivity->setUserId($this->app->getAuth()->getLoggedUserId());
+        $newActivity->setActivityText("Just started following {$name}");
+        $newActivity->save();
     }
 }
 

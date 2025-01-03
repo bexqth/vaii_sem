@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Core\AControllerBase;
 use App\Core\Responses\Response;
 use App\Core\Responses\RedirectResponse;
+use App\Models\Activity;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\Genre;
@@ -75,6 +76,7 @@ class ReviewController extends AControllerBase
     public function add() : Response {
         $formData = $this->request()->getPost();
         $idBook = $this->request()->getValue("id");
+        $bookName = Book::getOne($idBook)->getTitle();
         $idReview = $this->request()->getValue("reviewId"); //this working
         $review = Review::getOne($idReview);
 
@@ -84,7 +86,6 @@ class ReviewController extends AControllerBase
         if($reviewText == null || $reviewText == "") {
             $errorMessage = "Review text cannot be empty.";
             return $this->redirect($this->url("review.index", ["id" => $idBook, "reviewId" => $idReview, "errorMessage" => $errorMessage]));
-
         }
 
         if ($reviewRating < 1 || $reviewRating > 10 || empty($reviewRating)) {
@@ -112,11 +113,10 @@ class ReviewController extends AControllerBase
                 $newReview = $review;
             }
 
-
             $newReview->setReviewText($formData['review_text']);
             $newReview->setRating($formData['rating']);
-
             $newReview->save();
+            $this->addReviewActivity($bookName);
 
             return $this->redirect($this->url("book.index", ["id" => $idBook]));
 
@@ -146,5 +146,12 @@ class ReviewController extends AControllerBase
         //return $this->html(["chosenBook" => $chosenBook, "review" => $review]);
         return $this->redirect($this->url("review.index", ["id" => $chosenBookId, "reviewId" => $reviewId, "bookAuthor" => $bookAuthor]));
         //return new RedirectResponse($this->url("review.index", ["id" => $chosenBookId, "reviewId" => $reviewId]));
+    }
+
+    public function addReviewActivity($bookName) : void {
+        $newActivity = new Activity();
+        $newActivity->setUserId($this->app->getAuth()->getLoggedUserId());
+        $newActivity->setActivityText("Left review under {$bookName}");
+        $newActivity->save();
     }
 }
