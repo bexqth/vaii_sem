@@ -29,6 +29,18 @@ body{
     border-top: 5px solid white;
 }
 
+.follow-button{
+    background-color: #e74c3c !important;
+    color: white;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 45px;
+    height: 45px;
+    margin: 5px;
+    z-index: 10;
+}
+
 .user-name{
     position: absolute;
     bottom: 0;

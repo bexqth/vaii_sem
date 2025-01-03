@@ -28,6 +28,7 @@
                 <img src="<?= $data['userProfile']->getBannerPicture()?>" class="banner-image" alt="...">
             <?php endif; ?>
 
+            <button id="follow-button" type="button" class="btn follow-button" onclick="updateFollowButton()"><i class="bi bi-heart"></i></button>
 
             <div class="row profile-picture-container">
                 <div class="col-lg-2">
@@ -54,6 +55,16 @@
                     </p>
                 </div>
 
+                <div class="row profile-bio-row">
+                    <div class="col">
+                        <h6><?=$data['user']->getFollowers()?> followers</h6>
+                    </div>
+                    <div class="col">
+                        <h6><?=$data['user']->getFollowings()?> followings</h6>
+                    </div>
+                </div>
+
+
                 <div class="row genre-row">
                     <h5>Genre overview</h5>
                         <div class="progress">
@@ -62,6 +73,7 @@
                             <div class="progress-bar custom-progress-bar-3" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                 </div>
+
             </div>
 
             <div class="list-col col-lg-9">
@@ -184,9 +196,7 @@
                             <?php endfor; ?>
                         <?php endif;?>
                 </div>
-
             </div>
-
         </div>
 
 
@@ -195,6 +205,6 @@
 
     <div class="col-md-2 col-lg-2"></div>
 </div>
-
+<script src="public/js/profileScript.js"></script>
 </body>
 </html>

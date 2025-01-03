@@ -77,6 +77,16 @@ class User extends Model
         return false;
     }
 
+    public function getFollowers() : int {//Getter for how many poeple follow me
+        $folowers = Follow::getAll("followed_id = ?", [$this->id]);
+        return count($folowers);
+    }
+
+    public function getFollowings() : int{// getter for how many poeple im following
+        $folowings = Follow::getAll("follower_id = ?", [$this->id]);
+        return count($folowings);
+    }
+
     public function isAdmin(): bool {
         return $this->role_id === 2;
     }

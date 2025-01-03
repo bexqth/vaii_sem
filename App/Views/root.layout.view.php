@@ -20,12 +20,27 @@
 <body>
 <ul class="nav justify-content-end">
     <li class="website-name">Booksite</li>
-    <li class="nav-item">
-        <a class="nav-link" href="<?= $link->url("home.index") ?>">Home</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="<?= $link->url("booklist.index") ?>">Booklist</a>
-    </li>
+
+    <?php if ($auth->isLogged()) { ?>
+        <?php if (!$auth->isAdmin()) { ?>
+            <li class="nav-item">
+                <a class="nav-link" href="<?= $link->url("overview.index") ?>">Overview</a>
+            </li>
+        <?php } ?>
+        <li class="nav-item">
+            <a class="nav-link" href="<?= $link->url("booklist.index") ?>">Booklist</a>
+        </li>
+    <?php } else { ?>
+        <li class="nav-item">
+            <a class="nav-link" href="<?= $link->url("home.index") ?>">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="<?= $link->url("booklist.index") ?>">Booklist</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="<?= $link->url("auth.login") ?>">Login</a>
+        </li>
+    <?php } ?>
 
     <?php if ($auth->isLogged() && !$auth->isAdmin()) { ?>
         <div class="dropdown show">
@@ -52,11 +67,6 @@
                 <a class="dropdown-item" href="<?= $link->url("auth.logout") ?>"><i class="bi bi-door-closed"></i>Logout</a>
             </div>
         </div>
-
-    <?php } else { ?>
-        <li class="nav-item">
-            <a class="nav-link" href="<?= $link->url("auth.login") ?>">Login</a>
-        </li>
     <?php } ?>
 
 </ul>
