@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Core\AControllerBase;
 use App\Core\Responses\Response;
 use App\Models\Book;
+use App\Models\Follow;
 use App\Models\Profile;
 use App\Models\Readinglist;
 use App\Models\Readingprogress;
@@ -21,7 +22,8 @@ class ProfileController extends AControllerBase
     {
         //$users = User::getAll('username = ?', [$this->app->getAuth()->getLoggedUserName()]);
         //$user = $users[0];
-        $user_id = $this->app->getAuth()->getLoggedUserId();
+        //$user_id = $this->app->getAuth()->getLoggedUserId();
+        $user_id = $this->app->getRequest()->getValue("userId");
         $user = User::getOne($user_id);
         $user_profiles = Profile::getAll("user_id = ?", [$user_id]);
         $user_profile = $user_profiles[0];
@@ -42,10 +44,17 @@ class ProfileController extends AControllerBase
         $finishedProgresses = $this->getProgresses($finishedBooks);
         $planningProgresses = $this->getProgresses($planningBooks);
 
+        $follows = Follow::getAll("follower_id = ? AND followed_id = ?", [$this->app->getAuth()->getLoggedUserId(), $user_id]);
+        if($follows == null) {
+            $isFollowing = false;
+        } else {
+            $isFollowing = true;
+        }
+
         return $this->html(['user' => $user, 'readingBooks' => $readingBooks, 'finishedBooks' => $finishedBooks, 'planningBooks' => $planningBooks,
             'readingReviews' => $readingReviews, 'finishedReviews' => $finishedReviews, 'planningReviews' => $planningReviews,
             "readingProgresses" => $readingProgresses, "finishedProgresses" => $finishedProgresses, "planningProgresses" => $planningProgresses,
-            "userProfile" => $user_profile]);
+            "userProfile" => $user_profile, "isFollowing" => $isFollowing]);
     }
 
     public function getProgresses($books): array {
@@ -134,6 +143,46 @@ class ProfileController extends AControllerBase
         }
         $user_profile->save();
         $message = 'Book added to reading list successfully';
+        return $this->json(['message' => $message]);
+    }
+
+    /**
+     * @throws \JsonException
+     */
+    public function giveFollow() {
+        $data = $this->request()->getRawBodyJSON();
+        if (is_object($data) && property_exists($data, 'profileId')) {
+            $profileId = $data->profileId;
+            $profiles = Profile::getAll("id = ?", [$profileId]);
+            $followedPersonId = $profiles[0]->getUserId();
+            //$follows = Follow::getAll("followed_id = ? AND follower_id = ?", [$followedPersonId, $this->app->getAuth()->getLoggedUserId()]);
+            //if($follows == null) {
+                $newFollow = new Follow();
+                $newFollow->setFollowedId($followedPersonId);
+                $newFollow->setFollowerId($this->app->getAuth()->getLoggedUserId());
+                $newFollow->save();
+            //}
+            $message = 'All good';
+            return $this->json(['message' => $message]);
+        }
+
+        $message = 'Something is missing';
+        return $this->json(['message' => $message]);
+    }
+
+    public function removeFollow() {
+        $data = $this->request()->getRawBodyJSON();
+        if (is_object($data) && property_exists($data, 'profileId')) {
+            $profileId = $data->profileId;
+            $profiles = Profile::getAll("id = ?", [$profileId]);
+            $followedPersonId = $profiles[0]->getUserId();
+            $follows = Follow::getAll("followed_id = ? AND follower_id = ?", [$followedPersonId, $this->app->getAuth()->getLoggedUserId()]);
+            $follow = $follows[0];
+            $follow->delete();
+            $message = 'All good';
+            return $this->json(['message' => $message]);
+        }
+        $message = 'Something is missing';
         return $this->json(['message' => $message]);
     }
 }

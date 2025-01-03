@@ -6,7 +6,7 @@ use App\Core\Model;
 
 class Follow extends Model
 {
-    private int $id;
+    protected int $id;
     protected int $follower_id; //THE ONE FOLLOWING
     protected int $followed_id; //THE ONE BEING FOLLOWED
 
