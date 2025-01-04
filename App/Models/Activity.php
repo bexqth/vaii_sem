@@ -40,5 +40,10 @@ class Activity extends Model
         $this->activity_text = $activity_text;
     }
 
+    public function getAuthor() : string {
+        $activity = Activity::getOne($this->id);
+        $user = User::getOne($activity->user_id);
+        return $user->getUsername();
+    }
 
 }

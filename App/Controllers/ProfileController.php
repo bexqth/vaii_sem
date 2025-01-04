@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Core\AControllerBase;
 use App\Core\Responses\Response;
+use App\Models\Activity;
 use App\Models\Book;
 use App\Models\Follow;
 use App\Models\Profile;

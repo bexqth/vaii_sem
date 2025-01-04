@@ -1,0 +1,41 @@
+body{
+    background-color: #faf5f3;
+}
+
+.reviews-row{
+    margin-top:50px;
+}
+
+
+.review-title{
+    margin-top: 100px;
+}
+
+.review-item-row{
+    margin-top:20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    /*border: 1px #abb2b9 solid;*/
+    border-radius: 10px;
+}
+
+.review-image {
+    width: 100%;
+    border-radius: 50%;
+}
+
+.profile-bio-row{
+    background-color: white;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    display: flex; /* Enable flexbox for the row */
+    align-items: center; /* Vertically center all children */
+    min-height: 100px; /* Ensure the row has enough height */
+}
+
+.author-col,
+.text-col {
+    padding: 0;
+}
+
