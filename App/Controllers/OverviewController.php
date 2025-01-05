@@ -132,7 +132,6 @@ class OverviewController extends AControllerBase
                 }
             }
         }
-
-        return $recommendedBooks;
+        return array_slice($recommendedBooks, 0, 4);
     }
 }

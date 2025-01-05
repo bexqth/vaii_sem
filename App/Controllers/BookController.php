@@ -33,10 +33,10 @@ class BookController extends AControllerBase
             $reviewUsers = $this->getReviewUsers($chosenBookReviews);
         }
 
-        $readingLists = Readinglist::getAll('book_id = ?', [$chosenBookId]);
+        $userId = $this->app->getAuth()->getLoggedUserId();
+        $readingLists = Readinglist::getAll('book_id = ? AND user_id = ?', [$chosenBookId, $userId]);
 
         if($this->app->getAuth()->isLogged() && !$this->app->getAuth()->isAdmin()) { // DO THIS CONDITION WITHOUT IT, IT WILL CRASH
-            $userId = $this->app->getAuth()->getLoggedUserId();
             $readingProgresses = Readingprogress::getAll('book_id = ? AND user_id = ?', [$chosenBookId, $userId]);
         } else {
             $readingProgresses = null;
@@ -84,10 +84,10 @@ class BookController extends AControllerBase
             $bookId = $data->bookId;
             $bookName = Book::getOne($bookId)->getTitle();
             $listName = $data->list;
-
+            $userId = $this->app->getAuth()->getLoggedUserId();
             $book = Book::getOne($bookId);
             //$userIds = User::getAll('username = ?', [$this->app->getAuth()->getLoggedUserName()]);
-            $inList = Readinglist::getAll('book_id = ?', [$bookId]);
+            $inList = Readinglist::getAll('book_id = ? AND user_id = ?', [$bookId, $userId]);
             if(count($inList) == 0) {
                 $readingList = new Readinglist();
                 $readingList->setBookId($bookId);
