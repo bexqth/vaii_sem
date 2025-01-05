@@ -108,4 +108,21 @@ class Book extends Model
         $this->id = $id;
     }
 
+    public function getAverageRating() : float {
+        $count = 0;
+        $possible = 0;
+        $reviews = Review::getAll("book_id = ?", [$this->id]);
+        if(count($reviews) > 0) {
+            foreach ($reviews as $review) {
+                $count += 1;
+                $possible += $review->getRating();
+
+            }
+        } else {
+            return 0;
+        }
+
+        return $possible / $count;
+    }
+
 }

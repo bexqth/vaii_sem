@@ -47,7 +47,32 @@
             </div>
 
             <div class="col-12 col-md-6 col-lg-6">
-                <h3>Reviews</h3>
+                <h3>Books to see</h3>
+                <div class="row">
+                    <h3>Recently added</h3>
+                </div>
+
+                <div class="row">
+                    <h3>Best review</h3>
+                    <?php foreach ($data['bestReviewedBooks'] as $book): ?>
+                        <div class="col">
+                            <div class="book-card card">
+                                <a href="<?= $link->url("book.index", ["id" => $book->getId()]) ?>">
+                                    <img src="<?=$book->getCoverUrl()?>" class="card-img-top" alt="...">
+                                </a>
+                                <div class="card-body">
+                                    <h6 class="card-title"><?=$book->getTitle()?></h6>
+                                    <h6 class="card-title"><?=$book->getAverageRating()?>/10</h6>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+
+                <div class="row">
+                    <h3>You might like</h3>
+                </div>
+
             </div>
     </div>
 

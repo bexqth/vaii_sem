@@ -39,3 +39,35 @@ body{
     padding: 0;
 }
 
+.book-card{
+    height: 100%;
+    padding: 20px;
+    background-color: white;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-img-top{
+    border-radius: 15px;
+    margin-bottom: 10px;
+    /*object-fit: cover;*/
+}
+
+.col{
+    margin-bottom: 10px;
+}
+
+.card{
+    border: none;
+}
+
+.card-body{
+    padding:0;
+}
+
+.card-title{
+    padding-top: 5px;
+    padding-bottom: 0;
+    margin: 0;
+}
