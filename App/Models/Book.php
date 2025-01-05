@@ -2,6 +2,8 @@
 
 namespace App\Models;
 use App\Core\Model;
+use DateTime;
+
 class Book extends Model
 {
     protected int $id;
@@ -13,6 +15,17 @@ class Book extends Model
     protected ?string $description;
     protected ?int $author_id;
     protected ?int $genre_id;
+    protected ?string $created_at;
+
+    public function getCreatedAt(): ?string
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(?string $created_at): void
+    {
+        $this->created_at = $created_at;
+    }
 
     public function getAuthorId(): ?int
     {
@@ -124,5 +137,14 @@ class Book extends Model
 
         return $possible / $count;
     }
+
+    public function getFormatedDateOfCreation(): string
+    {
+        $date = new DateTime($this->created_at);
+        $formattedDate = $date->format('d-m-Y');
+        $formattedDate = str_replace('-', '.', $formattedDate);
+        return $formattedDate;
+    }
+
 
 }

@@ -10,6 +10,7 @@ use App\Models\Follow;
 use App\Models\Profile;
 use App\Models\Review;
 use App\Models\User;
+use DateTime;
 
 class OverviewController extends AControllerBase
 {
@@ -20,10 +21,11 @@ class OverviewController extends AControllerBase
     public function index(): Response
     {
         $bestReviewedBooks = $this->getBestReviewedBooks();
+        $recentlyAddedBooks = $this->getRecentlyAddedBooks();
 
         $followedUsersActivities = $this->getActivities();
         $followedUsersProfiles = $this->getAuthorsOfActivities($followedUsersActivities);
-        return $this->html(["followedPeopleActivities" =>$followedUsersActivities, "followedUsersProfiles" => $followedUsersProfiles, "bestReviewedBooks"=>$bestReviewedBooks]);
+        return $this->html(["followedPeopleActivities" =>$followedUsersActivities, "followedUsersProfiles" => $followedUsersProfiles, "bestReviewedBooks" => $bestReviewedBooks, "recentlyAddedBooks" => $recentlyAddedBooks]);
     }
 
 
@@ -73,7 +75,21 @@ class OverviewController extends AControllerBase
     }
 
     public function getRecentlyAddedBooks() {
+        $books = Book::getAll();
+        $recentlyAddedBooks = [];
+        foreach ($books as $book) {
+            $date = new DateTime($book->getCreatedAt());
+            $recentlyAddedBooks[] = array('id' => $book->getId(), 'date' => $date->format('d-m-Y'));
+        }
 
+        usort($recentlyAddedBooks, function($a, $b) { return $b['date'] <=> $a['date']; });
+
+        $topNBooks = array_slice($recentlyAddedBooks, 0, 4);
+        $books = [];
+        foreach ($topNBooks as $entry) {
+            $books[] = Book::getOne($entry['id']);
+        }
+        return $books;
     }
 
     public function getSimilarBooks() {
