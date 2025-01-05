@@ -7,7 +7,9 @@ use App\Core\Responses\Response;
 use App\Models\Activity;
 use App\Models\Book;
 use App\Models\Follow;
+use App\Models\Genre;
 use App\Models\Profile;
+use App\Models\Readinglist;
 use App\Models\Review;
 use App\Models\User;
 use DateTime;
@@ -22,10 +24,11 @@ class OverviewController extends AControllerBase
     {
         $bestReviewedBooks = $this->getBestReviewedBooks();
         $recentlyAddedBooks = $this->getRecentlyAddedBooks();
+        $similarBooks = $this->getSimilarBooks();
 
         $followedUsersActivities = $this->getActivities();
         $followedUsersProfiles = $this->getAuthorsOfActivities($followedUsersActivities);
-        return $this->html(["followedPeopleActivities" =>$followedUsersActivities, "followedUsersProfiles" => $followedUsersProfiles, "bestReviewedBooks" => $bestReviewedBooks, "recentlyAddedBooks" => $recentlyAddedBooks]);
+        return $this->html(["followedPeopleActivities" =>$followedUsersActivities, "followedUsersProfiles" => $followedUsersProfiles, "bestReviewedBooks" => $bestReviewedBooks, "recentlyAddedBooks" => $recentlyAddedBooks, "similarBooks" => $similarBooks]);
     }
 
 
@@ -93,6 +96,43 @@ class OverviewController extends AControllerBase
     }
 
     public function getSimilarBooks() {
+        $genres = Genre::getAll();
+        $genreCounts = [];
+        $readingList = Readinglist::getAll("user_id = ?", [$this->app->getAuth()->getLoggedUserId()]);
+        $allBooks = Book::getAll();
+        $readingBookIds = [];
 
+        foreach ($genres as $genre) {
+            $genreCounts[] = array(
+                'id' => $genre->getId(),
+                'count' => 0,
+            );
+        }
+
+        foreach ($readingList as $list) {
+            $books = Book::getAll("id = ?", [$list->getBookId()]);
+            foreach ($books as $book) {
+                $genreId = $book->getGenreId();
+                if($book->getGenreId() == $genreId) {
+                    $readingBookIds[] = $book->getId();
+                    $genreCounts[$genreId]['count']++;
+                }
+            }
+        }
+
+        usort($genreCounts, function($a, $b) { return $b['count'] <=> $a['count']; });
+        $topNGenres = array_slice($genreCounts, 0, 4);
+        $recommendedBooks = [];
+        $topGenreIds = array_column($topNGenres, 'id');
+
+        foreach ($allBooks as $book) {
+            if (!in_array($book->getId(), $readingBookIds)) {
+                if (in_array($book->getGenreId(), $topGenreIds)) {
+                    $recommendedBooks[] = $book;
+                }
+            }
+        }
+
+        return $recommendedBooks;
     }
 }
