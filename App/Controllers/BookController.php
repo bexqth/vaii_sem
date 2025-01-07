@@ -65,8 +65,14 @@ class BookController extends AControllerBase
         $followingsStatuses = array_column($followings, 'status');
         $followingsProfilePics = array_column($followings, 'profile_pic');
 
+        $distributions = $this->getStatusDistribution($chosenBookId);
+        $readingCount = array_column($distributions, 'readingCount');
+        $planningCount = array_column($distributions, 'planningCount');
+        $finishedCount = array_column($distributions, 'finishedCount');
+
         return $this->html(["chosenBook" => $chosenBook, "chosenBookReviews" => $chosenBookReviews, "bookStatus" => $bookStatus, "readingProgress" => $readingProgress, "progressPercentage" => $progressPercentage,
-            "bookAuthor" => $bookAuthor, "bookGenre" => $bookGenre, "reviewUsers" => $reviewUsers, "followingUsers" => $followingsUsers, "followingsStatuses" => $followingsStatuses, "followingsProfilePics" => $followingsProfilePics]);
+            "bookAuthor" => $bookAuthor, "bookGenre" => $bookGenre, "reviewUsers" => $reviewUsers, "followingUsers" => $followingsUsers, "followingsStatuses" => $followingsStatuses, "followingsProfilePics" => $followingsProfilePics,
+            "planningCount" => $planningCount[0], "finishedCount" => $finishedCount[0], "readingCount" => $readingCount[0]]);
     }
 
     public function getReviewUsers($reviews) : array {
@@ -240,6 +246,31 @@ class BookController extends AControllerBase
         return $followings;
     }
 
+
+    public function getStatusDistribution($bookId) : array {
+        $readingList = Readinglist::getAll("book_id = ? ", [$bookId]);
+        $readingCount = 0;
+        $finishedCount = 0;
+        $planningCount = 0;
+        $d = [];
+
+        foreach ($readingList as $reading) {
+            switch ($reading->getStatus()) {
+                case "reading":
+                    $readingCount++;
+                    break;
+                case "planning":
+                    $planningCount++;
+                    break;
+                case "finished":
+                    $finishedCount++;
+                    break;
+            }
+        }
+        $d[] = array("readingCount" => $readingCount, "finishedCount" => $finishedCount, "planningCount" => $planningCount);
+
+        return $d;
+    }
 
 
 }

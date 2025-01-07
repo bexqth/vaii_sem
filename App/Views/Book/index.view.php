@@ -105,11 +105,41 @@
         </div>
 
         <div class="row book-row">
-            <div class="col">
+            <div class="col-md-6">
                 <h5>Status Distribution</h5>
+                <div class="status-distribution">
+                    <div class="row">
+                        <div class="col sb-col">
+                            <div class="row">
+                                <h6 class="sb-title sb-title-reading">Reading</h6>
+                            </div>
+                            <div class="row">
+                                <h6><?=$data['readingCount']?> users</h6>
+                            </div>
+                        </div>
+                        <div class="col sb-col">
+                            <div class="row">
+                                <h6 class="sb-title sb-title-finished">Finished</h6>
+                            </div>
+                            <div class="row">
+                                <h6><?=$data['finishedCount']?> users</h6>
+                            </div>
+                        </div>
+                        <div class="col sb-col">
+                            <div class="row">
+                                <h6 class="sb-title sb-title-planning">Planning</h6>
+                            </div>
+                            <div class="row">
+                                <h6><?=$data['planningCount']?> users</h6>
+                            </div>
+                        </div>
+                </div>
+
             </div>
 
-            <div class="col">
+            </div>
+
+            <div class="col-md-6">
                 <h5>Following</h5>
                 <?php for($i = 0; $i < count($data['followingUsers']); $i++) : ?>
                     <div class="row">

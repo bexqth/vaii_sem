@@ -126,6 +126,30 @@ th, td {
     margin-top: 20px;
 }
 
+.sb-col{
+    margin-left: 10px;
+}
+
+.sb-title{
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+}
+
+.sb-title-reading{
+    background-color: rgb(2, 169, 255);
+}
+
+.sb-title-finished{
+    background-color: rgb(104, 214, 57)
+}
+
+.sb-title-planning{
+    background-color: rgb(247, 121, 164)
+}
+
+
 @media (min-width: 320px){
     .nav-link{
         font-size: 15px;
