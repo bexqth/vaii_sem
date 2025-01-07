@@ -62,6 +62,7 @@
                 </div>
 
                 <div class="row profile-bio-row">
+                    <h5>Socials</h5>
                     <div class="col">
                         <h6 id="followers"><?=$data['user']->getFollowers()?> followers</h6>
                     </div>
@@ -72,12 +73,24 @@
 
 
                 <div class="row genre-row">
-                    <h5>Genre overview</h5>
-                        <div class="progress">
-                            <div class="progress-bar custom-progress-bar-1" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                            <div class="progress-bar custom-progress-bar-2" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-                            <div class="progress-bar custom-progress-bar-3" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
+                    <h5>Top genres overview</h5>
+                    <?php if ($data['nTopGenresNames'] != null) :?>
+                        <?php for($i = 0; $i < count($data['nTopGenresNames']); $i++) : ?>
+                            <div class="row">
+                                <div class="col">
+                                    <h6 class="sb-title"><?=$data['nTopGenresNames'][$i]?></h6>
+                                </div>
+
+                                <div class="col">
+                                    <h6><?=$data['nTopGenresCount'][$i]?> Entries</h6>
+                                </div>
+                            </div>
+                        <?php endfor; ?>
+                    <?php endif;?>
+                </div>
+
+                <div class="row profile-bio-row">
+                    <h5>Favorite books</h5>
                 </div>
 
             </div>

@@ -78,21 +78,14 @@ body{
     margin-bottom: 15px;
 }
 
-.progress{
-    padding: 0;
+.sb-title{
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    background-color: #e3c6b9;
 }
 
-.custom-progress-bar-1 {
-    background-color: #FF5733; /* Custom color */
-}
-
-.custom-progress-bar-2 {
-    background-color: #28A745; /* Custom color */
-}
-
-.custom-progress-bar-3 {
-    background-color: #17A2B8; /* Custom color */
-}
 
 .list-col{
     padding-left: 30px;

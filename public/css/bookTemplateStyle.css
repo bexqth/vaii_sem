@@ -138,15 +138,18 @@ th, td {
 }
 
 .sb-title-reading{
-    background-color: rgb(2, 169, 255);
+    /*background-color: rgb(2, 169, 255);*/
+    background-color: #e3c6b9;
 }
 
 .sb-title-finished{
-    background-color: rgb(104, 214, 57)
+    /*background-color: rgb(104, 214, 57);*/
+    background-color: #e3c6b9;
 }
 
 .sb-title-planning{
-    background-color: rgb(247, 121, 164)
+    /*background-color: rgb(247, 121, 164);*/
+    background-color: #e3c6b9;
 }
 
 

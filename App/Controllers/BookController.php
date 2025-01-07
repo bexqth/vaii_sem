@@ -8,6 +8,7 @@ use App\Core\Responses\Response;
 use App\Models\Activity;
 use App\Models\Author;
 use App\Models\Book;
+use App\Models\Follow;
 use App\Models\Genre;
 use App\Models\Profile;
 use App\Models\Readingprogress;
@@ -233,15 +234,23 @@ class BookController extends AControllerBase
 
     public function getFollowing($bookId) : array {
         $readingList = Readinglist::getAll("book_id = ? ", [$bookId]);
+        $userFollowings = Follow::getAll("follower_id = ?", [$this->app->getAuth()->getLoggedUserId()]);
+        $userFollowingsId = [];
+        foreach ($userFollowings as $userFollow) {
+            $userFollowingsId[] = $userFollow->getFollowedId();
+        }
+
         $followings = [];
         foreach ($readingList as $reading) {
-            $profilePics = Profile::getAll("user_id = ?", [$reading->getUserId()]);
-            $profilePic = $profilePics[0]->getProfilePicture();
-            $followings[] = array(
-                'user_name' => User::getOne($reading->getUserId())->getUsername(),
-                'profile_pic' => $profilePic,
-                'status' => $reading->getStatus()
-            );
+            if(in_array($reading->getUserId(), $userFollowingsId)) {
+                $profilePics = Profile::getAll("user_id = ?", [$reading->getUserId()]);
+                $profilePic = $profilePics[0]->getProfilePicture();
+                $followings[] = array(
+                    'user_name' => User::getOne($reading->getUserId())->getUsername(),
+                    'profile_pic' => $profilePic,
+                    'status' => $reading->getStatus()
+                );
+            }
         }
         return $followings;
     }

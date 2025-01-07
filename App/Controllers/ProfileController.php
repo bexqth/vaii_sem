@@ -7,6 +7,7 @@ use App\Core\Responses\Response;
 use App\Models\Activity;
 use App\Models\Book;
 use App\Models\Follow;
+use App\Models\Genre;
 use App\Models\Profile;
 use App\Models\Readinglist;
 use App\Models\Readingprogress;
@@ -45,6 +46,10 @@ class ProfileController extends AControllerBase
         $finishedProgresses = $this->getProgresses($finishedBooks);
         $planningProgresses = $this->getProgresses($planningBooks);
 
+        $nTopGenres = $this->getGenreOverview($user_id);
+        $nTopGenresNames = array_column($nTopGenres, 'name');
+        $nTopGenresCount = array_column($nTopGenres, 'count');
+
         $follows = Follow::getAll("follower_id = ? AND followed_id = ?", [$this->app->getAuth()->getLoggedUserId(), $user_id]);
         if(count($follows) == 0) {
             $isFollowing = false;
@@ -55,7 +60,7 @@ class ProfileController extends AControllerBase
         return $this->html(['user' => $user, 'readingBooks' => $readingBooks, 'finishedBooks' => $finishedBooks, 'planningBooks' => $planningBooks,
             'readingReviews' => $readingReviews, 'finishedReviews' => $finishedReviews, 'planningReviews' => $planningReviews,
             "readingProgresses" => $readingProgresses, "finishedProgresses" => $finishedProgresses, "planningProgresses" => $planningProgresses,
-            "userProfile" => $user_profile, "isFollowing" => $isFollowing]);
+            "userProfile" => $user_profile, "isFollowing" => $isFollowing, "nTopGenresCount" => $nTopGenresCount, "nTopGenresNames" => $nTopGenresNames,]);
     }
 
     public function getProgresses($books): array {
@@ -198,5 +203,41 @@ class ProfileController extends AControllerBase
         $newActivity->setActivityText("Just started following {$name}");
         $newActivity->save();
     }
+
+    public function getGenreOverview($userId) {
+        $genres = Genre::getAll();
+        $genreCounts = [];
+        $readingLists = Readinglist::getAll("user_id = ?", [$userId]);
+
+        foreach ($genres as $genre) {
+            $genreCounts[$genre->getId()] = array(
+                'id' => $genre->getId(),
+                'count' => 0,
+                'name' => $genre->getName(),
+            );
+        }
+
+        foreach ($readingLists as $readingList) {
+            $books = Book::getAll("id = ?", [$readingList->getBookId()]);
+            foreach ($books as $book) {
+                foreach ($genres as $genre) {
+                    if($book->getGenreId() == $genre->getId()) {
+                        $genreCounts[$book->getGenreId()]['count']++;
+                    }
+                }
+
+            }
+        }
+
+        usort($genreCounts, function($a, $b) { return $b['count'] <=> $a['count']; });
+        $topNGenres = array_slice($genreCounts, 0, 6);
+        return $topNGenres;
+
+    }
+
+    public function getFavoriteBooks() {
+
+    }
+
 }
 

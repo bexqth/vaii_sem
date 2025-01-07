@@ -102,21 +102,27 @@ class OverviewController extends AControllerBase
         $allBooks = Book::getAll();
         $readingBookIds = [];
 
+        foreach ($readingList as $reading) {
+            $readingBookIds[] = $reading->getBookId();
+        }
+
         foreach ($genres as $genre) {
-            $genreCounts[] = array(
+            $genreCounts[$genre->getId()] = array(
                 'id' => $genre->getId(),
                 'count' => 0,
+                'name' => $genre->getName(),
             );
         }
 
         foreach ($readingList as $list) {
             $books = Book::getAll("id = ?", [$list->getBookId()]);
             foreach ($books as $book) {
-                $genreId = $book->getGenreId();
-                if($book->getGenreId() == $genreId) {
-                    $readingBookIds[] = $book->getId();
-                    $genreCounts[$genreId]['count']++;
+                foreach ($genres as $genre) {
+                    if($book->getGenreId() == $genre->getId()) {
+                        $genreCounts[$book->getGenreId()]['count']++;
+                    }
                 }
+
             }
         }
 
