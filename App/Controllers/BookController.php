@@ -59,9 +59,14 @@ class BookController extends AControllerBase
 
         $bookAuthor = Author::getOne($chosenBook->getAuthorId());
         $bookGenre = Genre::getOne($chosenBook->getGenreId());
+        $followings = $this->getFollowing($chosenBookId);
+
+        $followingsUsers = array_column($followings, 'user_name');
+        $followingsStatuses = array_column($followings, 'status');
+        $followingsProfilePics = array_column($followings, 'profile_pic');
 
         return $this->html(["chosenBook" => $chosenBook, "chosenBookReviews" => $chosenBookReviews, "bookStatus" => $bookStatus, "readingProgress" => $readingProgress, "progressPercentage" => $progressPercentage,
-            "bookAuthor" => $bookAuthor, "bookGenre" => $bookGenre, "reviewUsers" => $reviewUsers]);
+            "bookAuthor" => $bookAuthor, "bookGenre" => $bookGenre, "reviewUsers" => $reviewUsers, "followingUsers" => $followingsUsers, "followingsStatuses" => $followingsStatuses, "followingsProfilePics" => $followingsProfilePics]);
     }
 
     public function getReviewUsers($reviews) : array {
@@ -92,10 +97,7 @@ class BookController extends AControllerBase
                 $readingList = new Readinglist();
                 $readingList->setBookId($bookId);
 
-                $userIds = User::getAll('username = ?', [$this->app->getAuth()->getLoggedUserName()]);
-                $userId = $userIds[0];
-
-                $readingList->setUserId($userId->getId());
+                $readingList->setUserId($userId);
                 $readingList->setStatus($listName);
 
                 $readingList->save();
@@ -111,10 +113,7 @@ class BookController extends AControllerBase
                     $newList = new Readinglist();
                     $newList->setBookId($bookId);
 
-                    $userIds = User::getAll('username = ?', [$this->app->getAuth()->getLoggedUserName()]);
-                    $userId = $userIds[0];
-
-                    $newList->setUserId($userId->getId());
+                    $newList->setUserId($userId);
                     $newList->setStatus($listName);
 
                     $newList->save();
@@ -224,6 +223,21 @@ class BookController extends AControllerBase
         $book = Book::getOne($bookId);
         $book->delete();
         return $this->redirect($this->url("booklist.index"));
+    }
+
+    public function getFollowing($bookId) : array {
+        $readingList = Readinglist::getAll("book_id = ? ", [$bookId]);
+        $followings = [];
+        foreach ($readingList as $reading) {
+            $profilePics = Profile::getAll("user_id = ?", [$reading->getUserId()]);
+            $profilePic = $profilePics[0]->getProfilePicture();
+            $followings[] = array(
+                'user_name' => User::getOne($reading->getUserId())->getUsername(),
+                'profile_pic' => $profilePic,
+                'status' => $reading->getStatus()
+            );
+        }
+        return $followings;
     }
 
 

@@ -25,7 +25,7 @@
         <div class="row">
             <div class="col-12 col-md-6 col-lg-6">
                 <h3>Activity</h3>
-
+                <h4>People you follow</h4>
                 <?php if ($data['followedPeopleActivities'] != null) :?>
                     <?php for($i = 0; $i < count($data['followedPeopleActivities']); $i++) : ?>
                         <div class="row profile-bio-row review-item-row">

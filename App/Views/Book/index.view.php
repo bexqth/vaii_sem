@@ -34,6 +34,7 @@
         <div class="row book-row">
             <div class="col-sm-12 col-md-3 col-lg-3">
                 <img src="<?=$data['chosenBook']->getCoverUrl()?>" class="book-cover" alt="">
+
             </div>
 
             <div class="col-sm-12 col-md-9 col-lg-9">
@@ -62,6 +63,7 @@
                 <?php endif; ?>
 
                 <p class="book-description"><?=$data['chosenBook']->getDescription()?></p>
+
                 <table>
                     <tr>
                         <th>Pages</th>
@@ -100,6 +102,37 @@
                 <?php endif; ?>
 
             </div>
+        </div>
+
+        <div class="row book-row">
+            <div class="col">
+                <h5>Status Distribution</h5>
+            </div>
+
+            <div class="col">
+                <h5>Following</h5>
+                <?php for($i = 0; $i < count($data['followingUsers']); $i++) : ?>
+                    <div class="row">
+
+                        <div class="row followings-row">
+
+                            <div class="col-3 col-sm-3 col-md-1 col-lg-1">
+                                <img class="review-image" src="<?= $data['followingsProfilePics'][$i]?>" alt="">
+                            </div>
+
+                            <div class="author-col col-12 col-md-2 col-lg-2">
+                                <h5><?=$data['followingUsers'][$i]?></h5>
+                            </div>
+
+                            <div class="text-col col-sm-12 col-md-9 col-lg-9">
+                                <h5><?=$data['followingsStatuses'][$i]?></h5>
+                            </div>
+                        </div>
+
+                    </div>
+                <?php endfor; ?>
+            </div>
+
         </div>
 
         <h2 class="review-title">Reviews</h2>
