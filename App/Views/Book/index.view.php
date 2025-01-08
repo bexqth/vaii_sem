@@ -95,7 +95,17 @@
                             <button id="finishedButton" class="dropdown-item" type="button" onclick="addToReading(2, <?=$data['chosenBook']->getId()?>, 'finished')">Set as finished</button>
                             <button id="planningButton" class="dropdown-item" type="button" onclick="addToReading(3, <?=$data['chosenBook']->getId()?>, 'planning')">Set as planning</button>
                         </div>
+
+                        <div>
+                            <?php if($data['isFavorite'] === true) :?>
+                                <button id="favorite-button" type="button" class="btn favorite-button" onclick="updateFavoriteButton(<?=$data['chosenBook']->getId()?>, true)"><i class="bi bi-heart-fill"></i></button>
+                            <?php else : ?>
+                                <button id="favorite-button" type="button" class="btn favorite-button" onclick="updateFavoriteButton(<?=$data['chosenBook']->getId()?>, false)"><i class="bi bi-heart"></i></button>
+                            <?php endif; ?>
+                        </div>
+
                     </div>
+
                 <?php elseif ($auth->isLogged() && $auth->isAdmin()) : ?>
                     <a href="<?= $link->url('book.form', ['id' => $data['chosenBook']->getId()]) ?>" class="btn btn-primary"><i class="bi bi-pencil-fill"></i></a>
                     <a href="<?= $link->url('book.delete', ['id' => $data['chosenBook']->getId()]) ?>"  class="btn btn-danger"><i class="bi bi-trash"></i></a>

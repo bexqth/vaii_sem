@@ -6,6 +6,7 @@ use App\Core\AControllerBase;
 use App\Core\Responses\Response;
 use App\Models\Activity;
 use App\Models\Book;
+use App\Models\FavoriteBook;
 use App\Models\Follow;
 use App\Models\Genre;
 use App\Models\Profile;
@@ -57,10 +58,12 @@ class ProfileController extends AControllerBase
             $isFollowing = true;
         }
 
+        $favoriteBooks = $this->getFavoriteBooks($user_id);
+
         return $this->html(['user' => $user, 'readingBooks' => $readingBooks, 'finishedBooks' => $finishedBooks, 'planningBooks' => $planningBooks,
             'readingReviews' => $readingReviews, 'finishedReviews' => $finishedReviews, 'planningReviews' => $planningReviews,
             "readingProgresses" => $readingProgresses, "finishedProgresses" => $finishedProgresses, "planningProgresses" => $planningProgresses,
-            "userProfile" => $user_profile, "isFollowing" => $isFollowing, "nTopGenresCount" => $nTopGenresCount, "nTopGenresNames" => $nTopGenresNames,]);
+            "userProfile" => $user_profile, "isFollowing" => $isFollowing, "nTopGenresCount" => $nTopGenresCount, "nTopGenresNames" => $nTopGenresNames, "favoriteBooks" => $favoriteBooks,]);
     }
 
     public function getProgresses($books): array {
@@ -235,8 +238,13 @@ class ProfileController extends AControllerBase
 
     }
 
-    public function getFavoriteBooks() {
-
+    public function getFavoriteBooks($userId) : array {
+        $favoriteBooks = FavoriteBook::getAll("user_id = ?", [$userId]);
+        $book = [];
+        foreach ($favoriteBooks as $favoriteBook) {
+            $books[] = Book::getOne($favoriteBook->getBookId());
+        }
+        return $books;
     }
 
 }

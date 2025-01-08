@@ -78,11 +78,11 @@
                         <?php for($i = 0; $i < count($data['nTopGenresNames']); $i++) : ?>
                             <div class="row">
                                 <div class="col">
-                                    <h6 class="sb-title"><?=$data['nTopGenresNames'][$i]?></h6>
+                                    <p class="sb-title"><?=$data['nTopGenresNames'][$i]?></p>
                                 </div>
 
                                 <div class="col">
-                                    <h6><?=$data['nTopGenresCount'][$i]?> Entries</h6>
+                                    <p><?=$data['nTopGenresCount'][$i]?> Entries</p>
                                 </div>
                             </div>
                         <?php endfor; ?>
@@ -91,6 +91,22 @@
 
                 <div class="row profile-bio-row">
                     <h5>Favorite books</h5>
+                    <div class="row profile-bio-row row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-2">
+                        <?php if ($data['favoriteBooks'] != null) { ?>
+                            <?php foreach ($data['favoriteBooks'] as $book): ?>
+                                <div class="col">
+                                    <div class="book-card card">
+                                        <a href="<?= $link->url("book.index", ["id" => $book->getId()]) ?>">
+                                            <img src="<?=$book->getCoverUrl()?>" class="card-img-top" alt="...">
+                                        </a>
+                                        <div class="card-body">
+                                            <p class="card-title"><?=$book->getTitle()?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php } ?>
+                    </div>
                 </div>
 
             </div>

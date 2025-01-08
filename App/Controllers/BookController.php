@@ -8,6 +8,7 @@ use App\Core\Responses\Response;
 use App\Models\Activity;
 use App\Models\Author;
 use App\Models\Book;
+use App\Models\FavoriteBook;
 use App\Models\Follow;
 use App\Models\Genre;
 use App\Models\Profile;
@@ -71,9 +72,16 @@ class BookController extends AControllerBase
         $planningCount = array_column($distributions, 'planningCount');
         $finishedCount = array_column($distributions, 'finishedCount');
 
+        $favoriteBooks = FavoriteBook::getAll("user_id = ? AND book_id = ?", [$userId, $chosenBookId]);
+        if(count($favoriteBooks) == 0) {
+            $isFavorite = false;
+        } else {
+            $isFavorite = true;
+        }
+
         return $this->html(["chosenBook" => $chosenBook, "chosenBookReviews" => $chosenBookReviews, "bookStatus" => $bookStatus, "readingProgress" => $readingProgress, "progressPercentage" => $progressPercentage,
             "bookAuthor" => $bookAuthor, "bookGenre" => $bookGenre, "reviewUsers" => $reviewUsers, "followingUsers" => $followingsUsers, "followingsStatuses" => $followingsStatuses, "followingsProfilePics" => $followingsProfilePics,
-            "planningCount" => $planningCount[0], "finishedCount" => $finishedCount[0], "readingCount" => $readingCount[0]]);
+            "planningCount" => $planningCount[0], "finishedCount" => $finishedCount[0], "readingCount" => $readingCount[0], "isFavorite" => $isFavorite,]);
     }
 
     public function getReviewUsers($reviews) : array {
@@ -279,6 +287,40 @@ class BookController extends AControllerBase
         $d[] = array("readingCount" => $readingCount, "finishedCount" => $finishedCount, "planningCount" => $planningCount);
 
         return $d;
+    }
+
+    /**
+     * @throws \JsonException
+     */
+    public function addAsFavoriteBook() {
+        $data = $this->app->getRequest()->getRawBodyJSON();
+        if (is_object($data) && property_exists($data, 'bookId')) {
+            $bookId = $data->bookId;
+            $favoriteBook = new FavoriteBook();
+            $favoriteBook->setBookId($bookId);
+            $favoriteBook->setUserId($this->app->getAuth()->getLoggedUserId());
+            $favoriteBook->save();
+
+            $message = 'OK';
+            return $this->json(['message' => $message]);
+        }
+
+        $message = 'Something is missing';
+        return $this->json(['message' => $message]);
+    }
+
+    public function removeAsFavoriteBook() {
+        $data = $this->app->getRequest()->getRawBodyJSON();
+        if (is_object($data) && property_exists($data, 'bookId')) {
+            $bookId = $data->bookId;
+            $favoriteBooks = FavoriteBook::getAll("book_id = ? AND user_id = ?", [$bookId, $this->app->getAuth()->getLoggedUserId()]);
+            $favoriteBooks[0]->delete();
+            $message = 'OK';
+            return $this->json(['message' => $message]);
+        }
+
+        $message = 'Something is missing';
+        return $this->json(['message' => $message]);
     }
 
 

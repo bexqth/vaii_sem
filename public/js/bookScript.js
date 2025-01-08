@@ -122,3 +122,62 @@ async function addToReading(option, bookId, list) {
 }
 
 
+function updateFavoriteButton(bookId, state) {
+    if(state === false) {
+        addFavoriteBook(bookId);
+        favoriteIconFill = true;
+    } else {
+        removeFavoriteBook(bookId);
+        favoriteIconFill = false;
+    }
+}
+
+
+async function addFavoriteBook(bookId) {
+    let favoriteButton = document.getElementById("favorite-button");
+    let url = "http://127.0.0.1:88/?c=book&a=addAsFavoriteBook";
+    let body = {
+        "bookId": bookId,
+    };
+
+    let response = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: {
+            "Content-type": "application/json",
+            "Accept": "application/json",
+        }
+    });
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    favoriteButton.innerHTML = '<i class="bi bi-heart-fill"></i>';
+    favoriteButton.setAttribute("onclick", `updateFollowButton(${bookId}, true)`);
+}
+
+async function removeFavoriteBook(bookId) {
+    let favoriteButton = document.getElementById("favorite-button");
+    let url = "http://127.0.0.1:88/?c=book&a=removeAsFavoriteBook";
+    let body = {
+        "bookId": bookId,
+    };
+
+    let response = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: {
+            "Content-type": "application/json",
+            "Accept": "application/json",
+        }
+    });
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    favoriteButton.innerHTML = '<i class="bi bi-heart"></i>';
+    favoriteButton.setAttribute("onclick", `updateFollowButton(${bookId}, false)`);
+}
+
