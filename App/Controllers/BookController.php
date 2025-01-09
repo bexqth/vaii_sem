@@ -16,6 +16,7 @@ use App\Models\Readingprogress;
 use App\Models\Review;
 use App\Models\Readinglist;
 use App\Models\User;
+use DateTime;
 use HttpException;
 
 class BookController extends AControllerBase
@@ -209,6 +210,7 @@ class BookController extends AControllerBase
         //$bookCover =  $this->app->getRequest()->getFiles()["bookCover"];
         $title = $this->app->getRequest()->getValue("title");
         $author = $this->app->getRequest()->getValue("author");
+        $description = $this->app->getRequest()->getValue("description");
         $genre = $this->app->getRequest()->getValue("genre");
         $isbn = $this->app->getRequest()->getValue("isbn");
         $pages = $this->app->getRequest()->getValue("pages");
@@ -225,14 +227,18 @@ class BookController extends AControllerBase
         $books = Book::getAll("isbn = ?", [$isbn]);
         if($books == null) {
             $modifiedBook = new Book();
+            $message = 'Book added successfully';
         } else {
             $modifiedBook = $books[0];
+            $message = 'Book updated successfully';
         }
 
         $modifiedBook->setTitle($title);
         $modifiedBook->setPages($pages);
+        $modifiedBook->setDescription($description);
         $modifiedBook->setIsbn($isbn);
         $modifiedBook->setPublicationDate($year);
+        $modifiedBook->setCreatedAt(date("Y-m-d"));
 
         $authorIds = Author::getAll("name = ?", [$author]);
         $modifiedBook->setAuthorId($authorIds[0]->getId());
@@ -244,6 +250,7 @@ class BookController extends AControllerBase
             $modifiedBook->setCoverUrl($bookCoverContent);
         }
         $modifiedBook->save();
+        return $this->json(["message" => $message]);
     }
 
     /**

@@ -6,6 +6,7 @@ let genre;
 let year;
 let newBookCover;
 let isbn;
+let description;
 
 document.addEventListener('DOMContentLoaded', function () {
     const dropZone = document.getElementById('drop-zone-cover');
@@ -47,9 +48,11 @@ async function sendBookFormData() {
     isbn = document.getElementById("isbn").value;
     pages = document.getElementById("pages").value;
     year = document.getElementById("year").value;
+    description = document.getElementById("description").value;
 
     bookFormData.append("title", title);
     bookFormData.append("author", selectedAuthorName);
+    bookFormData.append("description", description);
     bookFormData.append("genre", selectedGenreName);
     bookFormData.append("isbn", isbn);
     bookFormData.append("pages", pages);
@@ -63,12 +66,21 @@ async function sendBookFormData() {
         body: bookFormData,
     });
 
+    const data = await response.json();
     if (response.ok) {
-        console.log('Data sent successfully');
+        const successMessageDiv = document.getElementById('successMessage');
+        successMessageDiv.innerText = data.message;
+        successMessageDiv.style.display = 'block';
+
+        setTimeout(() => {
+            successMessageDiv.style.display = 'none';
+        }, 3500);
+
+        const errorMessageDiv = document.getElementById('errorMessage');
+        errorMessageDiv.style.display = 'none';
     } else {
         console.error('Error sending data:', response.statusText);
     }
 
-    const data = await response.json();
 
 }

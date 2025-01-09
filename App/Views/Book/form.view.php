@@ -31,6 +31,13 @@
         <div id="errorMessage" class="alert alert-danger" style="display: none;">
         </div>
 
+
+        <div id="successMessage" class="alert alert-success" style="display: none;">
+        </div>
+
+        <div id="errorMessage" class="alert alert-danger" style="display: none;">
+        </div>
+
         <div class="row book-row">
             <div class="col-sm-12 col-md-3 col-lg-3">
                 <?php if ($data["chosenBook"] !== null) { ?>

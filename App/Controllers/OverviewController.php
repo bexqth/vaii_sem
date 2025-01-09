@@ -66,8 +66,6 @@ class OverviewController extends AControllerBase
         $books = Book::getAll();
         $ratings = [];
 
-        $bestRating = 0;
-        $numberOfBooks = 4;
         foreach ($books as $book) {
             $ratings[] = array('id' => $book->getId(), 'rating' => $book->getAverageRating());
         }
@@ -82,6 +80,9 @@ class OverviewController extends AControllerBase
 
     }
 
+    /**
+     * @throws \DateMalformedStringException
+     */
     public function getRecentlyAddedBooks() {
         $books = Book::getAll();
         $recentlyAddedBooks = [];
