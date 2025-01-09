@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Core\Model;
+use DateTime;
 
 class Review extends Model
 {
@@ -12,6 +13,7 @@ class Review extends Model
     protected ?int $rating = 0;
     protected ?string $review_text = "";
     //private ?string $review_author = "";
+    protected ?string $created_at;
 
     public function getReviewAuthor(): string
     {
@@ -24,7 +26,6 @@ class Review extends Model
     {
         $this->review_author = $review_author;
     }
-    protected ?string $created_at;
 
     public function getId(): int
     {
@@ -84,6 +85,22 @@ class Review extends Model
     public function setCreatedAt(?string $created_at): void
     {
         $this->created_at = $created_at;
+    }
+
+    public function getCreatedAtString() : string{
+        $created_at = new DateTime($this->created_at);
+        $now = new DateTime();
+        $interval = $now->diff($created_at);
+
+        if ($interval->days === 0) {
+            return "Today";
+        } elseif ($interval->days <= 7) {
+            return "This week";
+        } elseif ($interval->days <= 30) {
+            return "This month";
+        } else {
+            return $created_at->format('d-m-Y');
+        }
     }
 
 

@@ -201,7 +201,7 @@
                     <div class="col-12 col-md-2 col-lg-2">
                         <h5><?=$data['chosenBookReviews'][$i]->getRating()?>/10</h5>
                         <a href="<?= $link->url("profile.index", ["userId" => $data['reviewUsers'][$i]->getUserId()]) ?>"><?=$data['chosenBookReviews'][$i]->getReviewAuthor()?></a>
-                        <h6>1 months ago</h6>
+                        <h6><?=$data["chosenBookReviews"][$i]->getCreatedAtString()?></h6>
 
                         <?php if(($auth->isLogged() && $data['chosenBookReviews'][$i]->getReviewAuthor() == $auth->getLoggedUserName())):?>
                             <a href="<?= $link->url('review.edit', ['id' => $data['chosenBookReviews'][$i]->getId()]) ?>" class="btn btn-primary"><i class="bi bi-pencil-fill"></i></a>

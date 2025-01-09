@@ -11,6 +11,7 @@ use App\Models\Book;
 use App\Models\Genre;
 use App\Models\Review;
 use App\Models\User;
+use DateTime;
 use Exception;
 
 class ReviewController extends AControllerBase
@@ -104,6 +105,7 @@ class ReviewController extends AControllerBase
 
             $newReview->setReviewText($formData['review_text']);
             $newReview->setRating($formData['rating']);
+            $newReview->setCreatedAt(date('Y-m-d'));
             $newReview->save();
             $this->addReviewActivity($bookName);
 
