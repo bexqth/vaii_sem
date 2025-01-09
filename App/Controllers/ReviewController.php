@@ -35,39 +35,28 @@ class ReviewController extends AControllerBase
 
     public function authorize(string $action): bool
     {
-        if ($this->app->getAuth()->isLogged()) {
-            $user = User::getOne($this->app->getAuth()->getLoggedUserId());
-
-            switch ($action) {
-                case 'add':
-                case "index":
-                    if($user->hasPermission("add_review")) {
-                        return true;
-                    }
-                    return false;
-
-                case 'edit':
-                    $reviewId = $this->request()->getValue("id");
-                    $review = Review::getOne($reviewId);
-
-                    if($review->getUserId() == $user->getId() && $user->hasPermission("edit_review")) {
-                        return true;
-                    }
-                    return false;
-                case 'delete':
-                    $reviewId = $this->request()->getValue("id");
-                    $review = Review::getOne($reviewId);
-
-                    if(($review->getUserId() == $user->getId() && $user->hasPermission("delete_review")) || ($user->isAdmin() && $user->hasPermission("delete_review"))) {
-                        return true;
-                    }
-                    return false;
-
-                default:
-                    return $this->app->getAuth()->isLogged();
-            }
+        if (!$this->app->getAuth()->isLogged()) {
+            return false;
         }
-        return false;
+
+        $user = User::getOne($this->app->getAuth()->getLoggedUserId());
+
+        switch ($action) {
+            case 'add':
+                return $user->isUser();
+            case 'edit':
+                $reviewId = $this->request()->getValue("id");
+                $review = Review::getOne($reviewId);
+                return $review->getUserId() == $user->getId() && $user->isUser();
+            case 'delete':
+                $reviewId = $this->request()->getValue("id");
+                $review = Review::getOne($reviewId);
+                return $review->getUserId() == $user->getId() || $user->isAdmin();
+            case "index":
+                return $this->app->getAuth()->isUser();
+            default:
+                return false;
+        }
     }
 
     /**

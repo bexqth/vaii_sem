@@ -10,10 +10,12 @@ use App\Models\Book;
 class BooklistController extends AControllerBase
 {
 
-    /**
-     * Example of an action (authorization needed)
-     * @return \App\Core\Responses\Response|\App\Core\Responses\ViewResponse
-     */
+
+    public function authorize($action)
+    {
+        return true;
+    }
+
     public function index(): Response
     {
         $books = Book::getAll();

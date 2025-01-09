@@ -94,7 +94,11 @@ class DummyAuthenticator implements IAuthenticator
 
     public function isAdmin(): bool
     {
-        // TODO: Implement isAdmin() method.
+
+    }
+
+    public function isUser() : bool {
+
     }
 
 }

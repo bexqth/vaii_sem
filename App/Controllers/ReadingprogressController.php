@@ -10,6 +10,15 @@ use App\Models\User;
 class ReadingprogressController extends AControllerBase
 {
 
+    public function authorize(string $action)
+    {
+        switch ($action) {
+            case "editReadingProgress":
+                return $this->app->getAuth()->isLogged() && $this->app->getAuth()->isUser();
+        }
+    }
+
+
     /**
      * @inheritDoc
      */

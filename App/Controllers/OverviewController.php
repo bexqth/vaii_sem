@@ -17,6 +17,11 @@ use DateTime;
 class OverviewController extends AControllerBase
 {
 
+    public function authorize(string $action)
+    {
+        return $this->app->getAuth()->isLogged();
+    }
+
     /**
      * @inheritDoc
      */

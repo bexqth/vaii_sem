@@ -18,6 +18,17 @@ use App\Models\User;
 class ProfileController extends AControllerBase
 {
 
+    public function authorize(string $action)
+    {
+        switch ($action) {
+            case "removeFollow":
+            case "giveFollow":
+                return $this->app->getAuth()->isLogged() && $this->app->getAuth()->isUser();
+            default: return true;
+        }
+    }
+
+
     /**
      * @inheritDoc
      */

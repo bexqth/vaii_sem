@@ -30,4 +30,13 @@ class CustomAuthenticator extends DummyAuthenticator
         $user = User::getOne($this->getLoggedUserId());
         return $user->getRoleId() === 2;
     }
+
+    /**
+     * @throws \Exception
+     */
+    public function isUser(): bool
+    {
+        $user = User::getOne($this->getLoggedUserId());
+        return $user->getRoleId() === 1;
+    }
 }

@@ -21,6 +21,20 @@ use HttpException;
 class BookController extends AControllerBase
 {
 
+
+    public function authorize(string $action)
+    {
+        switch ($action) {
+            case "addAsFavoriteBook":
+            case "removeAsFavoriteBook":
+            case "setBookStatus":
+                return $this->app->getAuth()->isUser();
+            default:
+                return true;
+        }
+    }
+
+
     /**
      * @inheritDoc
      */
