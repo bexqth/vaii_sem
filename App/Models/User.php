@@ -67,15 +67,6 @@ class User extends Model
         return $role;
     }
 
-    public function hasPermission($name): bool {
-        $permissions = Permission::getAll("name = ? ", [$name]);
-        $permission = $permissions[0];
-        $rolePermission = Rolepermission::getAll("role_id = ? AND permission_id = ?", [$this->role_id, $permission->getId()]);
-        if ($rolePermission != null) {
-            return true;
-        }
-        return false;
-    }
 
     public function getFollowers() : int {//Getter for how many poeple follow me
         $folowers = Follow::getAll("followed_id = ?", [$this->id]);

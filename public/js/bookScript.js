@@ -49,7 +49,7 @@ async function saveProgress(bookId, maxPages) {
     progressBar.style.width = progressPercentage + '%';
 
 
-    let url = "http://127.0.0.1:88/?c=readingprogress&a=editReadingProgress";
+    let url = "http://127.0.0.1:88/?c=book&a=editReadingProgress";
     let body = {
         "bookId": bookId,
         "pages": pages,

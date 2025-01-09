@@ -49,7 +49,7 @@ class OverviewController extends AControllerBase
             }
         }
 
-        return $activities;
+        return array_reverse($activities);
     }
 
 

@@ -251,7 +251,7 @@ class ProfileController extends AControllerBase
 
     public function getFavoriteBooks($userId) : array {
         $favoriteBooks = FavoriteBook::getAll("user_id = ?", [$userId]);
-        $book = [];
+        $books = [];
         foreach ($favoriteBooks as $favoriteBook) {
             $books[] = Book::getOne($favoriteBook->getBookId());
         }

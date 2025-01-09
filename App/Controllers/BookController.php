@@ -28,7 +28,8 @@ class BookController extends AControllerBase
             case "addAsFavoriteBook":
             case "removeAsFavoriteBook":
             case "setBookStatus":
-                return $this->app->getAuth()->isUser();
+            case "editReadingProgress":
+                return $this->app->getAuth()->isLogged() && $this->app->getAuth()->isUser();
             default:
                 return true;
         }
@@ -44,6 +45,7 @@ class BookController extends AControllerBase
         $chosenBookId = $this->request()->getValue("id");
         $chosenBook = Book::getOne($chosenBookId);
         $chosenBookReviews = Review::getAll('book_id = ?', [$chosenBookId]);
+        $chosenBookReviews  = array_reverse($chosenBookReviews);
         $reviewUsers = [];
         if($chosenBookReviews != null) {
             $reviewUsers = $this->getReviewUsers($chosenBookReviews);
@@ -254,6 +256,47 @@ class BookController extends AControllerBase
         return $this->redirect($this->url("booklist.index"));
     }
 
+    public function editReadingProgress() {
+        $data = $this->request()->getRawBodyJSON();
+
+        if (is_object($data) && property_exists($data, 'bookId') && property_exists($data, "pages")) {
+            $bookId = $data->bookId;
+            $pages = $data->pages;
+
+            $users = User::getAll('username = ?', [$this->app->getAuth()->getLoggedUserName()]);
+            $userIds = $users[0];
+            $userId = $userIds->getId();
+
+            $readingProgresses = Readingprogress::getAll("user_id = ? AND book_id = ?", [$userId, $bookId]);
+            $book = Book::getOne($bookId);
+            $theReadingProgress = null;
+            $pagesDiff = 0;
+            if($readingProgresses == null) { //doesnt exist in the database yet
+                $theReadingProgress = new Readingprogress();
+                $pagesDiff = $pages;
+            } else {
+                $theReadingProgress = $readingProgresses[0];
+                if($pages - $readingProgresses[0]->getPagesRead() > 0) {
+                    $pagesDiff = $pages - $readingProgresses[0]->getPagesRead();
+                }
+            }
+
+            $theReadingProgress->setUserId($userId);
+            $theReadingProgress->setBookId($bookId);
+            $theReadingProgress->setPagesRead($pages);
+            $theReadingProgress->save();
+            if($pagesDiff != 0) {
+                $this->addReadingProgressActivity($book->getTitle(), $pagesDiff);
+            }
+
+
+            $message = 'Reading progress updated/created';
+            return $this->json(['message' => $message]);
+        }
+        throw new HTTPException(400, 'Invalid request data');
+    }
+
+
     public function getFollowing($bookId) : array {
         $readingList = Readinglist::getAll("book_id = ? ", [$bookId]);
         $userFollowings = Follow::getAll("follower_id = ?", [$this->app->getAuth()->getLoggedUserId()]);
@@ -276,6 +319,8 @@ class BookController extends AControllerBase
         }
         return $followings;
     }
+
+
 
 
     public function getStatusDistribution($bookId) : array {
@@ -335,6 +380,20 @@ class BookController extends AControllerBase
 
         $message = 'Something is missing';
         return $this->json(['message' => $message]);
+    }
+
+    public function addFavoriteBookActivity($bookName) : void {
+        $newActivity = new Activity();
+        $newActivity->setUserId($this->app->getAuth()->getLoggedUserId());
+        $newActivity->setActivityText("Added as favorite - {$bookName}");
+        $newActivity->save();
+    }
+
+    public function addReadingProgressActivity($bookName, $pages) : void {
+        $newActivity = new Activity();
+        $newActivity->setUserId($this->app->getAuth()->getLoggedUserId());
+        $newActivity->setActivityText("Read {$pages} of  {$bookName}");
+        $newActivity->save();
     }
 
 
