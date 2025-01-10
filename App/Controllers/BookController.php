@@ -216,6 +216,21 @@ class BookController extends AControllerBase
         $pages = $this->app->getRequest()->getValue("pages");
         $year = $this->app->getRequest()->getValue("year");
 
+        if($title == null || $author == null || $description == null || $genre == null || $isbn == null|| $pages == null || $year == null) {
+            $message = 'Please fill all fields';
+            $type = "error";
+            return $this->json(["message" => $message, "type" => $type]);
+        }
+
+        $bookTemp = Book::getAll("isbn = ?", [(int)$isbn]);
+        if(count($bookTemp) != 0) {
+            $message = 'Book with chosen ISBN already exists';
+            $type = "error";
+            return $this->json(["message" => $message, "type" => $type]);
+        }
+
+
+
         $bookCoverContent = null;
         $modifiedBook = null;
 
@@ -250,7 +265,8 @@ class BookController extends AControllerBase
             $modifiedBook->setCoverUrl($bookCoverContent);
         }
         $modifiedBook->save();
-        return $this->json(["message" => $message]);
+        $type = "success";
+        return $this->json(["message" => $message, "type" => $type]);
     }
 
     /**

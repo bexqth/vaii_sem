@@ -129,25 +129,32 @@ class ProfileController extends AControllerBase
         return $this->html(["profile" => $user_profile]);
     }
 
-    /**
-     * @throws \Exception
-     */
-    public function editProfile() : Response {
+    public function editProfile() {
         $data = $this->app->getRequest()->getFiles();
-        $profile_pic = $this->app->getRequest()->getFiles()["profile_picture"];
-        $banner_pic = $this->app->getRequest()->getFiles()["banner_picture"];
         $bio = $this->app->getRequest()->getValue("bio");
+
         $profile_pic_content = null;
         $banner_pic_content = null;
 
+
+        $maxReviewLength = 500;
+        if (strlen($bio) > $maxReviewLength) {
+            $message = "Bio cannot exceed $maxReviewLength characters.";
+            $type = "error";
+            return $this->json(['message' => $message, 'type' => $type]);
+        }
+
+        $profile_pic = null;
+        $banner_pic = null;
+
         if (isset($data["profile_picture"])) {
-            $profile_pic = $data["profile_picture"]['tmp_name']; //temp location
-            $profile_pic_content = file_get_contents($profile_pic); //binary rep
+            $profile_pic_temp = $data["profile_picture"]['tmp_name'];
+            $profile_pic_content = file_get_contents($profile_pic_temp);
         }
 
         if (isset($data["banner_picture"])) {
-            $banner_pic = $data["banner_picture"]['tmp_name'];
-            $banner_pic_content = file_get_contents($banner_pic);
+            $banner_pic_temp = $data["banner_picture"]['tmp_name'];
+            $banner_pic_content = file_get_contents($banner_pic_temp);
         }
 
         $user_id = $this->app->getAuth()->getLoggedUserId();
@@ -158,13 +165,17 @@ class ProfileController extends AControllerBase
         if ($profile_pic_content !== null) {
             $user_profile->setProfilePicture($profile_pic_content);
         }
+
         if ($banner_pic_content !== null) {
             $user_profile->setBannerPicture($banner_pic_content);
         }
+
         $user_profile->save();
-        $message = 'Book added to reading list successfully';
-        return $this->json(['message' => $message]);
+        $message = 'Profile updated';
+        $type = "success";
+        return $this->json(["message" => $message, "type" => $type]);
     }
+
 
     /**
      * @throws \JsonException

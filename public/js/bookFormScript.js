@@ -68,16 +68,30 @@ async function sendBookFormData() {
 
     const data = await response.json();
     if (response.ok) {
-        const successMessageDiv = document.getElementById('successMessage');
-        successMessageDiv.innerText = data.message;
-        successMessageDiv.style.display = 'block';
+        if(data["type"] === "error") {
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.innerText = data.message;
+            errorMessage.style.display = 'block';
 
-        setTimeout(() => {
+            setTimeout(() => {
+                errorMessage.style.display = 'none';
+            }, 3500);
+
+            const successMessageDiv = document.getElementById('successMessage');
             successMessageDiv.style.display = 'none';
-        }, 3500);
+        } else if (data["type"] === "success") {
+            const successMessageDiv = document.getElementById('successMessage');
+            successMessageDiv.innerText = data.message;
+            successMessageDiv.style.display = 'block';
 
-        const errorMessageDiv = document.getElementById('errorMessage');
-        errorMessageDiv.style.display = 'none';
+            setTimeout(() => {
+                successMessageDiv.style.display = 'none';
+            }, 3500);
+
+            const errorMessageDiv = document.getElementById('errorMessage');
+            errorMessageDiv.style.display = 'none';
+        }
+
     } else {
         console.error('Error sending data:', response.statusText);
     }

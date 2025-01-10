@@ -64,12 +64,95 @@ async function sendFormData() {
         body: formData,
     });
 
+    const data = await response.json();
     if (response.ok) {
-        console.log('Data sent successfully');
+        if(data["type"] === "error") {
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.innerText = data.message;
+            errorMessage.style.display = 'block';
+
+            setTimeout(() => {
+                errorMessage.style.display = 'none';
+            }, 3500);
+
+            const successMessageDiv = document.getElementById('successMessage');
+            successMessageDiv.style.display = 'none';
+        } else if (data["type"] === "success") {
+            const successMessageDiv = document.getElementById('successMessage');
+            successMessageDiv.innerText = data.message;
+            successMessageDiv.style.display = 'block';
+
+            setTimeout(() => {
+                successMessageDiv.style.display = 'none';
+            }, 3500);
+
+            const errorMessageDiv = document.getElementById('errorMessage');
+            errorMessageDiv.style.display = 'none';
+        }
     } else {
-        console.error('Error sending data:', response.statusText);
+
     }
+}
+
+
+/*async function sendFormData() {
+
+    bio = document.getElementById("about_text").value;
+    formData.append("bio", bio);
+    let url = "http://127.0.0.1:88/?c=profile&a=editProfile";
+
+    let response = await fetch(url, {
+        method: "POST",
+        body: formData,
+    });
 
     const data = await response.json();
-}
+
+    //const data = await response.json();
+
+    /*let formData = new FormData();
+    bio = document.getElementById("about_text").value;
+    formData.append("bio", bio);
+    formData.append("profile_picture", newProfilePicture);
+    formData.append("banner_picture", newBannerPicture);
+
+    let url = "http://127.0.0.1:88/?c=profile&a=editProfile";
+
+    let response = await fetch(url, {
+        method: "POST",
+        body: formData,
+    });
+
+    let data = await response.json();
+    if (response.ok) { */
+        /*if(data["type"] === "error") {
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.innerText = data.message;
+            errorMessage.style.display = 'block';
+
+            setTimeout(() => {
+                errorMessage.style.display = 'none';
+            }, 3500);
+
+            const successMessageDiv = document.getElementById('successMessage');
+            successMessageDiv.style.display = 'none';
+        } else if (data["type"] === "success") {
+            const successMessageDiv = document.getElementById('successMessage');
+            successMessageDiv.innerText = data.message;
+            successMessageDiv.style.display = 'block';
+
+            setTimeout(() => {
+                successMessageDiv.style.display = 'none';
+            }, 3500);
+
+            const errorMessageDiv = document.getElementById('errorMessage');
+            errorMessageDiv.style.display = 'none';
+        }*/
+    /*} else {
+        console.error('Error sending data:', response.statusText);
+    }*/
+
+
+
+//}
 
