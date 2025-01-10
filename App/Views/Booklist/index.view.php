@@ -33,20 +33,10 @@
                 </div>
                 <div id="categoryButtons" class="dropdown-content">
                     <button type="button" class="btn">All</button>
-                    <button type="button" class="btn">Art</button>
-                    <button type="button" class="btn">Literary Fiction</button>
-                    <button type="button" class="btn">Historical Fiction</button>
-                    <button type="button" class="btn">Science Fiction</button>
-                    <button type="button" class="btn">Fantasy</button>
-                    <button type="button" class="btn">Mystery</button>
-                    <button type="button" class="btn">Thriller</button>
-                    <button type="button" class="btn">Romance</button>
-                    <button type="button" class="btn">Horror</button>
-                    <button type="button" class="btn">Biography</button>
-                    <button type="button" class="btn">History</button>
-                    <button type="button" class="btn">Poetry</button>
-                    <button type="button" class="btn">Drama</button>
-                    <button type="button" class="btn">Classics</button>
+                    <?php foreach ($data['genres'] as $genre): ?>
+                        <button id="<?=$genre->getId()?>" type="button" class="btn" onclick="filterBooks(<?=$genre->getId()?>, '<?=$genre->getName()?>')"><?=$genre->getName()?></button>
+                    <?php endforeach; ?>
+
                 </div>
             </div>
         </div>
@@ -55,12 +45,11 @@
         <div class="col-sm-8 col-md-8 col-lg-8 books-col">
             <div class="booklist-title-container">
                 <img class="booklist-logo" src="public/images/booklist_icon.png" alt="...">
-                <h2 class="booklist-title">Booklist</h2>
+                <h2 id="booklist-title" class="booklist-title">Booklist</h2>
             </div>
 
 
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4 book-list-row">
-
+            <div id="booksSpace" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4 book-list-row">
                 <?php for($i = 0; $i < count($data['books']); $i++) : ?>
                     <div class="col">
                         <div class="book-card card">
@@ -75,7 +64,6 @@
 
                     </div>
                 <?php endfor; ?>
-
 
             </div>
 

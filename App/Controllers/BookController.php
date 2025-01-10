@@ -123,7 +123,6 @@ class BookController extends AControllerBase
             $listName = $data->list;
             $userId = $this->app->getAuth()->getLoggedUserId();
             $book = Book::getOne($bookId);
-            //$userIds = User::getAll('username = ?', [$this->app->getAuth()->getLoggedUserName()]);
             $inList = Readinglist::getAll('book_id = ? AND user_id = ?', [$bookId, $userId]);
             if(count($inList) == 0) {
                 $readingList = new Readinglist();
