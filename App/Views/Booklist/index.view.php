@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div id="categoryButtons" class="dropdown-content">
-                    <button type="button" class="btn">All</button>
+                    <button type="button" class="btn" onclick="filterBooks(0, 'All')">All</button>
                     <?php foreach ($data['genres'] as $genre): ?>
                         <button id="<?=$genre->getId()?>" type="button" class="btn" onclick="filterBooks(<?=$genre->getId()?>, '<?=$genre->getName()?>')"><?=$genre->getName()?></button>
                     <?php endforeach; ?>
@@ -45,7 +45,7 @@
         <div class="col-sm-8 col-md-8 col-lg-8 books-col">
             <div class="booklist-title-container">
                 <img class="booklist-logo" src="public/images/booklist_icon.png" alt="...">
-                <h2 id="booklist-title" class="booklist-title">Booklist</h2>
+                <h2 id="booklist-title" class="booklist-title">Booklist - All</h2>
             </div>
 
 

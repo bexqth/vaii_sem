@@ -40,7 +40,11 @@ class BooklistController extends AControllerBase
     public function filterByGenre() {
         $data = $this->request()->getRawBodyJSON();
         $genre = Genre::getOne($data->genreId);
-        $filteredBooks = Book::getAll("genre_id = ?", [$genre->getId()]);
+        if($data->genreId == 0) { //which means all books
+            $filteredBooks = Book::getAll();
+        } else {
+            $filteredBooks = Book::getAll("genre_id = ?", [$genre->getId()]);
+        }
         $filteredBooksArray = [];
         foreach ($filteredBooks as $book) {
             $author = Author::getOne($book->getAuthorId());
