@@ -59,4 +59,5 @@ function showUpdatedAuthors(authors) {
     });
     let authorName = document.getElementById("author-name");
     authorName.value = "";
+    authorId = null;
 }

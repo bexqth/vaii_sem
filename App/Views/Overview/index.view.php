@@ -31,7 +31,12 @@
                         <div class="row profile-bio-row review-item-row">
 
                             <div class="col-3 col-sm-3 col-md-1 col-lg-1">
-                                <img class="review-image" src="<?=$data['followedUsersProfiles'][$i]->getProfilePicture()?>" alt="">
+                                <?php if($data['followedUsersProfiles'][$i]->getProfilePicture() == null):?>
+                                    <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="review-image" alt="">
+                                <?php else: ?>
+                                    <img class="review-image" src="<?=$data['followedUsersProfiles'][$i]->getProfilePicture()?>" alt="">
+                                <?php endif; ?>
+
                             </div>
 
                             <div class="author-col col-12 col-md-2 col-lg-2">

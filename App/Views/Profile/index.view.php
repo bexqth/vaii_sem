@@ -28,7 +28,7 @@
                 <img src="<?= $data['userProfile']->getBannerPicture()?>" class="banner-image" alt="...">
             <?php endif; ?>
 
-            <?php if($data['userProfile']->getUserId() != $auth->getLoggedUserId()) :?>
+            <?php if($data['userProfile']->getUserId() != $auth->getLoggedUserId() && $auth->isUser()) :?>
                 <?php if($data['isFollowing'] === true) :?>
                     <button id="follow-button" type="button" class="btn follow-button" onclick="updateFollowButton(<?=$data['userProfile']->getId()?>, true)"><i class="bi bi-heart-fill"></i></button>
                 <?php else : ?>
