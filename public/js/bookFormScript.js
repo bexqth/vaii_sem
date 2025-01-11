@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
     dropZone.addEventListener('drop', (event) => {
         event.preventDefault(); // Prevents the default drop action
         const file = event.dataTransfer.files[0];
-        if (file && file.type.startsWith('image/')) {
+        if (isImage(file.name)) {
             const url = URL.createObjectURL(file);
             bookCover.src = url;
             newBookCover = event.dataTransfer.files[0];
@@ -32,6 +32,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
+function isImage(name){
+    name = name.toLowerCase();
+    let extension = name.split('.').pop();
+    if(extension === "png" || extension === "jpeg" || extension === "jpg") {
+        return true;
+    }
+    return false;
+}
 
 
 async function sendBookFormData(bookId) {

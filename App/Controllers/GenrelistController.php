@@ -34,7 +34,8 @@ class GenrelistController extends AControllerBase
         }
         $genre->setName($genreName);
         $genre->save();
-        return $this->getUpdatedGenres();
+        $updatedGenres = $this->getUpdatedGenres();
+        return $this->json($updatedGenres);
     }
 
     public function getUpdatedGenres() {
@@ -47,6 +48,6 @@ class GenrelistController extends AControllerBase
                 'name' => $genre->getName()
             ];
         }
-        return $this->json($allGenres);
+        return $allGenres;
     }
 }

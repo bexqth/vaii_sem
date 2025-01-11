@@ -34,7 +34,7 @@ class AuthorlistController extends AControllerBase
         $author->setName($authorName);
         $author->save();
         $updatedAuthors = $this->getUpdatedAuthors();
-        return $updatedAuthors;
+        return $this->json($updatedAuthors);
     }
 
     public function getUpdatedAuthors() {
@@ -47,6 +47,6 @@ class AuthorlistController extends AControllerBase
                 'name' => $author->getName()
             ];
         }
-        return $this->json($allAuthors);
+        return $allAuthors;
     }
 }

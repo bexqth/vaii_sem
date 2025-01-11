@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
     dropZoneBanner.addEventListener('drop', (event) => {
         event.preventDefault(); // Prevents the default drop action
         const file = event.dataTransfer.files[0];
-        if (file && file.type.startsWith('image/')) {
+        if (isImage(file.name)) {
             const url = URL.createObjectURL(file); // Creates a temporary URL for the file
             bannerImage.src = url; // Sets the banner image to the dropped image
             newBannerPicture = event.dataTransfer.files[0]; // Stores the file for later use
@@ -47,8 +47,13 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-function isImage(){
-
+function isImage(name){
+    name = name.toLowerCase();
+    let extension = name.split('.').pop();
+    if(extension === "png" || extension === "jpeg" || extension === "jpg") {
+        return true;
+    }
+    return false;
 }
 
 async function sendFormData() {
