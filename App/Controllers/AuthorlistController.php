@@ -18,7 +18,35 @@ class AuthorlistController extends AControllerBase
         return $this->html(["authors" => $authors]);
     }
 
-    public function createNewAuthor() {
+    public function editAuthor() {
+        $data = $this->request()->getRawBodyJSON();
+        $authorName = $data->authorName;
+        $authorId = $data->authorId;
+        $author = null;
 
+        if($authorId == null) { //creating
+            $author = new Author();
+            $message = "New author added";
+        } else { //editing
+            $author = Author::getOne($authorId);
+            $message = "Author updated";
+        }
+        $author->setName($authorName);
+        $author->save();
+        $updatedAuthors = $this->getUpdatedAuthors();
+        return $updatedAuthors;
+    }
+
+    public function getUpdatedAuthors() {
+        $authors = Author::getAll();
+        $allAuthors = [];
+        for ($i = 0; $i < count($authors); $i++) {
+            $author = $authors[$i];
+            $allAuthors[] = [
+                'id' => $author->getId(),
+                'name' => $author->getName()
+            ];
+        }
+        return $this->json($allAuthors);
     }
 }

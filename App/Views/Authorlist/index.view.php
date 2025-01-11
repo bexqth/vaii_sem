@@ -21,33 +21,36 @@
     <div class="col-md-2 col-lg-2"></div>
 
     <div class="col-sm-12 col-md-8 col-lg-8 review-col">
-        <div class="row">
+        <div class="row row-container">
                 <div class="col-12 col-md-6 col-lg-6">
                     <div class="list-col">
                         <h3>Authors</h3>
-                        <button class="btn">New author</button>
-                        <?php foreach ($data['authors'] as $author): ?>
-                            <div class="author-row">
-                                <button class="btn"><?=$author->getName()?></button>
-                            </div>
-                        <?php endforeach; ?>
+                        <button class="btn" onclick="createNewAuthor()">New author</button>
+                        <div id="authors-list">
+                            <?php foreach ($data['authors'] as $author): ?>
+                                <div class="author-row">
+                                    <button class="btn" onclick="selectAuthor('<?=$author->getName()?>', <?=$author->getId()?>)"><?=$author->getName()?></button>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+
                     </div>
 
                 </div>
 
                 <div class="col-12 col-md-6 col-lg-6">
                     <div class="form-col">
-                        <h3>Create new author</h3>
+                        <h3 id="author-title">Create new author</h3>
                         <div class="row">
                             <img class="author-icon" src="public/images/author3_icon.png" alt="...">
                         </div>
 
                         <div class="row">
-                            <label for="author"></label>
-                            <textarea id="author" name="description" class="author-name" required></textarea><br>
+                            <label for="author-name"></label>
+                            <textarea id="author-name" name="description" class="author-name" required></textarea><br>
                         </div>
 
-                        <button type="submit" name="submit" class="btn submit-button">Submit</button>
+                        <button type="submit" name="submit" class="btn submit-button" onclick="submit()">Submit</button>
                     </div>
 
 
@@ -60,5 +63,6 @@
 
 </div>
 
+<script src="public/js/authorlistScript.js"></script>
 </body>
 </html>

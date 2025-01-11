@@ -2,8 +2,11 @@ body{
     background-color: #faf5f3;
 }
 
-.author-row{
-
+.row-container{
+    background-color: white;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    padding:15px;
 }
 
 .author-name{
@@ -31,11 +34,6 @@ body{
 }
 
 .list-col{
-    background-color: white;
-    border-radius: 15px;
-    margin-bottom: 15px;
-    padding:15px;
-
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -44,11 +42,6 @@ body{
 }
 
 .form-col {
-    background-color: white;
-    border-radius: 15px;
-    margin-bottom: 15px;
-    padding: 15px;
-
     display: flex;
     flex-direction: column;
     align-items: center;
