@@ -37,6 +37,11 @@ $layout = 'root';
                     <button class="btn btn-primary" type="submit" name="submit">Prihlásiť
                     </button>
                 </div>
+
+                <div>
+                    <a href="<?= $link->url('login.register') ?>">Dont have an account yet? sign in</a>
+                </div>
+
                 </form>
             </div>
         </div>

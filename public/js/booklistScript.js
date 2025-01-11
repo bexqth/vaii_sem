@@ -39,7 +39,7 @@ async function filterBooks(genreId, genreName) {
 
 function showFilteredBooks(books) {
     const booksSpace = document.getElementById("booksSpace");
-    booksSpace.innerHTML = ""; // Clear previous books
+    booksSpace.innerHTML = "";
 
     if (!Array.isArray(books) || books.length === 0) {
         booksSpace.innerHTML = '<p>No books found for the selected genre.</p>';
@@ -86,5 +86,5 @@ function showFilteredBooks(books) {
     });
 }
 
-        //ked mi pride chyba zo servera nech to nejako zablika
-        //ajax send form - dobre na obhajobe
+//ked mi pride chyba zo servera nech to nejako zablika
+//ajax send form - dobre na obhajobe

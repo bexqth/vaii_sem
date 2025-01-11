@@ -56,6 +56,7 @@ class LoginController extends AControllerBase
             $newUser->setUsername($formData['username']);
             $newUser->setPassword(password_hash($formData['password'], PASSWORD_BCRYPT)); //hasovanie - https://www.php.net/manual/en/function.password-hash.php
             $newUser->setEmail($formData['email']);
+            $newUser->setRoleId(1);
             $newUser->save(); //ulozenie do databazky
 
             $newProfile = new Profile();

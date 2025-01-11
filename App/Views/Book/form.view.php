@@ -151,8 +151,11 @@
                         </tbody>
                     </table>
                 </div>
-
-                <button type="submit" name="submit" class="btn submit-button" onclick="sendBookFormData()">Submit</button>
+                <?php if ($data["chosenBook"] !== null) { ?>
+                    <button type="submit" name="submit" class="btn submit-button" onclick="sendBookFormData(<?=$data["chosenBook"]->getId()?>)">Submit</button>
+                <?php } else { ?>
+                    <button type="submit" name="submit" class="btn submit-button" onclick="sendBookFormData(0)">Submit</button>
+                <?php } ?>
 
             </div>
         </div>

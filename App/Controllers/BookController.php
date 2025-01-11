@@ -208,6 +208,7 @@ class BookController extends AControllerBase
         $data = $this->app->getRequest()->getFiles();
         //$bookCover =  $this->app->getRequest()->getFiles()["bookCover"];
         $title = $this->app->getRequest()->getValue("title");
+        $id = $this->app->getRequest()->getValue("id");
         $author = $this->app->getRequest()->getValue("author");
         $description = $this->app->getRequest()->getValue("description");
         $genre = $this->app->getRequest()->getValue("genre");
@@ -221,12 +222,12 @@ class BookController extends AControllerBase
             return $this->json(["message" => $message, "type" => $type]);
         }
 
-        $bookTemp = Book::getAll("isbn = ?", [(int)$isbn]);
+        /*$bookTemp = Book::getAll("isbn = ?", [(int)$isbn]);
         if(count($bookTemp) != 0) {
             $message = 'Book with chosen ISBN already exists';
             $type = "error";
             return $this->json(["message" => $message, "type" => $type]);
-        }
+        }*/
 
 
 
@@ -238,12 +239,19 @@ class BookController extends AControllerBase
             $bookCoverContent = file_get_contents($bookCover);
         }
 
-        $books = Book::getAll("isbn = ?", [$isbn]);
-        if($books == null) {
-            $modifiedBook = new Book();
-            $message = 'Book added successfully';
-        } else {
-            $modifiedBook = $books[0];
+        if($id == 0) { //new book
+            $bookTemp = Book::getAll("isbn = ?", [(int)$isbn]);
+            if(count($bookTemp) != 0) {
+                $message = 'Book with chosen ISBN already exists';
+                $type = "error";
+                return $this->json(["message" => $message, "type" => $type]);
+            } else {
+                $modifiedBook = new Book();
+                $message = 'Book added successfully';
+            }
+
+        } else { //editing
+            $modifiedBook = Book::getOne($id);
             $message = 'Book updated successfully';
         }
 

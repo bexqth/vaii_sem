@@ -45,6 +45,7 @@ class BooklistController extends AControllerBase
         foreach ($filteredBooks as $book) {
             $author = Author::getOne($book->getAuthorId());
             $filteredBooksArray[] = [
+                'id' => $book->getId(),
                 'title' => $book->getTitle(),
                 'author' => $author->getName(),
                 'cover_url' => $book->getCoverUrl(),

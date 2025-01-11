@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-async function sendBookFormData() {
+async function sendBookFormData(bookId) {
     title = document.getElementById("title").value;
 
     const authorSelect = document.getElementById('authors');
@@ -50,6 +50,7 @@ async function sendBookFormData() {
     year = document.getElementById("year").value;
     description = document.getElementById("description").value;
 
+    bookFormData.append("id", bookId);
     bookFormData.append("title", title);
     bookFormData.append("author", selectedAuthorName);
     bookFormData.append("description", description);
