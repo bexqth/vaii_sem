@@ -58,5 +58,5 @@ function showUpdatedAuthors(authors) {
         authorList.appendChild(div);
     });
     let authorName = document.getElementById("author-name");
-    authorName.innerText = "";
+    authorName.value = "";
 }

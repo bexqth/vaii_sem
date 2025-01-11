@@ -14,11 +14,39 @@ class GenrelistController extends AControllerBase
      */
     public function index(): Response
     {
-        $genres = Genre::all();
+        $genres = Genre::getAll();
         return $this->html(["genres" => $genres]);
     }
 
-    public function createNewGenre() {
+    /**
+     * @throws \JsonException
+     */
+    public function editGenre() {
+        $data = $this->request()->getRawBodyJSON();
+        $genreName = $data->genreName;
+        $genreId = $data->genreId;
+        $genre = null;
 
+        if($genreId == null) { //creating
+            $genre = new Genre();
+        } else { //editing
+            $genre = Genre::getOne($genreId);
+        }
+        $genre->setName($genreName);
+        $genre->save();
+        return $this->getUpdatedGenres();
+    }
+
+    public function getUpdatedGenres() {
+        $genres = Genre::getAll();
+        $allGenres = [];
+        for ($i = 0; $i < count($genres); $i++) {
+            $genre = $genres[$i];
+            $allGenres[] = [
+                'id' => $genre->getId(),
+                'name' => $genre->getName()
+            ];
+        }
+        return $this->json($allGenres);
     }
 }
