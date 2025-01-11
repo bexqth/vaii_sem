@@ -62,7 +62,8 @@
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <a class="dropdown-item" href="<?= $link->url("userlist.index") ?>"><i class="bi bi-people"></i> Users</a>
                 <a class="dropdown-item" href="<?= $link->url("book.form") ?>"><i class="bi bi-book"></i> New book</a>
-                <a class="dropdown-item" href="<?= $link->url("auth.logout") ?>"><i class="bi bi-bookmark-star"></i> New badge</a>
+                <a class="dropdown-item" href="<?= $link->url("authorlist.index") ?>"><i class="bi bi-pen"></i> Authors</a>
+                <a class="dropdown-item" href="<?= $link->url("genrelist.index") ?>"><i class="bi bi-bookmark-star"></i> Genres</a>
                 <a class="dropdown-item" href="<?= $link->url("auth.logout") ?>"><i class="bi bi-door-closed"></i>Logout</a>
             </div>
         </div>

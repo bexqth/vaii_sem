@@ -31,6 +31,8 @@ class BookController extends AControllerBase
             case "setBookStatus":
             case "editReadingProgress":
                 return $this->app->getAuth()->isLogged() && $this->app->getAuth()->isUser();
+            case "index":
+                return $this->app->getAuth()->isLogged();
             default:
                 return true;
         }
@@ -196,8 +198,6 @@ class BookController extends AControllerBase
             $chosenBook = null;
             return $this->html(["chosenBook" => $chosenBook, "bookAuthors" => $bookAuthors, "bookGenres" => $bookGenres]);
         }
-
-
     }
 
 

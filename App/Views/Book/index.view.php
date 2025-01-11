@@ -176,11 +176,16 @@
         </div>
 
         <h2 class="review-title">Reviews</h2>
+        <?php if ($auth->isLogged() && $auth->isUser()) : ?>
+            <div class="row lock-review-row">
+                    <a href="<?= $link->url('review.index', ["id" => $data['chosenBook']->getId()]) ?>" class="btn">Leave a review</a>
+            </div>
+        <?php elseif ($auth->isLogged() && $auth->isAdmin()): ?>
+            <div>
 
-        <div class="row lock-review-row">
-            <?php if ($auth->isLogged()) { ?>
-                <a href="<?= $link->url('review.index', ["id" => $data['chosenBook']->getId()]) ?>" class="btn">Leave a review</a>
-            <?php } else { ?>
+            </div>
+        <?php else : ?>
+            <div class="row lock-review-row">
                 <div class="col lock-review-col text-end">
                     <img class="lock-review-image"  src="public/images/lock-icon1.png" alt="">
                 </div>
@@ -188,9 +193,8 @@
                 <div class="col lock-review-col">
                     <p class="lock-review-text">Sign in to write a review</p>
                 </div>
-            <?php } ?>
-
-        </div>
+            </div>
+        <?php endif; ?>
 
         <?php if ($data['chosenBookReviews'] != null) :?>
             <?php for($i = 0; $i < count($data['chosenBookReviews']); $i++) : ?>
