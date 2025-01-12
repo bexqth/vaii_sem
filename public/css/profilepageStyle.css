@@ -139,14 +139,14 @@ body{
     margin-bottom: 10px;
 }
 
-.book-list-row:hover{
+/*.book-list-row:hover{
     background-color: #ead5cb;
     .book-list-image{
         position: absolute;
         height: 120px;
         width: 80px;
     }
-}
+}*/
 
 .book-card{
     height: 100%;
@@ -179,4 +179,52 @@ body{
 
 h5{
     padding-top: 10px;
+}
+
+@media (max-width: 441px) {
+    .banner-image-row{
+        height: 140px;
+    }
+
+    .banner-image{
+        display: none;
+    }
+
+}
+
+@media (max-width: 991px) {
+    .list-col {
+        padding: 0;
+    }
+}
+
+@media (max-width: 991px) {
+    .profile-picture-container{
+        position: absolute;
+        left: 30px;
+    }
+    .profile-picture{
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 30%;
+        height: auto;
+        object-fit: cover;
+    }
+
+}
+
+@media (max-width: 768px) {
+    .progress-col{
+        display:none;
+    }
+
+    .score-col{
+        display: none;
+    }
+
+    .list-text-col{
+        display: none;
+    }
+
 }

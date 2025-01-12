@@ -24,17 +24,31 @@ class AuthorlistController extends AControllerBase
         $authorId = $data->authorId;
         $author = null;
 
+        $numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+        for ($i = 0; $i < strlen($authorName); $i++) {
+            for ($j = 0; $j < count($numbers); $j++) {
+                if($authorName[$i] == $numbers[$j]) {
+                    $message = 'Author name cant contain numbers';
+                    $type = "error";
+                    return $this->json(["message" => $message, "type" => $type]);
+                }
+            }
+        }
+
         if($authorId == null) { //creating
             $author = new Author();
             $message = "New author added";
+            $type = "success";
         } else { //editing
             $author = Author::getOne($authorId);
             $message = "Author updated";
+            $type = "success";
         }
         $author->setName($authorName);
         $author->save();
         $updatedAuthors = $this->getUpdatedAuthors();
-        return $this->json($updatedAuthors);
+        return $this->json(["message" => $message, "type" => $type, "updatedAuthors" => $updatedAuthors]);
+        //return $this->json($updatedAuthors);
     }
 
     public function getUpdatedAuthors() {

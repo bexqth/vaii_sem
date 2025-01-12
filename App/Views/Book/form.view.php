@@ -21,96 +21,97 @@
 
 <div class="row">
 
-    <div class="col-md-2 col-lg-2"></div>
+    <div class="col-md-1 col-lg-2"></div>
 
-    <div class="col-sm-12 col-md-8 col-lg-8 books-col">
-
-        <div id="successMessage" class="alert alert-success" style="display: none;">
-        </div>
-
-        <div id="errorMessage" class="alert alert-danger" style="display: none;">
-        </div>
-
+    <div class="col-sm-12 col-md-10 col-lg-8 books-col">
 
         <div id="successMessage" class="alert alert-success" style="display: none;">
         </div>
-
         <div id="errorMessage" class="alert alert-danger" style="display: none;">
         </div>
 
         <div class="row book-row">
-            <div class="col-sm-12 col-md-3 col-lg-3">
-                <?php if ($data["chosenBook"] !== null) { ?>
-                    <img id="book-cover"  src="<?=$data['chosenBook']->getCoverUrl()?>" class="book-cover" alt="">
-                <?php } else { ?>
-                    <img id="book-cover"  src="" class="book-cover" alt="">
-                <?php } ?>
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 main-col">
+                <div class="row images-row">
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                        <?php if ($data["chosenBook"] !== null) { ?>
+                            <img id="book-cover"  src="<?=$data['chosenBook']->getCoverUrl()?>" class="book-cover" alt="">
+                        <?php } else { ?>
+                            <img id="book-cover"  src="https://m.media-amazon.com/images/I/41Rat4zbeiL._AC_UF894,1000_QL80_.jpg" class="book-cover" alt="">
+                        <?php } ?>
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                        <div id="drop-zone-cover" class="drop-zone-cover">Drop an image here</div>
+                    </div>
+                </div>
             </div>
 
-            <div class="col-sm-12 col-md-3 col-lg-3">
-                <div id="drop-zone-cover" class="drop-zone-cover">Drop an image here</div>
-            </div>
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 main-col">
+                <div class="row">
 
-            <div class="col-sm-12 col-md-6 col-lg-6">
-                <label for="title">Title</label><br>
-                <?php if ($data["chosenBook"] !== null) { ?>
-                    <textarea id="title" name="title" class="input-text" required><?=$data['chosenBook']->getTitle()?></textarea><br>
-                <?php } else { ?>
-                    <textarea id="title" name="title" class="input-text" required></textarea><br>
-                <?php } ?>
+                    <div class="title-div">
+                        <label class="tb-title title" for="title">Title</label><br>
+                    </div>
+                    <div class="tb-content">
+                        <?php if ($data["chosenBook"] !== null) { ?>
+                            <textarea id="title" name="title" class="input-text" required><?=$data['chosenBook']->getTitle()?></textarea><br>
+                        <?php } else { ?>
+                            <textarea id="title" name="title" class="input-text" required></textarea><br>
+                        <?php } ?>
+                    </div>
 
-                <label for="authors">Choose an author:</label><br>
+                    <div class="author-div">
+                        <label class="tb-title author" for="authors">Choose an author:</label><br>
+                    </div>
+                    <div class="tb-content">
+                        <?php if ($data["chosenBook"] !== null) { ?>
+                            <select name="authors" id="authors" class="form-select" aria-label="Default select example">
+                                <option selected><?=$data['bookAuthor']->getName()?></option>
+                                <?php for($i = 0; $i < count($data['bookAuthors']); $i++) : ?>
+                                    <option value=<?=$i?>><?=$data['bookAuthors'][$i]->getName()?></option>
+                                <?php endfor; ?>
+                            </select>
+                        <?php } else { ?>
+                            <select name="authors" id="authors" class="form-select" aria-label="Default select example">
+                                <?php for($i = 0; $i < count($data['bookAuthors']); $i++) : ?>
+                                    <option value=<?=$i?>><?=$data['bookAuthors'][$i]->getName()?></option>
+                                <?php endfor; ?>
+                            </select>
+                        <?php } ?>
+                    </div>
 
-                <?php if ($data["chosenBook"] !== null) { ?>
-                    <select name="authors" id="authors" class="form-select" aria-label="Default select example">
-                        <option selected><?=$data['bookAuthor']->getName()?></option>
-                        <?php for($i = 0; $i < count($data['bookAuthors']); $i++) : ?>
-                            <option value=<?=$i?>><?=$data['bookAuthors'][$i]->getName()?></option>
-                        <?php endfor; ?>
-                    </select>
-                <?php } else { ?>
-                    <select name="authors" id="authors" class="form-select" aria-label="Default select example">
-                        <?php for($i = 0; $i < count($data['bookAuthors']); $i++) : ?>
-                            <option value=<?=$i?>><?=$data['bookAuthors'][$i]->getName()?></option>
-                        <?php endfor; ?>
-                    </select>
-                <?php } ?>
 
+                    <div class="desc-div">
+                        <label class="tb-title desc" for="description">Description</label><br>
+                    </div>
+                    <div class="tb-content">
+                        <?php if ($data["chosenBook"] !== null) { ?>
+                            <textarea  id="description" name="description" class="description-text input-text " required><?=$data['chosenBook']->getDescription()?></textarea><br>
+                        <?php } else { ?>
+                            <textarea id="description" name="description" class="description-text input-text" required></textarea><br>
+                        <?php } ?>
+                    </div>
 
-                <label for="description">Description</label><br>
-                <?php if ($data["chosenBook"] !== null) { ?>
-                    <textarea id="description" name="description" class="description-text" required><?=$data['chosenBook']->getDescription()?></textarea><br>
-                <?php } else { ?>
-                    <textarea id="description" name="description" class="description-text" required></textarea><br>
-                <?php } ?>
-
-                <div class="table-responsive">
-                    <table class="table table-striped
-                    table-bordered table-hover">
-                        <thead>
-                        <tr>
-                            <th>Pages</th>
-                            <th>Cover</th>
-                            <th>Genre</th>
-                            <th>Language</th>
-                            <th>ISBN</th>
-                            <th>Year of publishing</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>
-                                <label for="pages"></label>
+                    <div class="row">
+                        <div class="col-sm-12 col-md tb-col">
+                            <div class="row">
+                                <label class="tb-title" for="pages">Pages</label><br>
+                            </div>
+                            <div class="row tb-content">
                                 <?php if ($data["chosenBook"] !== null) { ?>
                                     <textarea id="pages" name="pages" class="input-text" required><?=$data['chosenBook']->getPages()?></textarea><br>
                                 <?php } else { ?>
                                     <textarea id="pages" name="pages" class="input-text" required></textarea><br>
                                 <?php } ?>
+                            </div>
+                        </div>
 
-                            </td>
-
-                            <td>Paperback</td>
-                            <td>
+                        <div class="col-sm-12 col-md tb-col">
+                            <div class="row">
+                                <label class="tb-title" for="genres">Genre</label><br>
+                            </div>
+                            <div class="row tb-content">
                                 <?php if ($data["chosenBook"] !== null) { ?>
                                     <select name="genres" id="genres" class="form-select" aria-label="Default select example">
                                         <option selected><?=$data['bookGenre']->getName()?></option>
@@ -125,37 +126,44 @@
                                         <?php endfor; ?>
                                     </select>
                                 <?php } ?>
+                            </div>
+                        </div>
 
-                            </td>
-
-                            <td>English</td>
-
-                            <td>
-                                <label for="isbn"></label>
+                        <div class="col-sm-12 col-md tb-col">
+                            <div class="row">
+                                <label class="tb-title" for="isbn">ISBN</label><br>
+                            </div>
+                            <div class="row tb-content">
                                 <?php if ($data["chosenBook"] !== null) { ?>
                                     <textarea id="isbn" name="isbn" class="input-text" required><?=$data['chosenBook']->getIsbn()?></textarea><br>
                                 <?php } else { ?>
                                     <textarea id="isbn" name="isbn" class="input-text" required></textarea><br>
                                 <?php } ?>
-                            </td>
+                            </div>
+                        </div>
 
-                            <td>
-                                <label for="year"></label>
+                        <div class="col-sm-12 col-md tb-col">
+                            <div class="row">
+                                <label class="tb-title" for="year">Published</label><br>
+                            </div>
+                            <div class="row tb-content">
                                 <?php if ($data["chosenBook"] !== null) { ?>
                                     <textarea id="year" name="year" class="input-text" required><?=$data['chosenBook']->getPublicationDate()?></textarea><br>
                                 <?php } else { ?>
                                     <textarea id="year" name="year" class="input-text" required></textarea><br>
                                 <?php } ?>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-                <?php if ($data["chosenBook"] !== null) { ?>
-                    <button type="submit" name="submit" class="btn submit-button" onclick="sendBookFormData(<?=$data["chosenBook"]->getId()?>)">Submit</button>
-                <?php } else { ?>
-                    <button type="submit" name="submit" class="btn submit-button" onclick="sendBookFormData(0)">Submit</button>
-                <?php } ?>
+            </div>
+
+            <?php if ($data["chosenBook"] !== null) { ?>
+                <button type="submit" name="submit" class="btn submit-button" onclick="sendBookFormData(<?=$data["chosenBook"]->getId()?>)">Submit</button>
+            <?php } else { ?>
+                <button type="submit" name="submit" class="btn submit-button" onclick="sendBookFormData(0)">Submit</button>
+            <?php } ?>
 
             </div>
         </div>
@@ -163,9 +171,7 @@
 
     </div>
 
-    <div class="col-md-2 col-lg-2"></div>
-
-</div>
+    <div class="col-md-1 col-lg-2"></div>
 
 <script src="public/js/bookFormScript.js"></script>
 </body>

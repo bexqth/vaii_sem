@@ -20,6 +20,17 @@ function createNewGenre() {
 
 async function submit() {
     newGenreName = document.getElementById("genre-name").value;
+
+    let numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+    for (let i = 0; i < newGenreName.length; i++) {
+        for (let j = 0; j < numbers.length; j++) {
+            if(title[i] === numbers[j]) {
+                showMessage("success", "Genre cant contain numbers");
+                return;
+            }
+        }
+    }
+
     let url = "http://127.0.0.1:88/?c=genrelist&a=editGenre";
     let body = {
         "genreId": genreId,
@@ -60,4 +71,31 @@ function showUpdatedGenre(genres) {
     let genreName = document.getElementById("genre-name");
     genreName.value = "";
     genreId = null;
+}
+
+
+function showMessage(type, message) {
+    if(type === "error") {
+        const errorMessage = document.getElementById('errorMessage');
+        errorMessage.innerText = message;
+        errorMessage.style.display = 'block';
+
+        setTimeout(() => {
+            errorMessage.style.display = 'none';
+        }, 3500);
+
+        const successMessageDiv = document.getElementById('successMessage');
+        successMessageDiv.style.display = 'none';
+    } else if (type === "success") {
+        const successMessageDiv = document.getElementById('successMessage');
+        successMessageDiv.innerText = message;
+        successMessageDiv.style.display = 'block';
+
+        setTimeout(() => {
+            successMessageDiv.style.display = 'none';
+        }, 3500);
+
+        const errorMessageDiv = document.getElementById('errorMessage');
+        errorMessageDiv.style.display = 'none';
+    }
 }

@@ -24,7 +24,8 @@ document.addEventListener('DOMContentLoaded', function () {
             profilePicture.src = url;
             newProfilePicture = event.dataTransfer.files[0];
         } else {
-            alert('Please drop an image file.');
+            showMessage("error", "Please drop an image file")
+            //alert('Please drop an image file.');
         }
     });
 
@@ -42,7 +43,8 @@ document.addEventListener('DOMContentLoaded', function () {
             bannerImage.src = url; // Sets the banner image to the dropped image
             newBannerPicture = event.dataTransfer.files[0]; // Stores the file for later use
         } else {
-            alert('Please drop an image file.');
+            showMessage("error", "Please drop an image file")
+            //alert('Please drop an image file.');
         }
     });
 });
@@ -58,45 +60,93 @@ function isImage(name){
 
 async function sendFormData() {
     bio = document.getElementById("about_text").value;
-    formData.append("bio", bio);
-    formData.append("profile_picture", newProfilePicture);
-    formData.append("banner_picture", newBannerPicture);
+    if(validateData(bio)) {
+        formData.append("bio", bio);
+        formData.append("profile_picture", newProfilePicture);
+        formData.append("banner_picture", newBannerPicture);
 
-    let url = "http://127.0.0.1:88/?c=profile&a=editProfile";
+        let url = "http://127.0.0.1:88/?c=profile&a=editProfile";
 
-    let response = await fetch(url, {
-        method: "POST",
-        body: formData,
-    });
+        let response = await fetch(url, {
+            method: "POST",
+            body: formData,
+        });
 
-    const data = await response.json();
-    if (response.ok) {
-        if(data["type"] === "error") {
-            const errorMessage = document.getElementById('errorMessage');
-            errorMessage.innerText = data.message;
-            errorMessage.style.display = 'block';
+        const data = await response.json();
+        if (response.ok) {
+            if(data["type"] === "error") {
+                const errorMessage = document.getElementById('errorMessage');
+                errorMessage.innerText = data.message;
+                errorMessage.style.display = 'block';
 
-            setTimeout(() => {
-                errorMessage.style.display = 'none';
-            }, 3500);
+                setTimeout(() => {
+                    errorMessage.style.display = 'none';
+                }, 3500);
 
-            const successMessageDiv = document.getElementById('successMessage');
-            successMessageDiv.style.display = 'none';
-        } else if (data["type"] === "success") {
-            const successMessageDiv = document.getElementById('successMessage');
-            successMessageDiv.innerText = data.message;
-            successMessageDiv.style.display = 'block';
-
-            setTimeout(() => {
+                const successMessageDiv = document.getElementById('successMessage');
                 successMessageDiv.style.display = 'none';
-            }, 3500);
+            } else if (data["type"] === "success") {
+                const successMessageDiv = document.getElementById('successMessage');
+                successMessageDiv.innerText = data.message;
+                successMessageDiv.style.display = 'block';
 
-            const errorMessageDiv = document.getElementById('errorMessage');
-            errorMessageDiv.style.display = 'none';
+                setTimeout(() => {
+                    successMessageDiv.style.display = 'none';
+                }, 3500);
+
+                const errorMessageDiv = document.getElementById('errorMessage');
+                errorMessageDiv.style.display = 'none';
+            }
+        } else {
+
         }
     } else {
+        showMessage("error", "Bio text is longer than 400 characters")
+        /*const errorMessage = document.getElementById('errorMessage');
+        errorMessage.innerText = "Bio text is longer than 400 characters";
+        errorMessage.style.display = 'block';
 
+        setTimeout(() => {
+            errorMessage.style.display = 'none';
+        }, 3500);
+
+        const successMessageDiv = document.getElementById('successMessage');
+        successMessageDiv.style.display = 'none';*/
     }
+
 }
 
+function validateData(bio) {
+    let maxCharacters = 400;
+    if(bio.length <= maxCharacters) {
+        return true;
+    }
+    return false;
+}
+
+function showMessage(type, message) {
+    if(type === "error") {
+        const errorMessage = document.getElementById('errorMessage');
+        errorMessage.innerText = message;
+        errorMessage.style.display = 'block';
+
+        setTimeout(() => {
+            errorMessage.style.display = 'none';
+        }, 3500);
+
+        const successMessageDiv = document.getElementById('successMessage');
+        successMessageDiv.style.display = 'none';
+    } else if (type === "success") {
+        const successMessageDiv = document.getElementById('successMessage');
+        successMessageDiv.innerText = message;
+        successMessageDiv.style.display = 'block';
+
+        setTimeout(() => {
+            successMessageDiv.style.display = 'none';
+        }, 3500);
+
+        const errorMessageDiv = document.getElementById('errorMessage');
+        errorMessageDiv.style.display = 'none';
+    }
+}
 

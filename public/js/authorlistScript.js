@@ -20,6 +20,17 @@ function createNewAuthor() {
 
 async function submit() {
     newAuthorName = document.getElementById("author-name").value;
+
+    /*let numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+    for (let i = 0; i < newAuthorName.length; i++) {
+        for (let j = 0; j < numbers.length; j++) {
+            if(title[i] === numbers[j]) {
+                showMessage("success", "Authors name cant contain numbers");
+                return;
+            }
+        }
+    }*/
+
     let url = "http://127.0.0.1:88/?c=authorlist&a=editAuthor";
     let body = {
         "authorId": authorId,
@@ -38,7 +49,13 @@ async function submit() {
 
     if (response.ok) {
         const data = await response.json();
-        showUpdatedAuthors(data);
+        if(data["type"] === "error") {
+            showMessage(data["type"], data["message"])
+        } else {
+            showMessage(data["type"], data["message"])
+            showUpdatedAuthors(data["updatedAuthors"]);
+        }
+
     }
 }
 
@@ -60,4 +77,30 @@ function showUpdatedAuthors(authors) {
     let authorName = document.getElementById("author-name");
     authorName.value = "";
     authorId = null;
+}
+
+function showMessage(type, message) {
+    if(type === "error") {
+        const errorMessage = document.getElementById('errorMessage');
+        errorMessage.innerText = message;
+        errorMessage.style.display = 'block';
+
+        setTimeout(() => {
+            errorMessage.style.display = 'none';
+        }, 3500);
+
+        const successMessageDiv = document.getElementById('successMessage');
+        successMessageDiv.style.display = 'none';
+    } else if (type === "success") {
+        const successMessageDiv = document.getElementById('successMessage');
+        successMessageDiv.innerText = message;
+        successMessageDiv.style.display = 'block';
+
+        setTimeout(() => {
+            successMessageDiv.style.display = 'none';
+        }, 3500);
+
+        const errorMessageDiv = document.getElementById('errorMessage');
+        errorMessageDiv.style.display = 'none';
+    }
 }

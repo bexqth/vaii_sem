@@ -64,22 +64,43 @@
 
                 <p class="book-description"><?=$data['chosenBook']->getDescription()?></p>
 
-                <table>
-                    <tr>
-                        <th>Pages</th>
-                        <th>Cover</th>
-                        <th>Genre</th>
-                        <th>Language</th>
-                        <th>Year of publishing</th>
-                    </tr>
-                    <tr>
-                        <td><?=$data['chosenBook']->getPages()?></td>
-                        <td>Paperback</td>
-                        <td><?=$data['bookGenre']->getName()?></td>
-                        <td>English</td>
-                        <td><?=$data['chosenBook']->getPublicationDate()?></td>
-                    </tr>
-                </table>
+                <div class="row">
+                    <div class="col tb-col">
+                        <div class="row">
+                            <h6 class="tb-title">Pages</h6>
+                        </div>
+                        <div class="row tb-content">
+                            <h6><?=$data['chosenBook']->getPages()?></h6>
+                        </div>
+                    </div>
+
+                    <div class="col tb-col">
+                        <div class="row">
+                            <h6 class="tb-title">Genre</h6>
+                        </div>
+                        <div class="row tb-content">
+                            <h6><?=$data['bookGenre']->getName()?></h6>
+                        </div>
+                    </div>
+
+                    <div class="col tb-col">
+                        <div class="row">
+                            <h6 class="tb-title">Language</h6>
+                        </div>
+                        <div class="row tb-content">
+                            <h6>English</h6>
+                        </div>
+                    </div>
+
+                    <div class="col tb-col">
+                        <div class="row">
+                            <h6 class="tb-title">Published</h6>
+                        </div>
+                        <div class="row tb-content">
+                            <h6><?=$data['chosenBook']->getPublicationDate()?></h6>
+                        </div>
+                    </div>
+                </div>
 
                 <?php if ($auth->isLogged() && !$auth->isAdmin()) : ?>
                     <div class="btn-group">
@@ -123,7 +144,7 @@
                             <div class="row">
                                 <h6 class="sb-title sb-title-reading">Reading</h6>
                             </div>
-                            <div class="row">
+                            <div class="row sb-content">
                                 <h6><?=$data['readingCount']?> users</h6>
                             </div>
                         </div>
@@ -131,7 +152,7 @@
                             <div class="row">
                                 <h6 class="sb-title sb-title-finished">Finished</h6>
                             </div>
-                            <div class="row">
+                            <div class="row sb-content">
                                 <h6><?=$data['finishedCount']?> users</h6>
                             </div>
                         </div>
@@ -139,7 +160,7 @@
                             <div class="row">
                                 <h6 class="sb-title sb-title-planning">Planning</h6>
                             </div>
-                            <div class="row">
+                            <div class="row sb-content">
                                 <h6><?=$data['planningCount']?> users</h6>
                             </div>
                         </div>
@@ -156,15 +177,15 @@
 
                         <div class="row followings-row">
 
-                            <div class="col-3 col-sm-3 col-md-1 col-lg-1">
-                                <img class="review-image" src="<?= $data['followingsProfilePics'][$i]?>" alt="">
+                            <div class="col col-2">
+                                <img class="reading-image" src="<?= $data['followingsProfilePics'][$i]?>" alt="">
                             </div>
 
-                            <div class="author-col col-12 col-md-2 col-lg-2">
+                            <div class="author-col col">
                                 <h5><?=$data['followingUsers'][$i]?></h5>
                             </div>
 
-                            <div class="text-col col-sm-12 col-md-9 col-lg-9">
+                            <div class="status-col col">
                                 <h5><?=$data['followingsStatuses'][$i]?></h5>
                             </div>
                         </div>
@@ -199,17 +220,19 @@
         <?php if ($data['chosenBookReviews'] != null) :?>
             <?php for($i = 0; $i < count($data['chosenBookReviews']); $i++) : ?>
                 <div class="row profile-bio-row review-item-row">
-                    <div class="col-3 col-sm-3 col-md-1 col-lg-1">
+
+                    <div class="col-md-1 col-lg-1 review-image-col ">
                         <?php if($data['reviewUsers'][$i]->getProfilePicture() == null):?>
                             <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="review-image" alt="">
                         <?php else: ?>
                             <img class="review-image" src="<?= $data['reviewUsers'][$i]->getProfilePicture()?>" alt="">
                         <?php endif; ?>
                     </div>
-                    <div class="col-12 col-md-2 col-lg-2">
+
+                    <div class="col-3 col-sm-3 col-md-2 col-lg-2">
+                        <a class="review-author-name" href="<?= $link->url("profile.index", ["userId" => $data['reviewUsers'][$i]->getUserId()]) ?>"><?=$data['chosenBookReviews'][$i]->getReviewAuthor()?></a>
                         <h5><?=$data['chosenBookReviews'][$i]->getRating()?>/10</h5>
-                        <a href="<?= $link->url("profile.index", ["userId" => $data['reviewUsers'][$i]->getUserId()]) ?>"><?=$data['chosenBookReviews'][$i]->getReviewAuthor()?></a>
-                        <h6><?=$data["chosenBookReviews"][$i]->getCreatedAtString()?></h6>
+                        <h6 class="createdAt-title"><?=$data["chosenBookReviews"][$i]->getCreatedAtString()?></h6>
 
                         <?php if(($auth->isLogged() && $data['chosenBookReviews'][$i]->getReviewAuthor() == $auth->getLoggedUserName())):?>
                             <a href="<?= $link->url('review.edit', ['id' => $data['chosenBookReviews'][$i]->getId()]) ?>" class="btn btn-primary"><i class="bi bi-pencil-fill"></i></a>
@@ -217,10 +240,9 @@
                         <?php if(($auth->isLogged() && $auth->isAdmin()) || ($auth->isLogged() && !$auth->isAdmin() && $data['chosenBookReviews'][$i]->getReviewAuthor() == $auth->getLoggedUserName())):?>
                             <a href="<?= $link->url('review.delete', ['id' => $data['chosenBookReviews'][$i]->getId()]) ?>"  class="btn btn-danger"><i class="bi bi-trash"></i></a>
                         <?php endif; ?>
-
                     </div>
 
-                    <div class="col-sm-12 col-md-9 col-lg-9">
+                    <div class="col-9 col-sm-9 col-md-9 col-lg-9">
                         <p><?=$data['chosenBookReviews'][$i]->getReviewText()?></p>
                     </div>
                 </div>

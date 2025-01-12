@@ -36,15 +36,20 @@ function editProgress() {
 }
 
 async function saveProgress(bookId, maxPages) {
-    let editButton = document.getElementById("editPagesButton");
     let readPagesInput = document.getElementById("pagesReadInput");
+    let totalPages = maxPages;
+    let pages = readPagesInput.value;
+    if(pages > totalPages) {
+        showMessage("error", "Selected number of pages is higher than maximum");
+        return;
+    }
+
+    let editButton = document.getElementById("editPagesButton");
     let progressBar = document.getElementById("progressBar");
     readPagesInput.setAttribute('readonly', 'readonly');
     readPagesInput.style.border = "none"
     editButton.innerHTML = '<i class="bi bi-plus-lg"></i>';
-    let pages = readPagesInput.value;
 
-    let totalPages = maxPages;
     let progressPercentage = (pages / totalPages) * 100;
     progressBar.style.width = progressPercentage + '%';
 
@@ -181,3 +186,29 @@ async function removeFavoriteBook(bookId) {
     favoriteButton.setAttribute("onclick", `updateFollowButton(${bookId}, false)`);
 }
 
+
+function showMessage(type, message) {
+    if(type === "error") {
+        const errorMessage = document.getElementById('errorMessage');
+        errorMessage.innerText = message;
+        errorMessage.style.display = 'block';
+
+        setTimeout(() => {
+            errorMessage.style.display = 'none';
+        }, 3500);
+
+        const successMessageDiv = document.getElementById('successMessage');
+        successMessageDiv.style.display = 'none';
+    } else if (type === "success") {
+        const successMessageDiv = document.getElementById('successMessage');
+        successMessageDiv.innerText = message;
+        successMessageDiv.style.display = 'block';
+
+        setTimeout(() => {
+            successMessageDiv.style.display = 'none';
+        }, 3500);
+
+        const errorMessageDiv = document.getElementById('errorMessage');
+        errorMessageDiv.style.display = 'none';
+    }
+}

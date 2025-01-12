@@ -26,7 +26,8 @@ document.addEventListener('DOMContentLoaded', function () {
             bookCover.src = url;
             newBookCover = event.dataTransfer.files[0];
         } else {
-            alert('Please drop an image file.');
+            showMessage("success", "Please drop an image file")
+            //alert('Please drop an image file.');
         }
     });
 
@@ -57,6 +58,37 @@ async function sendBookFormData(bookId) {
     pages = document.getElementById("pages").value;
     year = document.getElementById("year").value;
     description = document.getElementById("description").value;
+
+    let numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+    for (let i = 0; i < title.length; i++) {
+        for (let j = 0; j < numbers.length; j++) {
+            if(title[i] === numbers[j]) {
+                showMessage("success", "Title cant contain numbers");
+                return;
+            }
+        }
+    }
+
+    if(title === "" || description === "" || isbn === "" || pages === "" || year === "" ) {
+        showMessage("success", "Please fill all fields");
+        return;
+    }
+
+    if(description.length > 400) {
+        showMessage("success", "Description cant be longer than 400 characters");
+        return;
+    }
+
+    if(isNaN(isbn) || isNaN(pages) || isNaN(year)) {
+        showMessage("success", "ISBN, pages and year cant contain letters");
+        return;
+    }
+
+    if(!newBookCover) {
+        showMessage("success", "Please provide a book cover")
+        return;
+    }
+
 
     bookFormData.append("id", bookId);
     bookFormData.append("title", title);
@@ -105,5 +137,37 @@ async function sendBookFormData(bookId) {
         console.error('Error sending data:', response.statusText);
     }
 
+}
 
+function validateDescription(description, ) {
+    let maxCharacters = 400;
+    if(description.length <= maxCharacters) {
+
+    }
+}
+
+function showMessage(type, message) {
+    if(type === "error") {
+        const errorMessage = document.getElementById('errorMessage');
+        errorMessage.innerText = message;
+        errorMessage.style.display = 'block';
+
+        setTimeout(() => {
+            errorMessage.style.display = 'none';
+        }, 3500);
+
+        const successMessageDiv = document.getElementById('successMessage');
+        successMessageDiv.style.display = 'none';
+    } else if (type === "success") {
+        const successMessageDiv = document.getElementById('successMessage');
+        successMessageDiv.innerText = message;
+        successMessageDiv.style.display = 'block';
+
+        setTimeout(() => {
+            successMessageDiv.style.display = 'none';
+        }, 3500);
+
+        const errorMessageDiv = document.getElementById('errorMessage');
+        errorMessageDiv.style.display = 'none';
+    }
 }

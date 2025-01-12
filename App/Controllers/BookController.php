@@ -216,20 +216,35 @@ class BookController extends AControllerBase
         $pages = $this->app->getRequest()->getValue("pages");
         $year = $this->app->getRequest()->getValue("year");
 
+
+        $numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+        for ($i = 0; $i < strlen($title); $i++) {
+            for ($j = 0; $j < count($numbers); $j++) {
+                if($title[$i] == $numbers[$j]) {
+                    $message = 'Title cant contain numbers';
+                    $type = "error";
+                    return $this->json(["message" => $message, "type" => $type]);
+                }
+            }
+        }
+
         if($title == null || $author == null || $description == null || $genre == null || $isbn == null|| $pages == null || $year == null) {
             $message = 'Please fill all fields';
             $type = "error";
             return $this->json(["message" => $message, "type" => $type]);
         }
 
-        /*$bookTemp = Book::getAll("isbn = ?", [(int)$isbn]);
-        if(count($bookTemp) != 0) {
-            $message = 'Book with chosen ISBN already exists';
+        if (strlen($description) > 400) {
+            $message = "Description cannot exceed 400 characters.";
+            $type = "error";
+            return $this->json(['message' => $message, 'type' => $type]);
+        }
+
+        if(!is_numeric($isbn) || !is_numeric($pages) || !is_numeric($year)) {
+            $message = 'ISBN, pages and year cant contain letters';
             $type = "error";
             return $this->json(["message" => $message, "type" => $type]);
-        }*/
-
-
+        }
 
         $bookCoverContent = null;
         $modifiedBook = null;
@@ -237,6 +252,10 @@ class BookController extends AControllerBase
         if (isset($data["bookCover"])) {
             $bookCover = $data["bookCover"]['tmp_name'];
             $bookCoverContent = file_get_contents($bookCover);
+        } else {
+            $message = 'Please provide a book cover';
+            $type = "error";
+            return $this->json(["message" => $message, "type" => $type]);
         }
 
         if($id == 0) { //new book
@@ -299,29 +318,36 @@ class BookController extends AControllerBase
 
             $readingProgresses = Readingprogress::getAll("user_id = ? AND book_id = ?", [$userId, $bookId]);
             $book = Book::getOne($bookId);
-            $theReadingProgress = null;
-            $pagesDiff = 0;
-            if($readingProgresses == null) { //doesnt exist in the database yet
-                $theReadingProgress = new Readingprogress();
-                $pagesDiff = $pages;
+            if($pages > $book->getPages()) {
+                $message = 'Selected number of pages is higher than maximum';
+                return $this->json(['message' => $message]);
             } else {
-                $theReadingProgress = $readingProgresses[0];
-                if($pages - $readingProgresses[0]->getPagesRead() > 0) {
-                    $pagesDiff = $pages - $readingProgresses[0]->getPagesRead();
+                $theReadingProgress = null;
+                $pagesDiff = 0;
+                if($readingProgresses == null) { //doesnt exist in the database yet
+                    $theReadingProgress = new Readingprogress();
+                    $pagesDiff = $pages;
+                } else {
+                    $theReadingProgress = $readingProgresses[0];
+                    if($pages - $readingProgresses[0]->getPagesRead() > 0) {
+                        $pagesDiff = $pages - $readingProgresses[0]->getPagesRead();
+                    }
                 }
+
+                $theReadingProgress->setUserId($userId);
+                $theReadingProgress->setBookId($bookId);
+                $theReadingProgress->setPagesRead($pages);
+                $theReadingProgress->save();
+                if($pagesDiff != 0) {
+                    $this->addReadingProgressActivity($book->getTitle(), $pagesDiff);
+                }
+
+
+                $message = 'Reading progress updated/created';
+                return $this->json(['message' => $message]);
             }
 
-            $theReadingProgress->setUserId($userId);
-            $theReadingProgress->setBookId($bookId);
-            $theReadingProgress->setPagesRead($pages);
-            $theReadingProgress->save();
-            if($pagesDiff != 0) {
-                $this->addReadingProgressActivity($book->getTitle(), $pagesDiff);
-            }
 
-
-            $message = 'Reading progress updated/created';
-            return $this->json(['message' => $message]);
         }
         throw new HTTPException(400, 'Invalid request data');
     }

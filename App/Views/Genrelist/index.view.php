@@ -21,8 +21,15 @@
     <div class="col-md-2 col-lg-2"></div>
 
     <div class="col-sm-12 col-md-8 col-lg-8 books-col">
+        <div id="successMessage" class="alert alert-success" style="display: none;">
+        </div>
+
+        <div id="errorMessage" class="alert alert-danger" style="display: none;">
+        </div>
+
+
         <div class="row row-container">
-            <div class="col-12 col-md-6 col-lg-6">
+            <div class="col-12 col-md-12 col-lg-12 col-xl-6">
                 <div class="list-col">
                     <h3>Genres</h3>
                     <button class="btn" onclick="createNewGenre()">New genre</button>
@@ -36,9 +43,9 @@
                 </div>
             </div>
 
-            <div class="col-12 col-md-6 col-lg-6">
+            <div class="col-12 col-md-12 col-lg-12 col-xl-6">
                 <div class="form-col">
-                    <h3 id="genre-title">Create new author</h3>
+                    <h3 id="genre-title">Create new genre</h3>
                     <div class="row">
                         <img class="genre-icon" src="public/images/genre_icon.png" alt="...">
                     </div>

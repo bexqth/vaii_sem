@@ -72,25 +72,13 @@ body{
 }
 
 .progress-input{
-    width: 4ch;
+    width: 6ch;
+    height: 30px;
     border: none;
 }
 
 .savePagesButton{
     display: none;
-}
-
-table{
-    width:100%;
-}
-
-th {
-    background-color: #e9ecef;
-}
-
-th, td {
-    padding: 10px;
-    text-align: center;
 }
 
 .author-picture{
@@ -120,13 +108,40 @@ th, td {
 .review-image {
     width: 100%;
     border-radius: 50%;
+    max-width: 100px;
+    min-width: 60px;
+}
+
+.reading-image{
+    width: 100%;
+    border-radius: 50%;
+    min-width: 30px;
+    max-width: 50px;
 }
 
 .followings-row{
     margin-top: 20px;
+    align-content: center;
+    align-items: center;
 }
 
-.sb-col{
+.tb-title{
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    background-color: #e3c6b9;
+}
+
+.tb-content, .sb-content{
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    background-color: #faf5f3;
+}
+
+.sb-col, .tb-col{
     margin-left: 10px;
 }
 
@@ -160,6 +175,22 @@ th, td {
     margin-left: 5px;
 }
 
+.review-author-name{
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 20px;
+    color: black;
+}
+
+
+@media (max-width: 1299px) {
+    .review-image-col  {
+        display: none;
+    }
+    .createdAt-title{
+        display: none;
+    }
+}
 
 @media (min-width: 320px){
     .nav-link{

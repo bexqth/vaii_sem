@@ -21,8 +21,15 @@
     <div class="col-md-2 col-lg-2"></div>
 
     <div class="col-sm-12 col-md-8 col-lg-8 review-col">
+
+        <div id="successMessage" class="alert alert-success" style="display: none;">
+        </div>
+
+        <div id="errorMessage" class="alert alert-danger" style="display: none;">
+        </div>
+
         <div class="row row-container">
-                <div class="col-12 col-md-6 col-lg-6">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6">
                     <div class="list-col">
                         <h3>Authors</h3>
                         <button class="btn" onclick="createNewAuthor()">New author</button>
@@ -38,7 +45,7 @@
 
                 </div>
 
-                <div class="col-12 col-md-6 col-lg-6">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6">
                     <div class="form-col">
                         <h3 id="author-title">Create new author</h3>
                         <div class="row">

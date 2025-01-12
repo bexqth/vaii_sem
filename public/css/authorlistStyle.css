@@ -2,6 +2,10 @@ body{
     background-color: #faf5f3;
 }
 
+h3{
+  margin-top: 10px;
+}
+
 .row-container{
     background-color: white;
     border-radius: 15px;

@@ -24,17 +24,17 @@
         <div class="col-sm-4 col-md-2 col-lg-2 book-genres-col">
             <div class="btn-group-vertical w-100" role="group" aria-label="Vertical button group">
                 <div class="row dropdown-container">
-                    <div class="col">
+                    <div class="col c-col">
                         <h5 class="categories-title">Categories</h5>
                     </div>
-                    <div class="col">
+                    <div class="col b-col">
                         <button id="dropButton" class="btn drop-category-button" onclick="toggleCategories()">▲</button>
                     </div>
                 </div>
                 <div id="categoryButtons" class="dropdown-content">
-                    <button type="button" class="btn" onclick="filterBooks(0, 'All')">All</button>
+                    <button type="button" class="btn genre-button" onclick="filterBooks(0, 'All')">All</button>
                     <?php foreach ($data['genres'] as $genre): ?>
-                        <button id="<?=$genre->getId()?>" type="button" class="btn" onclick="filterBooks(<?=$genre->getId()?>, '<?=$genre->getName()?>')"><?=$genre->getName()?></button>
+                        <button id="<?=$genre->getId()?>" type="button" class="btn genre-button" onclick="filterBooks(<?=$genre->getId()?>, '<?=$genre->getName()?>')"><?=$genre->getName()?></button>
                     <?php endforeach; ?>
 
                 </div>
@@ -49,7 +49,7 @@
             </div>
 
 
-            <div id="booksSpace" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4 book-list-row">
+            <div id="booksSpace" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-4 row-cols-xxl-5 g-4 book-list-row">
                 <?php for($i = 0; $i < count($data['books']); $i++) : ?>
                     <div class="col">
                         <div class="book-card card">

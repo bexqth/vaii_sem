@@ -10,13 +10,6 @@ body{
     padding: 20px;
 }
 
-.book-cover{
-    border-radius: 15px;
-    margin-bottom: 15px;
-    width: 100%;
-    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
-}
-
 .book-description{
     margin-top: 30px;
 }
@@ -28,33 +21,26 @@ body{
 }
 
 
-.table-responsive { overflow-x: auto; } .table { width: 100%; table-layout: fixed; }
-
-.table th, .table td {
-    padding: 10px;
-    text-align: center;
-    overflow: hidden;
-}
-
-.input-text{
-    width: auto;
+.input-text, .form-select{
     height: 35px;
     margin-bottom: 10px;
     margin-top: 5px;
-    padding-left: 10px;
     border-radius: 5px;
-    border: 1px solid lightgray;
+    border: transparent;
     resize: none;
+    background-color: transparent;
+    width: 100%;
 }
 
 .description-text{
     width: 100%;
     height: 200px;
+    margin-left: 0;
+    margin-right: 0;
     margin-bottom: 10px;
     margin-top: 5px;
-    padding-left: 10px;
     border-radius: 5px;
-    border: 1px solid lightgray;
+    border: transparent;
     resize: none;
 }
 
@@ -65,6 +51,19 @@ body{
     margin-left: 10px;
     background-color: #f1948a;
 }
+
+.images-row {
+    display: flex;
+    align-items: stretch;
+}
+
+.book-cover{
+    border-radius: 15px;
+    margin-bottom: 15px;
+    width: 100%;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
+}
+
 
 .drop-zone-cover{
     border-radius: 10px;
@@ -77,5 +76,42 @@ body{
     text-align: center;
     font-size: 16px;
     color: #666;
-    max-height: 600px;
+    min-height: 400px;
+}
+
+.tb-title{
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    background-color: #e3c6b9;
+}
+
+.tb-content{
+    padding: 0;
+    font-weight: bold;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    background-color: #faf5f3;
+}
+
+.tb-col{
+    margin-left: 10px;
+}
+
+.title, .author , .desc{
+    width: 100%;
+}
+
+.title-div , .author-div, .desc-div {
+    padding: 0;
+    margin: 0;
+}
+
+
+@media (min-width: 2000px) {
+    .main-col {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
 }

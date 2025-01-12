@@ -137,7 +137,7 @@ class ProfileController extends AControllerBase
         $banner_pic_content = null;
 
 
-        $maxReviewLength = 500;
+        $maxReviewLength = 400;
         if (strlen($bio) > $maxReviewLength) {
             $message = "Bio cannot exceed $maxReviewLength characters.";
             $type = "error";

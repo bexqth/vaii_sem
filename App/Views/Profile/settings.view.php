@@ -40,7 +40,7 @@
 
             <div>
                 <h5>Profile picture</h5>
-                <p>Allowed Formats: JPEG, PNG. Max size: 3mb. Optimal dimensions: 230x230</p>
+                <p>Allowed Formats: JPEG, PNG. Optimal dimensions: 230x230</p>
 
                 <div class="row profile-picture-row">
                     <div class="col">
@@ -58,7 +58,7 @@
 
             <div>
                 <h5>Banner</h5>
-                <p>Allowed Formats: JPEG, PNG. Max size: 6mb. Optimal dimensions: 1700x330</p>
+                <p>Allowed Formats: JPEG, PNG. Optimal dimensions: 1700x330</p>
 
                 <div class="row profile-banner-row">
                     <div>

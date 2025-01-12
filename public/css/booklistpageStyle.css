@@ -84,15 +84,32 @@ body{
     margin:0;
 }
 
-@media (max-width: 991.98px) {
-    .categories-title{
+@media (max-width: 798px) {
+    .categories-title {
+        margin-top: 7px;
+        font-size: 16px;
+    }
+
+}
+
+
+@media (max-width: 1212px) {
+    .categories-title {
         padding-left: 0;
     }
 
-    .btn{
-        text-align:left;
+    .genre-button{
         padding-left: 0;
-        width:100%;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .c-col {
+        padding: 5px;
+    }
+
+    .b-col {
+     padding: 5px;
     }
 }
 
