@@ -64,10 +64,10 @@
                 <div class="row profile-bio-row">
                     <h5>Socials</h5>
                     <div class="col">
-                        <h6 id="followers"><?=$data['user']->getFollowers()?> followers</h6>
+                        <a class="follow-title" href="<?= $link->url("profile.followers", ["userId" => $data['user']->getId()]) ?>" id="followers"><?=$data['user']->getFollowers()?> followers</a>
                     </div>
                     <div class="col">
-                        <h6 id="followings"><?=$data['user']->getFollowings()?> followings</h6>
+                        <a class="follow-title" href="<?= $link->url("profile.followings", ["userId" => $data['user']->getId()]) ?>" id="followings"><?=$data['user']->getFollowings()?> followings</a>
                     </div>
                 </div>
 

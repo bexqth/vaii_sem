@@ -18,15 +18,6 @@ class LoginController extends AControllerBase
         return $this->html();
     }
 
-    public function login(): Response
-    {
-        return $this->html();
-    }
-
-    public function logout(): Response {
-        return $this->html();
-    }
-
     public function register() : Response
     {
         $message = $this->app->getRequest()->getValue('message');

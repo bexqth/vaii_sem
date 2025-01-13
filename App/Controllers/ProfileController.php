@@ -77,6 +77,33 @@ class ProfileController extends AControllerBase
             "userProfile" => $user_profile, "isFollowing" => $isFollowing, "nTopGenresCount" => $nTopGenresCount, "nTopGenresNames" => $nTopGenresNames, "favoriteBooks" => $favoriteBooks,]);
     }
 
+    public function followers() : Response{
+        $user_id = $this->app->getRequest()->getValue("userId");
+        $followers = Follow::getAll("followed_id = ?", [$user_id]);
+        $users = [];
+        $profiles = [];
+        foreach ($followers as $follower) {
+            $users[] = User::getOne($follower->getFollowerId());
+            $profilesTemp = Profile::getAll("user_id = ?", [$follower->getFollowerId()]);
+            $profiles[] = $profilesTemp[0];
+        }
+
+        return $this->html(["users" => $users, "profiles" => $profiles]);
+    }
+
+    public function followings() : Response{
+        $user_id = $this->app->getRequest()->getValue("userId");
+        $followings = Follow::getAll("follower_id = ?", [$user_id]);
+        $users = [];
+        $profiles = [];
+        foreach ($followings as $following) {
+            $users[] = User::getOne($following->getFollowedId());
+            $profilesTemp = Profile::getAll("user_id = ?", [$following->getFollowerId()]);
+            $profiles[] = $profilesTemp[0];
+        }
+        return $this->html(["users" => $users, "profiles" => $profiles]);
+    }
+
     public function getProgresses($books): array {
         $user_id = $this->app->getAuth()->getLoggedUserId();
         $progresses = [];
