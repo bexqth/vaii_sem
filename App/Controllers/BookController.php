@@ -457,7 +457,7 @@ class BookController extends AControllerBase
     public function addReadingProgressActivity($bookName, $pages) : void {
         $newActivity = new Activity();
         $newActivity->setUserId($this->app->getAuth()->getLoggedUserId());
-        $newActivity->setActivityText("Read {$pages} of  {$bookName}");
+        $newActivity->setActivityText("Read {$pages} pages of  {$bookName}");
         $newActivity->save();
     }
 
