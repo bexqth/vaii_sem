@@ -71,7 +71,7 @@ class OverviewController extends AControllerBase
         }
 
         usort($ratings, function($a, $b) { return $b['rating'] <=> $a['rating']; });
-        $topNBooks = array_slice($ratings, 0, 4);
+        $topNBooks = array_slice($ratings, 0, 6);
         $bestReviewedBooks = [];
         foreach ($topNBooks as $entry) {
             $bestReviewedBooks[] = Book::getOne($entry['id']);
@@ -93,7 +93,7 @@ class OverviewController extends AControllerBase
 
         usort($recentlyAddedBooks, function($a, $b) { return $b['date'] <=> $a['date']; });
 
-        $topNBooks = array_slice($recentlyAddedBooks, 0, 4);
+        $topNBooks = array_slice($recentlyAddedBooks, 0, 6);
         $books = [];
         foreach ($topNBooks as $entry) {
             $books[] = Book::getOne($entry['id']);
@@ -133,7 +133,7 @@ class OverviewController extends AControllerBase
         }
 
         usort($genreCounts, function($a, $b) { return $b['count'] <=> $a['count']; });
-        $topNGenres = array_slice($genreCounts, 0, 4);
+        $topNGenres = array_slice($genreCounts, 0, 6);
         $recommendedBooks = [];
         $topGenreIds = array_column($topNGenres, 'id');
 
@@ -144,6 +144,6 @@ class OverviewController extends AControllerBase
                 }
             }
         }
-        return array_slice($recommendedBooks, 0, 4);
+        return array_slice($recommendedBooks, 0, 6);
     }
 }

@@ -19,9 +19,9 @@
 <body>
 
 <div class="row">
-    <div class="col-md-2 col-lg-2"></div>
+    <div class="col-lg-2"></div>
 
-    <div class="col-sm-12 col-md-8 col-lg-8 review-col">
+    <div class="col-sm-12 col-md-12 col-lg-8 review-col">
         <div class="row">
             <div class="col-12 col-md-6 col-lg-6">
                 <h3>Activity</h3>
@@ -30,7 +30,7 @@
                     <?php for($i = 0; $i < count($data['followedPeopleActivities']); $i++) : ?>
                         <div class="row profile-bio-row review-item-row">
 
-                            <div class="col-3 col-sm-3 col-md-1 col-lg-1">
+                            <div class="col-2 col-sm-2 col-md-2 col-lg-2">
                                 <?php if($data['followedUsersProfiles'][$i]->getProfilePicture() == null):?>
                                     <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="review-image" alt="">
                                 <?php else: ?>
@@ -39,11 +39,11 @@
 
                             </div>
 
-                            <div class="author-col col-12 col-md-2 col-lg-2">
+                            <div class="author-col col-2 col-sm-2 col-md-2 col-lg-2">
                                 <h4 class="author"><?=$data['followedPeopleActivities'][$i]->getAuthor()?></h4>
                             </div>
 
-                            <div class="text-col col-sm-12 col-md-9 col-lg-9">
+                            <div class="text-col col-8 col-sm-8 col-md-8 col-lg-8">
                                 <p class="text"><?=$data['followedPeopleActivities'][$i]->getActivityText()?></p>
                             </div>
                         </div>
@@ -55,27 +55,27 @@
                 <h3>Books to see</h3>
                 <div class="row">
                     <h4>Recently added</h4>
-                    <!--<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4 book-list-row"> -->
-                    <?php foreach ($data['recentlyAddedBooks'] as $book): ?>
-                        <div class="col">
-                            <div class="book-card card">
-                                <a href="<?= $link->url("book.index", ["id" => $book->getId()]) ?>">
-                                    <img src="<?=$book->getCoverUrl()?>" class="card-img-top" alt="...">
-                                </a>
-                                <div class="card-body">
-                                    <h6 class="card-title"><?=$book->getTitle()?></h6>
-                                    <h6 class="card-title">Added: <?=$book->getFormatedDateOfCreation()?></h6>
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-3 g-4 book-list-row">
+                        <?php foreach ($data['recentlyAddedBooks'] as $book): ?>
+                            <div class="col">
+                                <div class="book-card card">
+                                    <a href="<?= $link->url("book.index", ["id" => $book->getId()]) ?>">
+                                        <img src="<?=$book->getCoverUrl()?>" class="card-img-top" alt="...">
+                                    </a>
+                                    <div class="card-body">
+                                        <h6 class="card-title"><?=$book->getTitle()?></h6>
+                                        <h6 class="card-title">Added: <?=$book->getFormatedDateOfCreation()?></h6>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    <?php endforeach; ?>
-                    <!-- </div>-->
+                        <?php endforeach; ?>
+                    </div>
                 </div>
 
                 <div class="row">
                     <h4>Best review</h4>
 
-                    <!--<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4 book-list-row"> -->
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-3 g-4 book-list-row">
                         <?php foreach ($data['bestReviewedBooks'] as $book): ?>
                             <div class="col">
                                 <div class="book-card card">
@@ -89,34 +89,34 @@
                                 </div>
                             </div>
                         <?php endforeach; ?>
-                    <!-- </div>-->
+                    </div>
 
                  </div>
 
                  <div class="row">
                      <h4>You might like</h4>
 
-                     <!--<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4 book-list-row"> -->
-                     <?php foreach ($data['similarBooks'] as $book): ?>
-                         <div class="col">
-                             <div class="book-card card">
-                                 <a href="<?= $link->url("book.index", ["id" => $book->getId()]) ?>">
-                                     <img src="<?=$book->getCoverUrl()?>" class="card-img-top" alt="...">
-                                 </a>
-                                 <div class="card-body">
-                                     <h6 class="card-title"><?=$book->getTitle()?></h6>
-                                     <h6 class="card-title"><?=$book->getAverageRating()?>/10</h6>
+                     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-3 g-4 book-list-row">
+                         <?php foreach ($data['similarBooks'] as $book): ?>
+                             <div class="col">
+                                 <div class="book-card card">
+                                     <a href="<?= $link->url("book.index", ["id" => $book->getId()]) ?>">
+                                         <img src="<?=$book->getCoverUrl()?>" class="card-img-top" alt="...">
+                                     </a>
+                                     <div class="card-body">
+                                         <h6 class="card-title"><?=$book->getTitle()?></h6>
+                                         <h6 class="card-title"><?=$book->getAverageRating()?>/10</h6>
+                                     </div>
                                  </div>
                              </div>
-                         </div>
-                     <?php endforeach; ?>
-                     <!-- </div>-->
+                         <?php endforeach; ?>
+                     </div>
                  </div>
 
              </div>
      </div>
 
-     <div class="col-md-2 col-lg-2"></div>
+     <div class="col-lg-2"></div>
  </div>
 
  </body>

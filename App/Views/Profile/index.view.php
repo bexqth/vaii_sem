@@ -89,9 +89,9 @@
                     <?php endif;?>
                 </div>
 
-                <div class="row profile-bio-row">
+                <div class="row profile-bio-row favorite-books">
                     <h5>Favorite books</h5>
-                    <div class="row profile-bio-row row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-2">
+                    <div class="row profile-bio-row row-cols-2 row-cols-sm-4 row-cols-md-4 row-cols-lg-2 row-cols-xl-3 row-cols-xxl-4 g-2">
                         <?php if ($data['favoriteBooks'] != null) { ?>
                             <?php foreach ($data['favoriteBooks'] as $book): ?>
                                 <div class="col">
@@ -131,8 +131,8 @@
                         <?php if ($data['readingBooks'] != null) :?>
                             <?php for($i = 0; $i < count($data['readingBooks']); $i++) : ?>
                                 <div class="row book-list-row">
-                                    <div class="col-md-1 col-lg-1 book-list-image-col"><img src="<?=$data['readingBooks'][$i]->getCoverUrl()?>" class="book-list-image" alt=""></div>
-                                    <div class="col-md-7 col-lg-7">
+                                    <div class="col-1 col-sm-1 col-md-1 col-lg-1 book-list-image-col"><img src="<?=$data['readingBooks'][$i]->getCoverUrl()?>" class="book-list-image" alt=""></div>
+                                    <div class="col-11 col-sm-11 col-md-7 col-lg-7">
                                         <p class="list-text"><?=$data['readingBooks'][$i]->getTitle()?></p>
                                     </div>
                                     <div class="col-md-2 col-lg-2 list-text-col">
@@ -172,14 +172,14 @@
                         <?php if ($data['finishedBooks'] != null) :?>
                             <?php for($i = 0; $i < count($data['finishedBooks']); $i++) : ?>
                                 <div class="row book-list-row">
-                                    <div class="col-lg-1 book-list-image-col"><img src="<?=$data['finishedBooks'][$i]->getCoverUrl()?>" class="book-list-image" alt=""></div>
-                                    <div class="col-lg-7">
+                                    <div class="col-1 col-sm-1 col-md-1 col-lg-1 book-list-image-col"><img src="<?=$data['finishedBooks'][$i]->getCoverUrl()?>" class="book-list-image" alt=""></div>
+                                    <div class="col-11 col-sm-11 col-md-7 col-lg-7">
                                         <p class="list-text"><?=$data['finishedBooks'][$i]->getTitle()?></p>
                                     </div>
-                                    <div class="col-lg-2 list-text-col">
+                                    <div class="col-md-2 col-lg-2 list-text-col">
                                         <p class="list-text"><?=$data['finishedProgresses'][$i]?>/<?=$data['finishedBooks'][$i]->getPages()?></p>
                                     </div>
-                                    <div class="col-lg-2 list-text-col">
+                                    <div class="col-md-2 col-lg-2 list-text-col">
                                         <?php if ($data['finishedReviews'][$i] == null) : ?>
                                             <p class="list-text">/10</p>
                                         <?php else : ?>
@@ -187,7 +187,6 @@
                                         <?php endif; ?>
                                     </div>
                                 </div>
-
                             <?php endfor; ?>
                         <?php endif;?>
                     </div>
@@ -212,14 +211,14 @@
                         <?php if ($data['planningBooks'] != null) :?>
                             <?php for($i = 0; $i < count($data['planningBooks']); $i++) : ?>
                                 <div class="row book-list-row">
-                                    <div class="col-lg-1 book-list-image-col"><img src="<?=$data['planningBooks'][$i]->getCoverUrl()?>" class="book-list-image" alt=""></div>
-                                    <div class="col-lg-7">
+                                    <div class="col-1 col-sm-1 col-md-1 col-lg-1 book-list-image-col"><img src="<?=$data['planningBooks'][$i]->getCoverUrl()?>" class="book-list-image" alt=""></div>
+                                    <div class="col-11 col-sm-11 col-md-7 col-lg-7">
                                         <p class="list-text"><?=$data['planningBooks'][$i]->getTitle()?></p>
                                     </div>
-                                    <div class="col-lg-2 list-text-col">
+                                    <div class="col-md-2 col-lg-2 list-text-col">
                                         <p class="list-text"><?=$data['planningProgresses'][$i]?>/<?=$data['planningBooks'][$i]->getPages()?></p>
                                     </div>
-                                    <div class="col-lg-2 list-text-col">
+                                    <div class="col-md-2 col-lg-2 list-text-col">
                                         <?php if ($data['planningReviews'][$i] == null) : ?>
                                             <p class="list-text">/10</p>
                                         <?php else : ?>
@@ -227,7 +226,6 @@
                                         <?php endif; ?>
                                     </div>
                                 </div>
-
                             <?php endfor; ?>
                         <?php endif;?>
                 </div>

@@ -23,20 +23,26 @@ body{
 .review-image {
     width: 100%;
     border-radius: 50%;
+    min-width: 40px;
 }
 
 .profile-bio-row{
     background-color: white;
     border-radius: 15px;
     margin-bottom: 15px;
-    display: flex; /* Enable flexbox for the row */
-    align-items: center; /* Vertically center all children */
-    min-height: 100px; /* Ensure the row has enough height */
+    display: flex;
+    align-items: center;
+    min-height: 100px;
 }
 
 .author-col,
 .text-col {
     padding: 0;
+}
+
+.author{
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .book-card{
@@ -52,6 +58,10 @@ body{
     border-radius: 15px;
     margin-bottom: 10px;
     /*object-fit: cover;*/
+}
+
+.book-list-row{
+    margin-top:0;
 }
 
 .col{

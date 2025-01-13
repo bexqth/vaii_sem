@@ -214,7 +214,7 @@ h5{
 
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
     .progress-col{
         display:none;
     }
@@ -228,3 +228,18 @@ h5{
     }
 
 }
+
+@media (max-width: 2300px) {
+    .card-title{
+        display: none;
+    }
+}
+
+@media (max-width: 520px) {
+    .book-list-image{
+        display: none;
+    }
+}
+
+
+
