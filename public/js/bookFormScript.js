@@ -84,11 +84,12 @@ async function sendBookFormData(bookId) {
         return;
     }
 
-    if(!newBookCover) {
-        showMessage("success", "Please provide a book cover")
-        return;
-    }
-
+    /*if(bookId === 0) {
+        if(!newBookCover) {
+            showMessage("success", "Please provide a book cover")
+            return;
+        }
+    }*/
 
     bookFormData.append("id", bookId);
     bookFormData.append("title", title);

@@ -259,13 +259,14 @@ class BookController extends AControllerBase
                 $type = "error";
                 return $this->json(['message' => $message, 'type' => $type]);
             }
-        } else {
-            $message = 'Please provide a book cover';
-            $type = "error";
-            return $this->json(["message" => $message, "type" => $type]);
         }
 
         if($id == 0) { //new book
+            if(!isset($data["bookCover"])) {
+                $message = 'Please provide a book cover';
+                $type = "error";
+                return $this->json(["message" => $message, "type" => $type]);
+            }
             $bookTemp = Book::getAll("isbn = ?", [(int)$isbn]);
             if(count($bookTemp) != 0) {
                 $message = 'Book with chosen ISBN already exists';
