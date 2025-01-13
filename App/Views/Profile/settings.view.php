@@ -58,7 +58,7 @@
 
             <div>
                 <h5>Banner</h5>
-                <p>Allowed Formats: JPEG, PNG. Optimal dimensions: 1700x330</p>
+                <p>Allowed Formats: JPEG, JPG. Optimal dimensions: 1700x330</p>
 
                 <div class="row profile-banner-row">
                     <div>

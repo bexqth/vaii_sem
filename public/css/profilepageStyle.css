@@ -86,7 +86,6 @@ body{
     background-color: #e3c6b9;
 }
 
-
 .list-col{
     padding-left: 30px;
 }
@@ -96,13 +95,17 @@ body{
     align-items: center;
     justify-content: flex-end;
     padding: 0;
-    width: 40px; /*JUST FOR NOW NEEDS TO BE CHANGES IN THE FUTURE*/
+    padding-right: 20px;
 }
 
 .book-list-image{
     width: 40px;
     height: 40px;
     object-fit: cover;
+}
+
+.title{
+    padding-left: 10px;
 }
 
 .list-title{
@@ -135,18 +138,17 @@ body{
 }
 
 .book-list-row{
-    margin-left: 10px;
     margin-bottom: 10px;
 }
 
-/*.book-list-row:hover{
+.book-list-row:hover{
     background-color: #ead5cb;
     .book-list-image{
         position: absolute;
         height: 120px;
         width: 80px;
     }
-}*/
+}
 
 .book-card{
     height: 100%;

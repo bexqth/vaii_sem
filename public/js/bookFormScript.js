@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
 function isImage(name){
     name = name.toLowerCase();
     let extension = name.split('.').pop();
-    if(extension === "png" || extension === "jpeg" || extension === "jpg") {
+    if(extension === "jpeg" || extension === "jpg") {
         return true;
     }
     return false;

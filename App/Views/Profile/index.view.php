@@ -91,7 +91,7 @@
 
                 <div class="row profile-bio-row favorite-books">
                     <h5>Favorite books</h5>
-                    <div class="row profile-bio-row row-cols-2 row-cols-sm-4 row-cols-md-4 row-cols-lg-2 row-cols-xl-3 row-cols-xxl-4 g-2">
+                    <div class="row profile-bio-row row-cols-2 row-cols-sm-4 row-cols-md-4 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-3 g-2">
                         <?php if ($data['favoriteBooks'] != null) { ?>
                             <?php foreach ($data['favoriteBooks'] as $book): ?>
                                 <div class="col">
@@ -116,9 +116,9 @@
                     <h4 class="list-title">Reading</h4>
                     <div class="row list list-reading-row">
                         <div class="row">
-                            <div class="col-md-1 col-lg-1"></div>
-                            <div class="col-md-7 col-lg-7">
-                                <h5>Title</h5>
+                            <div class="col-1 col-sm-1 col-md-1 col-lg-1"></div>
+                            <div class="col-11 col-sm-11 col-md-7 col-lg-7">
+                                <h5 class="title">Title</h5>
                             </div>
                             <div class="col-md-2 col-lg-2 progress-col">
                                 <h5>Progress</h5>
@@ -159,7 +159,7 @@
                         <div class="row">
                             <div class="col-md-1 col-lg-1"></div>
                             <div class="col-md-7 col-lg-7">
-                                <h5>Title</h5>
+                                <h5 class="title">Title</h5>
                             </div>
                             <div class="col-md-2 col-lg-2 progress-col">
                                 <h5>Progress</h5>
@@ -198,7 +198,7 @@
                         <div class="row">
                             <div class="col-md-1 col-lg-1"></div>
                             <div class="col-md-7 col-lg-7">
-                                <h5>Title</h5>
+                                <h5 class="title">Title</h5>
                             </div>
                             <div class="col-md-2 col-lg-2 progress-col">
                                 <h5>Progress</h5>

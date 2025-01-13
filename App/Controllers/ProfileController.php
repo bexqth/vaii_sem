@@ -148,13 +148,31 @@ class ProfileController extends AControllerBase
         $banner_pic = null;
 
         if (isset($data["profile_picture"])) {
-            $profile_pic_temp = $data["profile_picture"]['tmp_name'];
-            $profile_pic_content = file_get_contents($profile_pic_temp);
+            $type = explode("/", $data["profile_picture"]["type"]);
+            $imageType = $type[1];
+            if($imageType == "jpeg" || $imageType == "jpg") {
+                $profile_pic_temp = $data["profile_picture"]['tmp_name'];
+                $profile_pic_content = file_get_contents($profile_pic_temp);
+            } else {
+                $message = "Please choose image type jpeg or jpg";
+                $type = "error";
+                return $this->json(['message' => $message, 'type' => $type]);
+            }
+
         }
 
         if (isset($data["banner_picture"])) {
-            $banner_pic_temp = $data["banner_picture"]['tmp_name'];
-            $banner_pic_content = file_get_contents($banner_pic_temp);
+            $type = explode("/", $data["profile_picture"]["type"]);
+            $imageType = $type[1];
+
+            if($imageType == "jpeg" || $imageType == "jpg") {
+                $banner_pic_temp = $data["banner_picture"]['tmp_name'];
+                $banner_pic_content = file_get_contents($banner_pic_temp);
+            } else {
+                $message = "Please choose image type jpeg or jpg";
+                $type = "error";
+                return $this->json(['message' => $message, 'type' => $type]);
+            }
         }
 
         $user_id = $this->app->getAuth()->getLoggedUserId();

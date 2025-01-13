@@ -410,11 +410,12 @@ class BookController extends AControllerBase
         $data = $this->app->getRequest()->getRawBodyJSON();
         if (is_object($data) && property_exists($data, 'bookId')) {
             $bookId = $data->bookId;
+            $book = Book::getOne($bookId);
             $favoriteBook = new FavoriteBook();
             $favoriteBook->setBookId($bookId);
             $favoriteBook->setUserId($this->app->getAuth()->getLoggedUserId());
             $favoriteBook->save();
-
+            $this->addFavoriteBookActivity($book->getTitle());
             $message = 'OK';
             return $this->json(['message' => $message]);
         }

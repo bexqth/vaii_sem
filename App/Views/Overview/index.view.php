@@ -19,9 +19,9 @@
 <body>
 
 <div class="row">
-    <div class="col-lg-2"></div>
+    <div class="col-xl-2 col-xxl-2"></div>
 
-    <div class="col-sm-12 col-md-12 col-lg-8 review-col">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-8 col-xxl-8 review-col">
         <div class="row">
             <div class="col-12 col-md-6 col-lg-6">
                 <h3>Activity</h3>
@@ -30,20 +30,19 @@
                     <?php for($i = 0; $i < count($data['followedPeopleActivities']); $i++) : ?>
                         <div class="row profile-bio-row review-item-row">
 
-                            <div class="col-2 col-sm-2 col-md-2 col-lg-2">
+                            <div class="col-md-2 col-lg-2 image-col">
                                 <?php if($data['followedUsersProfiles'][$i]->getProfilePicture() == null):?>
                                     <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="review-image" alt="">
                                 <?php else: ?>
                                     <img class="review-image" src="<?=$data['followedUsersProfiles'][$i]->getProfilePicture()?>" alt="">
                                 <?php endif; ?>
-
                             </div>
 
-                            <div class="author-col col-2 col-sm-2 col-md-2 col-lg-2">
-                                <h4 class="author"><?=$data['followedPeopleActivities'][$i]->getAuthor()?></h4>
+                            <div class="author-col col-sm-12 col-md-2 col-lg-2">
+                                <a href="<?= $link->url("profile.index", ["userId" => $data['followedUsersProfiles'][$i]->getUserId()]) ?>" class="author"><?=$data['followedPeopleActivities'][$i]->getAuthor()?></a>
                             </div>
 
-                            <div class="text-col col-8 col-sm-8 col-md-8 col-lg-8">
+                            <div class="text-col col-sm-12 col-md-8 col-lg-8">
                                 <p class="text"><?=$data['followedPeopleActivities'][$i]->getActivityText()?></p>
                             </div>
                         </div>
@@ -116,7 +115,7 @@
              </div>
      </div>
 
-     <div class="col-lg-2"></div>
+     <div class="col-xl-2 col-xxl-2"></div>
  </div>
 
  </body>
