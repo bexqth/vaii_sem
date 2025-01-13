@@ -97,8 +97,9 @@ class ProfileController extends AControllerBase
         $users = [];
         $profiles = [];
         foreach ($followings as $following) {
-            $users[] = User::getOne($following->getFollowedId());
-            $profilesTemp = Profile::getAll("user_id = ?", [$following->getFollowerId()]);
+            $user = User::getOne($following->getFollowedId());
+            $users[] = $user;
+            $profilesTemp = Profile::getAll("user_id = ?", [$user->getId()]);
             $profiles[] = $profilesTemp[0];
         }
         return $this->html(["users" => $users, "profiles" => $profiles]);

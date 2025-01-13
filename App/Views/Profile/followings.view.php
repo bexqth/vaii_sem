@@ -12,7 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Followers</title>
-    <link href="public/css/userlistStyle.css" rel="stylesheet">
+    <link href="public/css/followlistStyle.css" rel="stylesheet">
 </head>
 <body>
 
@@ -24,22 +24,23 @@
 
             <div class="container">
                 <h2>Followings</h2>
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>Username</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php for($i = 0; $i < count($data['users']); $i++) : ?>
-                        <tr>
-                            <td><a class="" href="<?= $link->url("profile.index", ["userId" => $data['profiles'][$i]->getUserId()]) ?>"><?=$data['users'][$i]->getUsername()?></a></td>
-                        </tr>
-                    <?php endfor; ?>
-                    </tbody>
-                </table>
-            </div>
+                <?php for($i = 0; $i < count($data['users']); $i++) : ?>
+                    <div class="row profile-bio-row review-item-row">
+                        <div class="image-col col-sm-2 col-md-2 col-lg-2">
+                            <?php if($data['profiles'][$i]->getProfilePicture() == null):?>
+                                <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="review-image" alt="">
+                            <?php else: ?>
+                                <img class="review-image" src="<?=$data['profiles'][$i]->getProfilePicture()?>" alt="">
+                            <?php endif; ?>
+                        </div>
 
+                        <div class="author-col col-sm-10 col-md-10 col-lg-10">
+                            <a class="" href="<?= $link->url("profile.index", ["userId" => $data['users'][$i]->getId()]) ?>"><?=$data['users'][$i]->getUsername()?></a>
+                        </div>
+                    </div>
+                <?php endfor; ?>
+
+            </div>
 
         </div>
 

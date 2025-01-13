@@ -1,0 +1,39 @@
+body{
+    background-color: #faf5f3;
+}
+
+a{
+
+}
+
+.review-image {
+    width: 100%;
+    border-radius: 50%;
+    min-width: 40px;
+    max-width: 70px;
+}
+
+.review-item-row{
+    margin-top:20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    /*border: 1px #abb2b9 solid;*/
+    border-radius: 10px;
+}
+
+
+.profile-bio-row{
+    background-color: white;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    min-height: 100px;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+    font-size: 17px;
+}
