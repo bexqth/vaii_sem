@@ -21,7 +21,7 @@ function createNewAuthor() {
 async function submit() {
     newAuthorName = document.getElementById("author-name").value;
 
-    /*let numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+    let numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
     for (let i = 0; i < newAuthorName.length; i++) {
         for (let j = 0; j < numbers.length; j++) {
             if(title[i] === numbers[j]) {
@@ -29,7 +29,7 @@ async function submit() {
                 return;
             }
         }
-    }*/
+    }
 
     let url = "http://127.0.0.1:88/?c=authorlist&a=editAuthor";
     let body = {
@@ -37,26 +37,33 @@ async function submit() {
         "authorName": newAuthorName,
     };
 
-    let response = await fetch(url, {
-        method: "POST",
-        body: JSON.stringify(body),
-        headers: {
-            "Content-type": "application/json",
-            "Accept": "application/json",
-        }
+    try {
+        let response = await fetch(url, {
+            method: "POST",
+            body: JSON.stringify(body),
+            headers: {
+                "Content-type": "application/json",
+                "Accept": "application/json",
+            }
+        });
 
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        if(data["type"] === "error") {
-            showMessage(data["type"], data["message"])
+        if (response.ok) {
+            const data = await response.json();
+            if(data["type"] === "error") {
+                showMessage(data["type"], data["message"])
+            } else {
+                showMessage(data["type"], data["message"])
+                showUpdatedAuthors(data["updatedAuthors"]);
+            }
         } else {
-            showMessage(data["type"], data["message"])
-            showUpdatedAuthors(data["updatedAuthors"]);
+            showMessage("error", "Something went wrong. Please try again later.");
         }
 
+    } catch (error){
+        console.error("An error occurred:", error);
+        showMessage("error", "Something went wrong. Please try again later.");
     }
+
 }
 
 

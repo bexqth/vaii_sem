@@ -18,24 +18,31 @@ async function giveFollow(profileId) {
         "profileId": profileId,
     };
 
-    let response = await fetch(url, {
-        method: "POST",
-        body: JSON.stringify(body),
-        headers: {
-            "Content-type": "application/json",
-            "Accept": "application/json",
-        }
-    });
+    try{
+        let response = await fetch(url, {
+            method: "POST",
+            body: JSON.stringify(body),
+            headers: {
+                "Content-type": "application/json",
+                "Accept": "application/json",
+            }
+        });
 
-    if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        followers.innerHTML = data.followers + " followers";
+        followings.innerHTML = data.followings + " followings";
+        statusButton.innerHTML = '<i class="bi bi-heart-fill"></i>';
+        statusButton.setAttribute("onclick", `updateFollowButton(${profileId}, true)`);
+    } catch(error){
+        console.error("An error occurred:", error);
+        showMessage("error", "Something went wrong. Please try again later.");
     }
 
-    const data = await response.json();
-    followers.innerHTML = data.followers + " followers";
-    followings.innerHTML = data.followings + " followings";
-    statusButton.innerHTML = '<i class="bi bi-heart-fill"></i>';
-    statusButton.setAttribute("onclick", `updateFollowButton(${profileId}, true)`);
+
 }
 
 async function removeFollow(profileId) {
@@ -48,21 +55,29 @@ async function removeFollow(profileId) {
         "profileId": profileId,
     };
 
-    let response = await fetch(url, {
-        method: "POST",
-        body: JSON.stringify(body),
-        headers: {
-            "Content-type": "application/json",
-            "Accept": "application/json",
-        }
-    });
+    try{
+        let response = await fetch(url, {
+            method: "POST",
+            body: JSON.stringify(body),
+            headers: {
+                "Content-type": "application/json",
+                "Accept": "application/json",
+            }
+        });
 
-    if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        followers.innerHTML = data.followers + " followers";
+        followings.innerHTML = data.followings + " followings";
+        statusButton.innerHTML = '<i class="bi bi-heart"></i>';
+        statusButton.setAttribute("onclick", `updateFollowButton(${profileId}, false)`);
     }
-    const data = await response.json();
-    followers.innerHTML = data.followers + " followers";
-    followings.innerHTML = data.followings + " followings";
-    statusButton.innerHTML = '<i class="bi bi-heart"></i>';
-    statusButton.setAttribute("onclick", `updateFollowButton(${profileId}, false)`);
+    catch (error) {
+        console.error("An error occurred:", error);
+        showMessage("error", "Something went wrong. Please try again later.");
+    }
+
+
 }

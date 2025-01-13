@@ -102,40 +102,48 @@ async function sendBookFormData(bookId) {
 
     let url = "http://127.0.0.1:88/?c=book&a=submitBook";
 
-    let response = await fetch(url, {
-        method: "POST",
-        body: bookFormData,
-    });
+    try{
+        let response = await fetch(url, {
+            method: "POST",
+            body: bookFormData,
+        });
 
-    const data = await response.json();
-    if (response.ok) {
-        if(data["type"] === "error") {
-            const errorMessage = document.getElementById('errorMessage');
-            errorMessage.innerText = data.message;
-            errorMessage.style.display = 'block';
+        if (response.ok) {
+            const data = await response.json();
+            if(data["type"] === "error") {
+                const errorMessage = document.getElementById('errorMessage');
+                errorMessage.innerText = data.message;
+                errorMessage.style.display = 'block';
 
-            setTimeout(() => {
-                errorMessage.style.display = 'none';
-            }, 3500);
+                setTimeout(() => {
+                    errorMessage.style.display = 'none';
+                }, 3500);
 
-            const successMessageDiv = document.getElementById('successMessage');
-            successMessageDiv.style.display = 'none';
-        } else if (data["type"] === "success") {
-            const successMessageDiv = document.getElementById('successMessage');
-            successMessageDiv.innerText = data.message;
-            successMessageDiv.style.display = 'block';
-
-            setTimeout(() => {
+                const successMessageDiv = document.getElementById('successMessage');
                 successMessageDiv.style.display = 'none';
-            }, 3500);
+            } else if (data["type"] === "success") {
+                const successMessageDiv = document.getElementById('successMessage');
+                successMessageDiv.innerText = data.message;
+                successMessageDiv.style.display = 'block';
 
-            const errorMessageDiv = document.getElementById('errorMessage');
-            errorMessageDiv.style.display = 'none';
+                setTimeout(() => {
+                    successMessageDiv.style.display = 'none';
+                }, 3500);
+
+                const errorMessageDiv = document.getElementById('errorMessage');
+                errorMessageDiv.style.display = 'none';
+            }
+
+        } else {
+            showMessage("error", "Something went wrong. Please try again later.");
         }
-
-    } else {
-        console.error('Error sending data:', response.statusText);
     }
+    catch (error){
+        console.error("An error occurred:", error);
+        showMessage("error", "Something went wrong. Please try again later.");
+    }
+
+
 
 }
 

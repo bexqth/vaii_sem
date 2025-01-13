@@ -21,20 +21,30 @@ async function filterBooks(genreId, genreName) {
         "genreId": genreId,
     };
 
-    let response = await fetch(url, {
-        method: "POST",
-        body: JSON.stringify(body),
-        headers: {
-            "Content-type": "application/json",
-            "Accept": "application/json",
+    try{
+        let response = await fetch(url, {
+            method: "POST",
+            body: JSON.stringify(body),
+            headers: {
+                "Content-type": "application/json",
+                "Accept": "application/json",
+            }
+
+        });
+
+        if(response.ok) {
+            const data = await response.json();
+            showFilteredBooks(data);
+        } else {
+            showMessage("error", "Something went wrong. Please try again later.");
         }
-
-    });
-
-    if(response.ok) {
-        const data = await response.json();
-        showFilteredBooks(data);
+        
+    } catch (error) {
+        console.error("An error occurred:", error);
+        showMessage("error", "Something went wrong. Please try again later.");
     }
+
+
 }
 
 function showFilteredBooks(books) {
@@ -85,6 +95,3 @@ function showFilteredBooks(books) {
         booksSpace.appendChild(colDiv);
     });
 }
-
-//ked mi pride chyba zo servera nech to nejako zablika
-//ajax send form - dobre na obhajobe

@@ -249,8 +249,16 @@ class BookController extends AControllerBase
         $modifiedBook = null;
 
         if (isset($data["bookCover"])) {
-            $bookCover = $data["bookCover"]['tmp_name'];
-            $bookCoverContent = file_get_contents($bookCover);
+            $type = explode("/", $data["bookCover"]["type"]);
+            $imageType = $type[1];
+            if($imageType == "jpeg" || $imageType == "jpg") {
+                $bookCover = $data["bookCover"]['tmp_name'];
+                $bookCoverContent = file_get_contents($bookCover);
+            } else {
+                $message = "Please choose image type jpeg or jpg";
+                $type = "error";
+                return $this->json(['message' => $message, 'type' => $type]);
+            }
         } else {
             $message = 'Please provide a book cover';
             $type = "error";

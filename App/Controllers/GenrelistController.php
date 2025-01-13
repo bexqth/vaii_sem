@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Core\AControllerBase;
+use App\Core\HTTPException;
 use App\Core\Responses\Response;
 use App\Models\Genre;
 
@@ -23,19 +24,24 @@ class GenrelistController extends AControllerBase
      */
     public function editGenre() {
         $data = $this->request()->getRawBodyJSON();
-        $genreName = $data->genreName;
-        $genreId = $data->genreId;
-        $genre = null;
+        if (is_object($data) && property_exists($data, 'genreId') &&  property_exists($data, 'genreName')) {
+            $genreName = $data->genreName;
+            $genreId = $data->genreId;
+            $genre = null;
 
-        if($genreId == null) { //creating
-            $genre = new Genre();
-        } else { //editing
-            $genre = Genre::getOne($genreId);
+            if($genreId == null) { //creating
+                $genre = new Genre();
+            } else { //editing
+                $genre = Genre::getOne($genreId);
+            }
+            $genre->setName($genreName);
+            $genre->save();
+            $updatedGenres = $this->getUpdatedGenres();
+            return $this->json($updatedGenres);
+        } else {
+            throw new HTTPException(400, 'Bad message structure');
         }
-        $genre->setName($genreName);
-        $genre->save();
-        $updatedGenres = $this->getUpdatedGenres();
-        return $this->json($updatedGenres);
+
     }
 
     public function getUpdatedGenres() {

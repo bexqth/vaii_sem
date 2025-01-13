@@ -70,7 +70,7 @@ async function saveProgress(bookId, maxPages) {
     });
 
     if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        showMessage("error", "Something went wrong. Please try again later.");
     }
 
 }

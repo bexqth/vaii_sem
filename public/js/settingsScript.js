@@ -10,14 +10,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const dropZoneBanner = document.getElementById('drop-zone-banner');
     const bannerImage = document.getElementById('banner-image');
 
-    // Profile Picture Drop Zone
     dropZone.addEventListener('dragover', (event) => {
-        event.preventDefault(); // Prevents the default browser behavior
-        event.dataTransfer.dropEffect = 'copy'; // Indicates the drop effect
+        event.preventDefault();
+        event.dataTransfer.dropEffect = 'copy';
     });
 
     dropZone.addEventListener('drop', (event) => {
-        event.preventDefault(); // Prevents the default drop action
+        event.preventDefault();
         const file = event.dataTransfer.files[0];
         if (file && isImage(file.name)) {
             const url = URL.createObjectURL(file);
@@ -25,26 +24,23 @@ document.addEventListener('DOMContentLoaded', function () {
             newProfilePicture = event.dataTransfer.files[0];
         } else {
             showMessage("error", "Please drop an image file")
-            //alert('Please drop an image file.');
         }
     });
 
-    // Banner Picture Drop Zone
     dropZoneBanner.addEventListener('dragover', (event) => {
-        event.preventDefault(); // Prevents the default browser behavior
-        event.dataTransfer.dropEffect = 'copy'; // Indicates the drop effect
+        event.preventDefault();
+        event.dataTransfer.dropEffect = 'copy';
     });
 
     dropZoneBanner.addEventListener('drop', (event) => {
-        event.preventDefault(); // Prevents the default drop action
+        event.preventDefault();
         const file = event.dataTransfer.files[0];
         if (file && isImage(file.name)) {
-            const url = URL.createObjectURL(file); // Creates a temporary URL for the file
-            bannerImage.src = url; // Sets the banner image to the dropped image
-            newBannerPicture = event.dataTransfer.files[0]; // Stores the file for later use
+            const url = URL.createObjectURL(file);
+            bannerImage.src = url;
+            newBannerPicture = event.dataTransfer.files[0];
         } else {
             showMessage("error", "Please drop an image file")
-            //alert('Please drop an image file.');
         }
     });
 });
@@ -67,53 +63,49 @@ async function sendFormData() {
 
         let url = "http://127.0.0.1:88/?c=profile&a=editProfile";
 
-        let response = await fetch(url, {
-            method: "POST",
-            body: formData,
-        });
+        try{
+            let response = await fetch(url, {
+                method: "POST",
+                body: formData,
+            });
 
-        const data = await response.json();
-        if (response.ok) {
-            if(data["type"] === "error") {
-                const errorMessage = document.getElementById('errorMessage');
-                errorMessage.innerText = data.message;
-                errorMessage.style.display = 'block';
+            const data = await response.json();
+            if (response.ok) {
+                if(data["type"] === "error") {
+                    const errorMessage = document.getElementById('errorMessage');
+                    errorMessage.innerText = data.message;
+                    errorMessage.style.display = 'block';
 
-                setTimeout(() => {
-                    errorMessage.style.display = 'none';
-                }, 3500);
+                    setTimeout(() => {
+                        errorMessage.style.display = 'none';
+                    }, 3500);
 
-                const successMessageDiv = document.getElementById('successMessage');
-                successMessageDiv.style.display = 'none';
-            } else if (data["type"] === "success") {
-                const successMessageDiv = document.getElementById('successMessage');
-                successMessageDiv.innerText = data.message;
-                successMessageDiv.style.display = 'block';
-
-                setTimeout(() => {
+                    const successMessageDiv = document.getElementById('successMessage');
                     successMessageDiv.style.display = 'none';
-                }, 3500);
+                } else if (data["type"] === "success") {
+                    const successMessageDiv = document.getElementById('successMessage');
+                    successMessageDiv.innerText = data.message;
+                    successMessageDiv.style.display = 'block';
 
-                const errorMessageDiv = document.getElementById('errorMessage');
-                errorMessageDiv.style.display = 'none';
+                    setTimeout(() => {
+                        successMessageDiv.style.display = 'none';
+                    }, 3500);
+
+                    const errorMessageDiv = document.getElementById('errorMessage');
+                    errorMessageDiv.style.display = 'none';
+                }
+            } else {
+
             }
-        } else {
-
         }
+        catch (error) {
+            console.error("An error occurred:", error);
+            showMessage("error", "Something went wrong. Please try again later.");
+        }
+
     } else {
         showMessage("error", "Bio text is longer than 400 characters")
-        /*const errorMessage = document.getElementById('errorMessage');
-        errorMessage.innerText = "Bio text is longer than 400 characters";
-        errorMessage.style.display = 'block';
-
-        setTimeout(() => {
-            errorMessage.style.display = 'none';
-        }, 3500);
-
-        const successMessageDiv = document.getElementById('successMessage');
-        successMessageDiv.style.display = 'none';*/
     }
-
 }
 
 function validateData(bio) {

@@ -37,20 +37,28 @@ async function submit() {
         "genreName": newGenreName,
     };
 
-    let response = await fetch(url, {
-        method: "POST",
-        body: JSON.stringify(body),
-        headers: {
-            "Content-type": "application/json",
-            "Accept": "application/json",
+    try{
+        let response = await fetch(url, {
+            method: "POST",
+            body: JSON.stringify(body),
+            headers: {
+                "Content-type": "application/json",
+                "Accept": "application/json",
+            }
+
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            showUpdatedGenre(data);
         }
-
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        showUpdatedGenre(data);
     }
+    catch (error){
+        console.error("An error occurred:", error);
+        showMessage("error", "Something went wrong. Please try again later.");
+    }
+
+
 }
 
 

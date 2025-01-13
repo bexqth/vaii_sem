@@ -158,7 +158,6 @@ class ProfileController extends AControllerBase
                 $type = "error";
                 return $this->json(['message' => $message, 'type' => $type]);
             }
-
         }
 
         if (isset($data["banner_picture"])) {
