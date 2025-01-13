@@ -54,9 +54,9 @@ class ProfileController extends AControllerBase
         $finishedReviews = $this->getReviewsFromBooks($finishedBooks);
         $planningReviews = $this->getReviewsFromBooks($planningBooks);
 
-        $readingProgresses = $this->getProgresses($readingBooks);
-        $finishedProgresses = $this->getProgresses($finishedBooks);
-        $planningProgresses = $this->getProgresses($planningBooks);
+        $readingProgresses = $this->getProgresses($readingBooks, $user_id);
+        $finishedProgresses = $this->getProgresses($finishedBooks, $user_id);
+        $planningProgresses = $this->getProgresses($planningBooks, $user_id);
 
         $nTopGenres = $this->getGenreOverview($user_id);
         $nTopGenresNames = array_column($nTopGenres, 'name');
@@ -105,8 +105,8 @@ class ProfileController extends AControllerBase
         return $this->html(["users" => $users, "profiles" => $profiles]);
     }
 
-    public function getProgresses($books): array {
-        $user_id = $this->app->getAuth()->getLoggedUserId();
+    public function getProgresses($books, $user_id): array {
+        //$user_id = $this->app->getAuth()->getLoggedUserId();
         $progresses = [];
         if($books != null) {
             foreach ($books as $book) {
