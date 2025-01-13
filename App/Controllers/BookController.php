@@ -22,7 +22,6 @@ use HttpException;
 class BookController extends AControllerBase
 {
 
-
     public function authorize(string $action)
     {
         switch ($action) {
@@ -451,6 +450,5 @@ class BookController extends AControllerBase
         $newActivity->setActivityText("Read {$pages} of  {$bookName}");
         $newActivity->save();
     }
-
 
 }

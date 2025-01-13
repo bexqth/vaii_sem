@@ -159,7 +159,7 @@ async function addFavoriteBook(bookId) {
     }
 
     favoriteButton.innerHTML = '<i class="bi bi-heart-fill"></i>';
-    favoriteButton.setAttribute("onclick", `updateFollowButton(${bookId}, true)`);
+    favoriteButton.setAttribute("onclick", `updateFavoriteButton(${bookId}, true)`);
 }
 
 async function removeFavoriteBook(bookId) {
@@ -183,7 +183,7 @@ async function removeFavoriteBook(bookId) {
     }
 
     favoriteButton.innerHTML = '<i class="bi bi-heart"></i>';
-    favoriteButton.setAttribute("onclick", `updateFollowButton(${bookId}, false)`);
+    favoriteButton.setAttribute("onclick", `updateFavoriteButton(${bookId}, false)`);
 }
 
 
