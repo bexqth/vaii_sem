@@ -150,6 +150,16 @@ body{
     }
 }
 
+.book-title{
+    text-decoration: none;
+    color:black;
+}
+
+.book-title-col{
+    align-items: center;
+    align-content: center;
+}
+
 .book-card{
     height: 100%;
     padding: 10px;

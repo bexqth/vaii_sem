@@ -132,8 +132,8 @@
                             <?php for($i = 0; $i < count($data['readingBooks']); $i++) : ?>
                                 <div class="row book-list-row">
                                     <div class="col-1 col-sm-1 col-md-1 col-lg-1 book-list-image-col"><img src="<?=$data['readingBooks'][$i]->getCoverUrl()?>" class="book-list-image" alt=""></div>
-                                    <div class="col-11 col-sm-11 col-md-7 col-lg-7">
-                                        <p class="list-text"><?=$data['readingBooks'][$i]->getTitle()?></p>
+                                    <div class="col-11 col-sm-11 col-md-7 col-lg-7 book-title-col">
+                                        <a class="book-title" href="<?= $link->url("book.index", ["id" => $data['readingBooks'][$i]->getId()]) ?>" class="list-text"><?=$data['readingBooks'][$i]->getTitle()?></a>
                                     </div>
                                     <div class="col-md-2 col-lg-2 list-text-col">
                                         <p class="list-text"><?=$data['readingProgresses'][$i]?>/<?=$data['readingBooks'][$i]->getPages()?></p>
@@ -173,8 +173,8 @@
                             <?php for($i = 0; $i < count($data['finishedBooks']); $i++) : ?>
                                 <div class="row book-list-row">
                                     <div class="col-1 col-sm-1 col-md-1 col-lg-1 book-list-image-col"><img src="<?=$data['finishedBooks'][$i]->getCoverUrl()?>" class="book-list-image" alt=""></div>
-                                    <div class="col-11 col-sm-11 col-md-7 col-lg-7">
-                                        <p class="list-text"><?=$data['finishedBooks'][$i]->getTitle()?></p>
+                                    <div class="col-11 col-sm-11 col-md-7 col-lg-7 book-title-col">
+                                        <a class="book-title" href="<?= $link->url("book.index", ["id" => $data['finishedBooks'][$i]->getId()]) ?>" class="list-text"><?=$data['finishedBooks'][$i]->getTitle()?></a>
                                     </div>
                                     <div class="col-md-2 col-lg-2 list-text-col">
                                         <p class="list-text"><?=$data['finishedProgresses'][$i]?>/<?=$data['finishedBooks'][$i]->getPages()?></p>
@@ -212,8 +212,8 @@
                             <?php for($i = 0; $i < count($data['planningBooks']); $i++) : ?>
                                 <div class="row book-list-row">
                                     <div class="col-1 col-sm-1 col-md-1 col-lg-1 book-list-image-col"><img src="<?=$data['planningBooks'][$i]->getCoverUrl()?>" class="book-list-image" alt=""></div>
-                                    <div class="col-11 col-sm-11 col-md-7 col-lg-7">
-                                        <p class="list-text"><?=$data['planningBooks'][$i]->getTitle()?></p>
+                                    <div class="col-11 col-sm-11 col-md-7 col-lg-7 book-title-col">
+                                        <a class="book-title" href="<?= $link->url("book.index", ["id" => $data['planningBooks'][$i]->getId()]) ?>" class="list-text"><?=$data['planningBooks'][$i]->getTitle()?></a>
                                     </div>
                                     <div class="col-md-2 col-lg-2 list-text-col">
                                         <p class="list-text"><?=$data['planningProgresses'][$i]?>/<?=$data['planningBooks'][$i]->getPages()?></p>

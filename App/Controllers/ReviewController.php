@@ -83,7 +83,7 @@ class ReviewController extends AControllerBase
             return $this->redirect($this->url("review.index", ["id" => $idBook, "reviewId" => $idReview, "errorMessage" => $errorMessage]));
         }
 
-        $maxReviewLength = 255;
+        $maxReviewLength = 500;
         if (strlen($reviewText) > $maxReviewLength) {
             $errorMessage = "Review text cannot exceed $maxReviewLength characters.";
             return $this->redirect($this->url("review.index", ["id" => $idBook, "reviewId" => $idReview, "errorMessage" => $errorMessage]));

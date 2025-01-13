@@ -162,10 +162,10 @@ class ProfileController extends AControllerBase
         }
 
         if (isset($data["banner_picture"])) {
-            $type = explode("/", $data["profile_picture"]["type"]);
-            $imageType = $type[1];
+            $type = explode("/", $data["banner_picture"]["type"]);
+            $extension = $type[1];
 
-            if($imageType == "jpeg" || $imageType == "jpg") {
+            if($extension == "jpeg" || $extension == "jpg") {
                 $banner_pic_temp = $data["banner_picture"]['tmp_name'];
                 $banner_pic_content = file_get_contents($banner_pic_temp);
             } else {
