@@ -70,15 +70,15 @@ h5{
 }
 
 .current-banner {
-    width: 100%;  /* Ensure the container takes the full width */
-    overflow: hidden;  /* Hide any overflow content */
+    width: 100%;
+    overflow: hidden;
 }
 
 .banner-image {
     max-height: 235px;
     border-radius: 10px;
-    width: 100%;  /* Ensure the image takes the full width of the container */
-    height: auto;  /* Maintain aspect ratio */
-    object-fit: cover;  /* Ensure the image covers the container */
-    object-position: center;  /* Center the image */
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    object-position: center;
 }
