@@ -1,3 +1,8 @@
+# Navod na instalaciu
+Na spustenie stanky treba mat naistalovany desktop docker a tento repozitar.
+Pri otvoreni tohto projektu v IDE v priecinku docker spustite docker-compose.yml
+Z dockera je mozne otvorit stranku.
+
 # O tomto frameworku
 
 Tento framework vznikol na podporu výučby predmetu Vývoj aplikácií pre intranet a intrenate (VAII)
