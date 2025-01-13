@@ -39,7 +39,6 @@
                         </div>
                     </div>
                 <?php endfor; ?>
-
             </div>
 
         </div>

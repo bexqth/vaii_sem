@@ -12,14 +12,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const dropZone = document.getElementById('drop-zone-cover');
     const bookCover = document.getElementById('book-cover');
 
-    // Profile Picture Drop Zone
     dropZone.addEventListener('dragover', (event) => {
-        event.preventDefault(); // Prevents the default browser behavior
-        event.dataTransfer.dropEffect = 'copy'; // Indicates the drop effect
+        event.preventDefault();
+        event.dataTransfer.dropEffect = 'copy';
     });
 
     dropZone.addEventListener('drop', (event) => {
-        event.preventDefault(); // Prevents the default drop action
+        event.preventDefault();
         const file = event.dataTransfer.files[0];
         if (isImage(file.name)) {
             const url = URL.createObjectURL(file);
@@ -27,7 +26,6 @@ document.addEventListener('DOMContentLoaded', function () {
             newBookCover = event.dataTransfer.files[0];
         } else {
             showMessage("success", "Please drop an image file")
-            //alert('Please drop an image file.');
         }
     });
 
@@ -84,12 +82,12 @@ async function sendBookFormData(bookId) {
         return;
     }
 
-    /*if(bookId === 0) {
+    if(bookId === 0) {
         if(!newBookCover) {
             showMessage("success", "Please provide a book cover")
             return;
         }
-    }*/
+    }
 
     bookFormData.append("id", bookId);
     bookFormData.append("title", title);
