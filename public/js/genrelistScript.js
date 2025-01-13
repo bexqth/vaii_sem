@@ -1,6 +1,7 @@
 
 let genreId;
 let newGenreName;
+genreId = null;
 
 function selectGenre(name, id) {
     let genreTitle = document.getElementById("genre-title");
@@ -24,7 +25,7 @@ async function submit() {
     let numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
     for (let i = 0; i < newGenreName.length; i++) {
         for (let j = 0; j < numbers.length; j++) {
-            if(title[i] === numbers[j]) {
+            if(newGenreName[i] === numbers[j]) {
                 showMessage("success", "Genre cant contain numbers");
                 return;
             }
@@ -51,6 +52,13 @@ async function submit() {
         if (response.ok) {
             const data = await response.json();
             showUpdatedGenre(data);
+            let genreTitle = document.getElementById("genre-title");
+            let genreName = document.getElementById("genre-name");
+            genreName.value = "";
+            genreTitle.innerText = "Create new genre";
+            genreId = null;
+        } else {
+            showMessage("error", "Something went wrong. Please try again later.");
         }
     }
     catch (error){

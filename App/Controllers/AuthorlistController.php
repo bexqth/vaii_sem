@@ -21,7 +21,7 @@ class AuthorlistController extends AControllerBase
 
     public function editAuthor() {
         $data = $this->request()->getRawBodyJSON();
-        if (is_object($data) && property_exists($data, 'authorId') &&  property_exists($data, 'authorName')) {
+        if (is_object($data) && property_exists($data, 'authorName')) {
             $authorName = $data->authorName;
             $authorId = $data->authorId;
             $author = null;
@@ -49,8 +49,7 @@ class AuthorlistController extends AControllerBase
             $author->setName($authorName);
             $author->save();
             $updatedAuthors = $this->getUpdatedAuthors();
-            return $this->json(["message" => $message, "type" => $type, "updatedAuthors" => $updatedAuthors]);
-            //return $this->json($updatedAuthors);
+            return $this->json(["updatedAuthors" => $updatedAuthors]);
         } else {
             throw new HTTPException(400, 'Bad message structure');
         }

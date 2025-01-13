@@ -24,7 +24,7 @@ class GenrelistController extends AControllerBase
      */
     public function editGenre() {
         $data = $this->request()->getRawBodyJSON();
-        if (is_object($data) && property_exists($data, 'genreId') &&  property_exists($data, 'genreName')) {
+        if (is_object($data) &&  property_exists($data, 'genreName')) {
             $genreName = $data->genreName;
             $genreId = $data->genreId;
             $genre = null;

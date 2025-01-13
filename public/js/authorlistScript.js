@@ -1,6 +1,7 @@
 
 let authorId;
 let newAuthorName;
+authorId = null;
 
 function selectAuthor(name, id) {
     let authorTitle = document.getElementById("author-title");
@@ -19,12 +20,14 @@ function createNewAuthor() {
 }
 
 async function submit() {
+    let authorName = document.getElementById("author-name");
+    let authorTitle = document.getElementById("author-title");
     newAuthorName = document.getElementById("author-name").value;
 
     let numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
     for (let i = 0; i < newAuthorName.length; i++) {
         for (let j = 0; j < numbers.length; j++) {
-            if(title[i] === numbers[j]) {
+            if(newAuthorName[i] === numbers[j]) {
                 showMessage("success", "Authors name cant contain numbers");
                 return;
             }
@@ -49,12 +52,11 @@ async function submit() {
 
         if (response.ok) {
             const data = await response.json();
-            if(data["type"] === "error") {
-                showMessage(data["type"], data["message"])
-            } else {
-                showMessage(data["type"], data["message"])
-                showUpdatedAuthors(data["updatedAuthors"]);
-            }
+            showMessage(data["type"], data["message"])
+            showUpdatedAuthors(data["updatedAuthors"]);
+            authorName.value = "";
+            authorTitle.innerText = "Create new author";
+            authorId = null;
         } else {
             showMessage("error", "Something went wrong. Please try again later.");
         }
